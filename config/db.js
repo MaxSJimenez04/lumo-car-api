@@ -17,13 +17,4 @@ const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.p
     logging: false
 });
 
-
-const probarConexion = async() => {
-    try {
-        await sequelize.authenticate();
-        console.log('Se estableció la conexión con la base de datos...')
-    } catch (error) {
-        console.error('No se pudo establecer conexón con la base de datos' , error)
-    }
-}
 module.exports = sequelize;

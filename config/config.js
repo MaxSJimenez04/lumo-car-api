@@ -4,10 +4,10 @@ module.exports = {
     development:{
         username: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
-        database: DB_DATABASE,
-        host: DB_HOST,
-        port: DB_PORT,
-        dialect:'msserver'
+        database: process.env.DB_DATABASE,
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        dialect:'mssql'
     },
     test:{
         username: process.env.TEST_DB_USER,
@@ -15,6 +15,6 @@ module.exports = {
         database: process.env.TEST_DATABASE,
         host: process.env.TEST_DB_PORT,
         port: process.env.TEST_DB_PORT,
-        dialect:'msserver'
+        dialect:'mssql'
     }
 }

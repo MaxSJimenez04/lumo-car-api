@@ -16,18 +16,6 @@ var corsOptions = {
 
 app.use(cors(corsOptions))
 
-app.use("/archivos", require('./routes/archivos.routes'))
-app.use("/auth", require('./routes/auth.routes'))
-app.use("/estadisticas", require('./routes/estadisticas.routes'))
-app.use("/marcas", require('./routes/marcas.routes'))
-app.use("/pagos", require('./routes/pagos.routes'))
-app.use("/rentas", require('./routes/rentas.routes'))
-app.use("/roles", require('./routes/roles.routes'))
-app.use("/sucursales", require('./routes/sucursales.routes'))
-app.use("/suscripciones", require('./routes/suscripciones.routes'))
-app.use("/tarjetas", require('./routes/tarjetas.routes'))
-app.use("/usuarios", require('./routes/usuarios.routes'))
-app.use("/vehiculos", require('./routes/vehiculos.routes'))
 app.get('/*splat', (req, res) => {res.status(404).send("RECURSO NO ENCONTRADO")})
 
 async function iniciarServidor() {

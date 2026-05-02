@@ -22,7 +22,7 @@ async function iniciarServidor() {
         await db.sequelize.authenticate(); //Se intenta conectar a la base de datos usando el usuario y contraseña
         console.log('Conexión a base de datos establecida.\n')
 
-        await db.sequelize.sync({force: true});
+        await db.sequelize.sync();
         console.log('Modelo en Base de Datos actualizado.\n')
 
         app.listen(process.env.SERVER_PORT, () => {

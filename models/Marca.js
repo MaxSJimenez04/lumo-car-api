@@ -3,7 +3,7 @@ const sequelize = require('../config/db');
 
 class Marca extends Model{
     static associate(models){
-        Marca.hasMany(models.Vehiculo)
+        Marca.hasMany(models.Vehiculo, {foreignKey: 'idMarca'})
     }
 }
 

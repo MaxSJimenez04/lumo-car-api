@@ -6,8 +6,8 @@ class Usuario extends Model{
         Usuario.belongsTo(models.Rol, {foreignKey: 'idRol'})
         Usuario.belongsToMany(models.Sucursal, {through: models.AdminSucursal})
         Usuario.belongsToMany(models.Vehiculo, {through: models.Renta})
-        Usuario.hasMany(models.Tarjeta)
-        Usuario.hasOne(models.Archivo)
+        Usuario.hasMany(models.Tarjeta, {foreignKey: 'idUsuario'})
+        Usuario.hasOne(models.Archivo, {foreignKey:'idUsuario'})
     }
 }
 
@@ -22,25 +22,26 @@ Usuario.init(
             type: DataTypes.STRING(100), //Permite un varchar(100) y no 255
             allowNull: false
         },
+        contrasena:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         nombre:{
             type: DataTypes.STRING,
             allowNull: false
         },
         apellidos:{
-            type: DataTypes.STRING,
-            allowNull: false
+            type: DataTypes.STRING
         },
         correo:{
             type: DataTypes.STRING,
             allowNull: false
         },
         telefono:{
-            type: DataTypes.STRING(15),
-            allowNull: false
+            type: DataTypes.STRING(15)
         },
         fecha_nacimiento: {
-            type: DataTypes.DATEONLY,
-            allowNull: false
+            type: DataTypes.DATEONLY
         },
 
         idRol: {

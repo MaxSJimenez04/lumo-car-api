@@ -6,8 +6,8 @@ class Vehiculo extends Model{
         Vehiculo.belongsTo(models.Sucursal, {foreignKey: 'idSucursal'})
         Vehiculo.belongsTo(models.Color, {foreignKey: 'idColor'})
         Vehiculo.belongsTo(models.Marca, {foreignKey: 'idMarca'})
-        Vehiculo.belongsToMany(models.Usuario, {through: models.Renta})
-        Vehiculo.hasMany(models.Archivo)
+        Vehiculo.belongsToMany(models.Usuario, {through: models.Renta, foreignKey: 'idVehiculo'})
+        Vehiculo.hasMany(models.Archivo, {foreignKey: 'idVehiculo'})
     }
 }
 

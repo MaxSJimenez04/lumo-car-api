@@ -3,7 +3,7 @@ const sequelize = require('../config/db');
 
 class Rol extends Model{
     static associate(models){
-        Rol.hasMany(models.Usuario)
+        Rol.hasMany(models.Usuario, {foreignKey: 'idRol'})
     }
 }
 

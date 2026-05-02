@@ -3,7 +3,7 @@ const sequelize = require('../config/db');
 
 class Estado extends Model{
     static associate(models){
-        Estado.hasMany(models.Ciudad)
+        Estado.hasMany(models.Ciudad, {foreignKey: 'idEstado'})
     }
 }
 

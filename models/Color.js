@@ -3,7 +3,7 @@ const sequelize = require('../config/db');
 
 class Color extends Model{
     static associate(models){
-        Color.hasMany(models.Vehiculo)
+        Color.hasMany(models.Vehiculo, {foreignKey: 'idColor'})
     }
 }
 
@@ -19,7 +19,7 @@ Color.init(
             type: DataTypes.STRING
         },
         codigoHex:{
-            type: DataTypes.STRING(6)
+            type: DataTypes.STRING(7)
         }
     },
     {

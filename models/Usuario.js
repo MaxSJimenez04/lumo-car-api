@@ -47,9 +47,6 @@ Usuario.init(
         idRol: {
             type: DataTypes.INTEGER,
             allowNull: false
-        },
-        rutaImagen:{
-            type: DataTypes.STRING
         }
     },
     {

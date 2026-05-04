@@ -63,15 +63,15 @@ module.exports = {
     await queryInterface.bulkInsert('Vehiculo',[
       {id: crypto.randomUUID(), placa: 'DSA-AD5-C', modelo: 'Fiesta', pasajeros: 5, transmision: 1, tamano: 'B', tipo_combustible: 1, aire_acondicionado: 1, idColor: 10, idMarca: 3, idSucursal: 1, createdAt: new Date(), updatedAt: new Date()},
       {id: crypto.randomUUID(), placa: 'YKM-421-A', modelo: 'Fiesta', pasajeros: 5, transmision: 1, tamano: 'B', tipo_combustible: 1, aire_acondicionado: 1, idColor: 10, idMarca: 3, idSucursal: 1, createdAt: new Date(), updatedAt: new Date()},
-      {id: crypto.randomUUID(), placa: 'HGB-902-B', modelo: 'Versa', pasajeros: 5, transmision: 2, tamano: 'B', tipo_combustible: 1, aire_acondicionado: 1, idColor: 1, idMarca: 2, idSucursal: 1, createdAt: new Date(), updatedAt: new Date()},
-      {id: crypto.randomUUID(), placa: 'JRT-115-C', modelo: 'Civic', pasajeros: 5, transmision: 2, tamano: 'C', tipo_combustible: 1, aire_acondicionado: 1, idColor: 3, idMarca: 5, idSucursal: 2, createdAt: new Date(), updatedAt: new Date()},
-      {id: crypto.randomUUID(), placa: 'LMP-883-D', modelo: 'Sentra', pasajeros: 5, transmision: 1, tamano: 'C', tipo_combustible: 1, aire_acondicionado: 1, idColor: 2, idMarca: 2, idSucursal: 1, createdAt: new Date(), updatedAt: new Date()},
+      {id: crypto.randomUUID(), placa: 'HGB-902-B', modelo: 'Versa', pasajeros: 5, transmision: 2, tamano: 'B', tipo_combustible: 1, aire_acondicionado: 1, idColor: 1, idMarca: 5, idSucursal: 1, createdAt: new Date(), updatedAt: new Date()},
+      {id: crypto.randomUUID(), placa: 'JRT-115-C', modelo: 'Civic', pasajeros: 5, transmision: 2, tamano: 'C', tipo_combustible: 1, aire_acondicionado: 1, idColor: 3, idMarca: 2, idSucursal: 2, createdAt: new Date(), updatedAt: new Date()},
+      {id: crypto.randomUUID(), placa: 'LMP-883-D', modelo: 'Sentra', pasajeros: 5, transmision: 1, tamano: 'C', tipo_combustible: 1, aire_acondicionado: 1, idColor: 2, idMarca: 5, idSucursal: 1, createdAt: new Date(), updatedAt: new Date()},
       {id: crypto.randomUUID(), placa: 'KWF-004-E', modelo: 'Corolla', pasajeros: 5, transmision: 2, tamano: 'C', tipo_combustible: 2, aire_acondicionado: 1, idColor: 4, idMarca: 1, idSucursal: 1, createdAt: new Date(), updatedAt: new Date()},
-      {id: crypto.randomUUID(), placa: 'TRQ-552-F', modelo: 'Aveo', pasajeros: 5, transmision: 1, tamano: 'B', tipo_combustible: 1, aire_acondicionado: 0, idColor: 6, idMarca: 8, idSucursal: 2, createdAt: new Date(), updatedAt: new Date()},
+      {id: crypto.randomUUID(), placa: 'TRQ-552-F', modelo: 'Aveo', pasajeros: 5, transmision: 1, tamano: 'B', tipo_combustible: 1, aire_acondicionado: 0, idColor: 6, idMarca: 4, idSucursal: 2, createdAt: new Date(), updatedAt: new Date()},
       {id: crypto.randomUUID(), placa: 'MBN-339-G', modelo: 'Mazda 3', pasajeros: 5, transmision: 2, tamano: 'C', tipo_combustible: 1, aire_acondicionado: 1, idColor: 9, idMarca: 12, idSucursal: 1, createdAt: new Date(), updatedAt: new Date()},
-      {id: crypto.randomUUID(), placa: 'VXD-771-H', modelo: 'Jetta', pasajeros: 5, transmision: 2, tamano: 'C', tipo_combustible: 1, aire_acondicionado: 1, idColor: 2, idMarca: 4, idSucursal: 1, createdAt: new Date(), updatedAt: new Date()},
-      {id: crypto.randomUUID(), placa: 'ZPA-228-I', modelo: 'Rio', pasajeros: 5, transmision: 1, tamano: 'B', tipo_combustible: 1, aire_acondicionado: 1, idColor: 7, idMarca: 15, idSucursal: 2, createdAt: new Date(), updatedAt: new Date()},
-      {id: crypto.randomUUID(), placa: 'QRS-606-J', modelo: 'March', pasajeros: 5, transmision: 1, tamano: 'A', tipo_combustible: 1, aire_acondicionado: 1, idColor: 13, idMarca: 2, idSucursal: 2, createdAt: new Date(), updatedAt: new Date()},
+      {id: crypto.randomUUID(), placa: 'VXD-771-H', modelo: 'Jetta', pasajeros: 5, transmision: 2, tamano: 'C', tipo_combustible: 1, aire_acondicionado: 1, idColor: 2, idMarca: 6, idSucursal: 1, createdAt: new Date(), updatedAt: new Date()},
+      {id: crypto.randomUUID(), placa: 'ZPA-228-I', modelo: 'Rio', pasajeros: 5, transmision: 1, tamano: 'B', tipo_combustible: 1, aire_acondicionado: 1, idColor: 7, idMarca: 11, idSucursal: 2, createdAt: new Date(), updatedAt: new Date()},
+      {id: crypto.randomUUID(), placa: 'QRS-606-J', modelo: 'March', pasajeros: 5, transmision: 1, tamano: 'A', tipo_combustible: 1, aire_acondicionado: 1, idColor: 13, idMarca: 5, idSucursal: 2, createdAt: new Date(), updatedAt: new Date()},
 
     ])
   },

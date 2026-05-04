@@ -61,9 +61,6 @@ Vehiculo.init(
         idSucursal:{
             type: DataTypes.INTEGER,
             allowNull:false
-        },
-        rutaArchivo:{
-            type: DataTypes.STRING(500),
         }
 
     },

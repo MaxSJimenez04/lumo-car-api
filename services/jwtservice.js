@@ -11,7 +11,7 @@ const GenerarToken = (usuario, nombre, rol) => {
     jwtSecret,
     {
         expiresIn: '30m'
-    }),
+    })
     return token
 }
 

@@ -5,6 +5,7 @@ class SuscripcionUsuario extends Model{
     static associate(models){
         SuscripcionUsuario.belongsTo(models.Usuario,{ foreignKey: 'idUsuario'})
         SuscripcionUsuario.belongsTo(models.Suscripcion, {foreignKey: 'idSuscripcion'})
+        SuscripcionUsuario.hasMany(models.Notificacion, {foreignKey: 'idSuscripcionUsuario'})
     }
 }
 

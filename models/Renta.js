@@ -5,6 +5,7 @@ class Renta extends Model{
     static associate(models){
         Renta.belongsTo(models.Usuario, {foreignKey: 'idUsuario'})
         Renta.belongsTo(models.Vehiculo,{foreignKey: 'idVehiculo'})
+        Renta.hasMany(models.Notificacion, {foreignKey: 'idRenta'})
     }
 }
 

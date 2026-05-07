@@ -14,9 +14,10 @@ const SuscripcionUsuario = require('./SuscripcionUsuario');
 const Tarjeta = require('./Tarjeta');
 const Usuario = require('./Usuario');
 const Vehiculo = require('./Vehiculo');
+const Notificacion = require('./Notificacion');
 
 const models = { AdminSucursal, Archivo, Ciudad, Color, Estado,
-    Marca, Pago, Renta, Rol, Sucursal, Suscripcion, SuscripcionUsuario, Tarjeta, Usuario, Vehiculo
+    Marca, Pago, Renta, Rol, Sucursal, Suscripcion, SuscripcionUsuario, Tarjeta, Usuario, Vehiculo, Notificacion
 }
 
 Object.keys(models).forEach(modelName => {
@@ -27,5 +28,5 @@ Object.keys(models).forEach(modelName => {
 
 module.exports = {
     sequelize, AdminSucursal, Archivo, Ciudad, Color, Estado,
-    Marca, Pago, Renta, Rol, Sucursal, Suscripcion, SuscripcionUsuario, Tarjeta, Usuario, Vehiculo
+    Marca, Pago, Renta, Rol, Sucursal, Suscripcion, SuscripcionUsuario, Tarjeta, Usuario, Vehiculo, Notificacion
 }

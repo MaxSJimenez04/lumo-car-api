@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const jwtSecret = process.env.JWT_SECRET
 const ClaimTypes = require('../config/claimtypes')
 const { GeneraToken } = require('../services/jwtservice')
+const rateLimit = require('express-rate-limit')
 
 const Authorize = (rol) => {
     return async (req, res, next) => {
@@ -40,4 +41,17 @@ const Authorize = (rol) => {
     }
 }
 
-module.exports = Authorize
+//Middleware para limitar los intentos de Login por IP
+const LoginLimit = rateLimit({
+    windowMs: 15 * 60 * 1000, //15 minutos
+    max: 5, //Hasta 5 intentos para iniciar sesión
+    skipSuccessfulRequest: true, //Ignora los inicios de sesión exitosos
+    message: {
+        status: 429,
+        message: "Demasiados intentos desde esta conexión. Intenta de nuevo en 15 minutos."
+    },
+    standardHeaders: true,
+    legacyHeaders: false
+})
+
+module.exports = {Authorize, LoginLimit}

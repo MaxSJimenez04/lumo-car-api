@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const {usuario, rol, Usuario, Rol} = require('../models')
-const {GenerarToken, tiempoRestante} = require('../services/jwtservice')
+const {GenerarToken, tiempoRestanteToken} = require('../services/jwtservice')
 const bitacora = require('../middlewares/bitacora.middleware')
 const {body, param, validationResult} = require('express-validator')
 const Sequelize = require('sequelize')
@@ -37,7 +37,7 @@ self.login = async function(req, res, next) {
             return res.status(401).json({mensaje: "Usuario o contraseña incorrectos"})
         }
 
-        var token = GenerarToken(datosLogin.usuario, datosLogin.nombre, datosLogin.rol)
+        var token = GenerarToken(datosLogin.usuario, datosLogin.nombre, datosLogin.nombreRol)
 
        if (req.bitacora) {
         req.bitacora(`Inicio de Sesión: ${datosLogin.usuario}`)
@@ -57,7 +57,7 @@ self.login = async function(req, res, next) {
 }
 
 self.tiempoRestante = async function(req,res) {
-    const tiempo = tiempoRestante(req)
+    const tiempo = tiempoRestanteToken(req)
 
     if (tiempo === null) {
         return res.status(401).json({mensaje: "Token inválido o ya ha expirado"})

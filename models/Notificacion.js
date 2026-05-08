@@ -41,13 +41,11 @@ Notificacion.init(
         },
         leida: {
             type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
+            allowNull: false
         },
         fecha_envio: {
             type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW
+            allowNull: false
         }
     },
     {

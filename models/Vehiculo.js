@@ -35,7 +35,7 @@ Vehiculo.init(
             allowNull: false,
         },
         tamano:{
-            type: DataTypes.ENUM('A','B','C','D','E','F','S'),
+            type: DataTypes.STRING(1),
             allowNull: false
         },
         tipo_combustible:{
@@ -47,8 +47,7 @@ Vehiculo.init(
         },
         estado:{
             type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 1
+            allowNull: false
         },
         idColor:{
             type: DataTypes.INTEGER,
@@ -62,7 +61,6 @@ Vehiculo.init(
             type: DataTypes.INTEGER,
             allowNull:false
         }
-
     },
     {
         sequelize,

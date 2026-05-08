@@ -3,7 +3,7 @@ const sequelize = require('../config/db');
 
 class Suscripcion extends Model{
     static associate(models){
-        Suscripcion.belongsToMany(models.Usuario,{through: models.SuscripcionUsuario})
+        Suscripcion.belongsTo(models.SuscripcionUsuario,{foreignKey: 'idSuscripcion'})
     }
 }
 
@@ -24,8 +24,7 @@ Suscripcion.init(
         },
         estado:{
             type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 0
+            allowNull: false
         },
         descripcion:{
             type: DataTypes.STRING(1000)

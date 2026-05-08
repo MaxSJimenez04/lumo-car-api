@@ -3,7 +3,7 @@ const sequelize = require('../config/db');
 
 class SuscripcionUsuario extends Model{
     static associate(models){
-        SuscripcionUsuario.belongsTo(models.Usuario,{ foreignKey: 'idUsuario'})
+        SuscripcionUsuario.belongsTo(models.Usuario, {foreignKey: 'idUsuario'})
         SuscripcionUsuario.belongsTo(models.Suscripcion, {foreignKey: 'idSuscripcion'})
         SuscripcionUsuario.hasMany(models.Notificacion, {foreignKey: 'idSuscripcionUsuario'})
     }
@@ -11,20 +11,23 @@ class SuscripcionUsuario extends Model{
 
 SuscripcionUsuario.init(
     {
-        idUsuario:{
-            type: DataTypes.UUID,
+        id:{
+            type: DataTypes.INTEGER,
             primaryKey: true,
             allowNull: false
         },
+        idUsuario:{
+            type: DataTypes.UUID,
+            allowNull: false
+
+        },
         idSuscripcion:{
             type: DataTypes.INTEGER,
-            primaryKey: true,
             allowNull: false
         },
         estado:{
             type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 1
+            allowNull: false
         },
         fechaInicio:{
             type: DataTypes.DATE,

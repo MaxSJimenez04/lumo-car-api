@@ -1,4 +1,4 @@
-const {DataTypes, Model} = require('sequelize');
+const {DataTypes, Model, INTEGER} = require('sequelize');
 const sequelize = require('../config/db');
 
 class Renta extends Model{
@@ -6,6 +6,7 @@ class Renta extends Model{
         Renta.belongsTo(models.Usuario, {foreignKey: 'idUsuario'})
         Renta.belongsTo(models.Vehiculo,{foreignKey: 'idVehiculo'})
         Renta.hasMany(models.Notificacion, {foreignKey: 'idRenta'})
+        Renta.hasOne(models.Pago, {foreignKey: 'idRenta', onDelete: 'CASCADE'})
     }
 }
 
@@ -27,8 +28,7 @@ Renta.init(
         },
         estadoRenta:{
             type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 0
+            allowNull: false
         },
         idUsuario:{
             type: DataTypes.UUID,

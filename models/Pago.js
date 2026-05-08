@@ -3,6 +3,8 @@ const sequelize = require('../config/db');
 class Pago extends Model{
     static associate(models){
         Pago.belongsTo(models.Tarjeta,{foreignKey: 'idTarjeta'});
+        Pago.belongsTo(models.SuscripcionUsuario, {foreignKey: 'idSuscripcion', allowNull: true, onDelete: 'NO ACTION'})
+        Pago.belongsTo(models.Renta, {foreignKey: 'idRenta', allowNull: true, onDelete: 'NO ACTION'})
     }
 }
 
@@ -11,7 +13,6 @@ Pago.init(
         idPago:{
             type: DataTypes.INTEGER,
             allowNull: false,
-
             primaryKey: true,
             autoIncrement: true
         },
@@ -32,6 +33,12 @@ Pago.init(
         idTarjeta:{
             type: DataTypes.UUID,
             allowNull: false,
+        },
+        idSuscripcion:{
+            type: DataTypes.INTEGER
+        },
+        idRenta:{
+            type: DataTypes.INTEGER
         }
     },
     {

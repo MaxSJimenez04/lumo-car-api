@@ -9,6 +9,7 @@ class Usuario extends Model{
         Usuario.hasMany(models.Tarjeta, {foreignKey: 'idUsuario'})
         Usuario.hasOne(models.Archivo, {foreignKey:'idUsuario'})
         Usuario.hasMany(models.Notificacion, {foreignKey: 'idUsuario'})
+        Usuario.hasOne(models.SuscripcionUsuario, {foreignKey: 'idUsuario'})
     }
 }
 
@@ -44,10 +45,12 @@ Usuario.init(
         fecha_nacimiento: {
             type: DataTypes.DATEONLY
         },
-
         idRol: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        rutaImagen:{
+            type: DataTypes.STRING(1000)
         }
     },
     {

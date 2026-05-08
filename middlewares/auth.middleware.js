@@ -45,7 +45,7 @@ const Authorize = (rol) => {
 const LoginLimit = rateLimit({
     windowMs: 15 * 60 * 1000, //15 minutos
     max: 5, //Hasta 5 intentos para iniciar sesión
-    skipSuccessfulRequest: true, //Ignora los inicios de sesión exitosos
+    skipSuccessfulRequests: true, //Ignora los inicios de sesión exitosos
     message: {
         status: 429,
         message: "Demasiados intentos desde esta conexión. Intenta de nuevo en 15 minutos."

@@ -21,8 +21,7 @@ Archivo.init(
         },
         nombreArchivo:{
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: true
+            allowNull: false
         },
         ruta:{
             type: DataTypes.STRING,
@@ -30,7 +29,6 @@ Archivo.init(
         },
         esPrincipal:{
             type: DataTypes.BOOLEAN,
-            defaultValue: false
         },
         idUsuario:{
             type: DataTypes.UUID

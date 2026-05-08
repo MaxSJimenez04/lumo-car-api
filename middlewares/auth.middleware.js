@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const jwtSecret = process.env.JWT_SECRET
-const ClaimTypes = require('../config/claimtypes')
-const { GeneraToken } = require('../services/jwtservice')
+const {ClaimTypes} = require('../config/claimtypes')
+const { GenerarToken } = require('../services/jwtservice')
 const rateLimit = require('express-rate-limit')
 
 const Authorize = (rol) => {
@@ -25,11 +25,11 @@ const Authorize = (rol) => {
 
             req.decodedToken = decodedToken
 
-            var minutosRestantes = (decodedToken.exp - (new Date().getTime() / 1000) / 60)
+            var minutosRestantes = (decodedToken.exp - (new Date().getTime() / 1000)) / 60
 
             //Renovar token cuando tiempo restate < 2 minutos
             if (minutosRestantes < 2) {
-                var nuevoToken = GeneraToken(decodedToken[ClaimTypes.Name],decodedToken[ClaimTypes.GivenName], decodedToken[ClaimTypes.Role])
+                var nuevoToken = GenerarToken(decodedToken[ClaimTypes.Name],decodedToken[ClaimTypes.GivenName], decodedToken[ClaimTypes.Role])
                 res.header("Set-Authorization", nuevoToken)
             }
 

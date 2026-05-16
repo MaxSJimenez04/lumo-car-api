@@ -5,17 +5,15 @@ const path = require('path')
 
 const bitacoraLogger = (req, res, next) => {
     const ip = requestip.getClientIp(req)
-    let usuario = 'Invitado'
-
     req.bitacora = (accion) => {
+        let usuario = 'Invitado'
         if (req.decodedToken) {
-            usuario = decodedToken[ClaimTypes.Name]
+            usuario = req.decodedToken[ClaimTypes.Name]
         }
 
         //Registra en un archivo de texto
-        let fecha = new Date().toISOString()
+        const fecha = new Date().toISOString()
         const mensajeLog = `${fecha}: ACCIÓN: ${accion} - IP: ${ip} - USUARIO: ${usuario} \n`
-
         const rutaLog = path.join(__dirname, '../log/log.txt')
 
         fs.appendFile(rutaLog, mensajeLog, (err) =>{

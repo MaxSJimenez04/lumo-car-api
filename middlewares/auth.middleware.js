@@ -8,7 +8,6 @@ const Authorize = (rol) => {
     return async (req, res, next) => {
         try {
             const authHeader = req.header('Authorization')
-            const error = new Error('Acceso Denegado')
 
             if (!authHeader || !authHeader.startsWith('Bearer ')) {
                 const error = new Error('Acceso denegado')
@@ -20,6 +19,8 @@ const Authorize = (rol) => {
             const decodedToken = jwt.verify(token, jwtSecret)
 
             if (rol.split(',').indexOf(decodedToken[ClaimTypes.Role]) == -1) {
+                const error = new Error('Acceso denegado')
+                error.statusCode = 401
                 return next(error)
             }
 

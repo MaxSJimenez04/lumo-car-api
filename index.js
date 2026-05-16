@@ -20,6 +20,7 @@ app.use(bitacoraLogger)
 
 //ROUTES
 app.use("/auth", require('./routes/auth.routes'))
+app.use("/usuarios", require('./routes/usuarios.routes'))
 app.get('/*splat', (req, res) => {res.status(404).send("RECURSO NO ENCONTRADO")})
 
 async function iniciarServidor() {

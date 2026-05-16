@@ -31,3 +31,11 @@
 2026-05-10T00:44:05.957Z: ACCIÓN: RESTABLECIMIENTO DE CONTRASEÑA BrendaMarquez - IP: ::1 - USUARIO: Invitado 
 2026-05-10T00:53:44.225Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
 2026-05-10T00:54:05.360Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-05-13T18:37:51.344Z: ACCIÓN: REGISTRO DE USUARIO f52893c9-7efc-41bd-a1c9-dbf47469bd3d - IP: ::1 - USUARIO: Invitado 
+2026-05-13T18:40:25.413Z: ACCIÓN: REGISTRO DE USUARIO bf56299e-f47b-49dd-b46b-16705958e00f - IP: ::1 - USUARIO: Invitado 
+2026-05-14T18:01:30.764Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-05-14T18:16:36.851Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-05-14T18:48:32.538Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-05-14T19:01:49.449Z: ACCIÓN: MODIFICACION DE PERFIL BrendaMarquez con ID undefined - IP: ::1 - USUARIO: undefined 
+2026-05-14T21:59:34.277Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-05-14T22:06:55.250Z: ACCIÓN: ELIMINICACIÓN DE USUARIO undefined - ID f52893c9-7efc-41bd-a1c9-dbf47469bd3d - IP: ::1 - USUARIO: undefined 

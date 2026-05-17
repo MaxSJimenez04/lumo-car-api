@@ -5,7 +5,7 @@ class Sucursal extends Model{
     static associate(models){
         Sucursal.belongsTo(models.Ciudad, {foreignKey: 'idCiudad'})
         Sucursal.hasMany(models.Vehiculo, {foreignKey: 'idSucursal'})
-        Sucursal.belongsToMany(models.Usuario, {through: models.AdminSucursal})
+        Sucursal.belongsToMany(models.Usuario, {through: models.AdminSucursal, foreignKey: 'idSucursal'})
     }
 }
 

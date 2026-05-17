@@ -1,9 +1,10 @@
-const {usuario, rol, archivo,sucursal, Usuario, Rol, Archivo, Sucursal, sequelize} = require('../models')
+const {usuario, rol, archivo,sucursal, Usuario, Rol, Archivo, Sucursal, sequelize, AdminSucursal} = require('../models')
 const Sequelize = require('sequelize')
 const bitacora = require('../middlewares/bitacora.middleware')
 const {validationResult, param, body} = require('express-validator')
 const crypto = require('crypto')
 const bcrypt = require('bcrypt')
+const { error } = require('console')
 
 let self = {}
 
@@ -47,7 +48,18 @@ self.validaciones = {
 
     elimnarUsuario:[
         body('id', 'Campo vacío').isString().notEmpty()
+    ],
+
+    asignarSucursal:[
+        body('idSucursal', 'Se debe especificar la sucursal').notEmpty(),
+        param('usuario', 'campo vacío').notEmpty().isString()
+    ],
+
+    cambiarSucursal:[
+        body('idSucursal', 'Se debe especificar la sucursal').notEmpty(),
+        param('usuario', 'campo vacío').notEmpty().isString()
     ]
+
 }
 
 self.registro = async function(req, res, next){
@@ -209,6 +221,104 @@ self.eliminar = async function(req, res, next) {
 
         if (req.bitacora) {
             req.bitacora(`ELIMINICACIÓN DE USUARIO ${usuario} - ID ${id}`)
+        }
+
+        return res.status(204).send()
+    } catch (error) {
+        next(error)
+    }
+}
+
+self.asignarSucursal = async function(req, res, next) {
+    try {
+        let errores = validationResult(req)
+        if (!errores == null) {
+            return res.status(400).json({mensaje: errores.array()})
+        }
+        let {usuario} = req.params
+        let idSucursal = req.body.idSucursal
+        let datos = await Usuario.findOne({
+            where: {usuario: usuario},
+            raw: true,
+            attributes:['id', 'usuario', 'idRol']
+        })
+        if (datos === null || datos === undefined) {
+            return res.status(404).json({mensaje: "No se encontró el usuario"})
+        }
+
+        if (datos.idRol !== 2) {
+            return res(400).json({mensaje: "Operación inválida, no se puede asignar una sucursal a un cliente"})
+            if (req.bitacora) {
+                req.bitacora(`INTENTO DE ELEVACIÓN DE PRIVILEGIOS`)
+            }
+        }
+
+        let sucursal = await Sucursal.findByPk(idSucursal)
+
+        if (sucursal === null || sucursal === undefined) {
+            return res.status(404).json({mensaje: "No se encontró la sucursal especificada"})
+        }
+
+        let datosAsignacion = await AdminSucursal.findOne({
+            where:{idUsuario: datos.id},
+            raw:true
+        })
+
+        if (datosAsignacion !== null) {
+            return res.status(400).json({mensaje: "El usuario ya está asignado a una sucursal."})
+        }
+
+        let asignacionSucursal = await AdminSucursal.create({
+            idUsuario: datos.id,
+            idSucursal: idSucursal
+        })
+
+        if (req.bitacora) {
+            req.bitacora(`ASIGNACIÓN DE ${usuario} A SUCURSAL CON ID ${idSucursal}`)
+        }
+
+        return res.status(201).json({asignacion: asignacionSucursal})
+    } catch (error) {
+        next(error)
+    }
+}
+
+self.transferirSucursal = async function(req, res, next) {
+    try {
+        let errores =  validationResult(req)
+        if (!errores == null) {
+            return res.status(400).json(errores.array())
+        }
+
+        let {usuario} = req.params
+        let idNuevaSucursal = req.body.idSucursal
+
+        let datosUsuario = await Usuario.findOne({
+            where: {usuario : usuario},
+            raw: true,
+            attributes: ['id', 'usuario', 'idRol']
+        })
+
+        let consultarAsignacion = await AdminSucursal.findOne({
+            where: {idUsuario: datosUsuario.id},
+            raw: true
+        })
+
+        if (consultarAsignacion === null) {
+            let asignacionSucursal = await AdminSucursal.create({
+                idUsuario: datosUsuario.id,
+                idSucursal: idNuevaSucursal
+            })
+            return res.status(201).json({asignacion: asignacionSucursal})
+        }
+
+        let actualizacionSucursal = await AdminSucursal.update({idSucursal: idNuevaSucursal},{where:{idUsuario: datosUsuario.id}})
+        if (actualizacionSucursal[0] === 0) {
+            return res.status(400).json({mensaje: "No se pudo actualizar la sucursal"})
+        }
+
+        if(req.bitacora){
+            req.bitacora(`ACTUALIZACIÓN DE SUCURSAL PARA ADMINISTRADOR ${usuario}`)
         }
 
         return res.status(204).send()

@@ -3,7 +3,6 @@ const usuarios = require('../controllers/usuarios.controller')
 const {Authorize} = require('../middlewares/auth.middleware')
 const bitacoraLogger = require('../middlewares/bitacora.middleware')
 
-
 //POST /usuarios/
 router.post('/', bitacoraLogger,usuarios.validaciones.crearUsuario,usuarios.registro)
 
@@ -26,15 +25,14 @@ router.post()
 //PUT /usuarios/usuario/pfp/
 router.put()
 */
-//DELETE /usuarios/usuario
+
+//DELETE /usuarios/
 router.delete('/', Authorize('Usuario,S_Administrador'), usuarios.validaciones.elimnarUsuario, usuarios.eliminar)
 
-/*
-//POST /usuarios/admin-sucursal
-router.post()
+//POST /usuarios/usuario/admin-sucursal
+router.post('/:usuario/admin-sucursal', Authorize('Administrador,S_Administrador'), bitacoraLogger,usuarios.validaciones.asignarSucursal, usuarios.asignarSucursal)
 
-//PUT /usuarios/admin-sucursal
-router.put()
-*/
+//PUT /usuarios/usuario/admin-sucursal
+router.put('/:usuario/admin-sucursal',Authorize('Administrador,S_Administrador'), bitacoraLogger,usuarios.validaciones.cambiarSucursal, usuarios.transferirSucursal)
 
 module.exports = router

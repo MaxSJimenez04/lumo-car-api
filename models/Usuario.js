@@ -4,7 +4,7 @@ const sequelize = require('../config/db');
 class Usuario extends Model{
     static associate(models){
         Usuario.belongsTo(models.Rol, {foreignKey: 'idRol'})
-        Usuario.belongsToMany(models.Sucursal, {through: models.AdminSucursal})
+        Usuario.belongsToMany(models.Sucursal, {through: models.AdminSucursal, foreignKey: 'idUsuario'})
         Usuario.belongsToMany(models.Vehiculo, {through: models.Renta})
         Usuario.hasMany(models.Tarjeta, {foreignKey: 'idUsuario'})
         Usuario.hasOne(models.Archivo, {foreignKey:'idUsuario'})

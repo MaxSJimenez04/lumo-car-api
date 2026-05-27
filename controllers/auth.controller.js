@@ -7,25 +7,25 @@ const bitacora = require('../middlewares/bitacora.middleware')
 const {body, param, validationResult} = require('express-validator')
 const Sequelize = require('sequelize')
 
-let self = {}
+let self = {} //Este es un objeto para guardar los métodos y las validaciones
 
 var listaCodigos = new Map()
 
-self.loginValidator = [
-    body('usuario', 'campo vacío').not().isEmpty(),
+self.loginValidator = [ //Esta es una validación por si todas las peticiones de esta clase reciben lo mismo Libreria Express-Validator
+    body('usuario', 'campo vacío').not().isEmpty(), //En esta clase ni la uso por ejemplo xd
     body('contrasena', 'campo vacío').not().isEmpty(),  
 ]
 
-self.validaciones ={
-    solicitarRestablecer:[
-        param('usuario', 'campo vacio').not().isEmpty(),
-        param('usuario', 'formato inválido').isString()
+self.validaciones ={  //Si cada petición recibe y valida cosas diferentes se hace un arreglo de validaciones
+    solicitarRestablecer:[ //Aqui se define lo que se va a validar en X método
+        param('usuario', 'campo vacio').not().isEmpty(), //Param es lo que va en la liga 
+        param('usuario', 'formato inválido').isString() //Ej. http://dominio.com/usuarios/Parametro
     ],
 
     validarCodigo:[
         param('usuario', 'campo vacio').not().isEmpty(),
         param('usuario', 'formato inválido').isString(),
-        body('codigo', 'campo vacío').not().isEmpty()
+        body('codigo', 'campo vacío').not().isEmpty() //Acá es para lo que va dentro de la petición como JSON
     ],
     validarContrasena:[
         body('contrasena', 'campo vacio').not().isEmpty(),
@@ -35,19 +35,19 @@ self.validaciones ={
     ]
 }
 
-self.login = async function(req, res, next) {
-    const{usuario, contrasena} = req.body
+self.login = async function(req, res, next) { //Esta es una definición de un método de servicio de la API
+    const{usuario, contrasena} = req.body //Aquí se toma lo que venga en el cuerpo de la petición
 
-    const validacion = validationResult(req)
+    const validacion = validationResult(req) //Estp permite validar usando lo que se definió anteriormente
     if (!validacion.isEmpty()) {
-        return res.status(400).json(validacion.array())
+        return res.status(400).json(validacion.array()) //Con validacion.array se envían todos los que no cumplieron
     }
     try {
-        let datosLogin = await Usuario.findOne({
-            where: {usuario : usuario},
-            raw: true,
-            attributes: ['id', 'usuario', 'nombre', 'contrasena', Sequelize.col('rol.nombreRol'), 'idRol'],
-            include: {model: Rol, attributes: []}
+        let datosLogin = await Usuario.findOne({ //Esto es Sequelize, es para buscar 1 registro de la tabla especificada
+            where: {usuario : usuario}, //Where
+            raw: true, //No sé si es obligatorio pero siempre lo pongo xd
+            attributes: ['id', 'usuario', 'nombre', 'contrasena', Sequelize.col('rol.nombreRol'), 'idRol'], //Las columnas que va a traer de la BD
+            include: {model: Rol, attributes: []} //Si ocupas una columna de otra tabla es con Sequelize.col y con el include
         })
 
         if (datosLogin === null) {
@@ -56,12 +56,12 @@ self.login = async function(req, res, next) {
         
         let comparacion = await self.compararContrasena(contrasena, datosLogin.contrasena)
         if (!comparacion) {
-            return res.status(401).json({mensaje: "Usuario o contraseña incorrectos"})
+            return res.status(401).json({mensaje: "Usuario o contraseña incorrectos"}) //Regresas un JSON con código HTTP y respuesta
         }
 
         var token = GenerarToken(datosLogin.usuario, datosLogin.nombre, datosLogin.nombreRol)
 
-       if (req.bitacora) {
+       if (req.bitacora) { //Esto permite usar la bitácora, yo lo uso con registros, modificaciones y eliminaciones solamente xd
         req.bitacora(`Inicio de Sesión: ${datosLogin.usuario}`)
        }
 

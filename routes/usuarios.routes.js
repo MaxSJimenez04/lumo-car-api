@@ -15,16 +15,11 @@ router.get('/:usuario', Authorize('Cliente,Administrador,S_Administrador'), usua
 //PUT /usuarios/usuario
 router.put('/:usuario',bitacoraLogger,Authorize('Cliente,Administrador'), usuarios.validaciones.modificarPerfil, usuarios.modificar)
 
-/*
 //GET /usuarios/usuario/pfp
-router.get()
+router.get('/:usuario', Authorize('Cliente,Administrador,S_Administrador'), usuarios.validaciones.consultarFoto, usuarios.consultarFotoPerfil)
 
 //POST /usuarios/usuario/pfp/
-router.post()
-
-//PUT /usuarios/usuario/pfp/
-router.put()
-*/
+router.post('/:usuario/pfp/', bitacoraLogger, Authorize('Cliente,Administrador'), usuarios.validaciones.subirFoto, usuarios.asociarFotoPerfil)
 
 //DELETE /usuarios/
 router.delete('/', Authorize('Usuario,S_Administrador'), usuarios.validaciones.elimnarUsuario, usuarios.eliminar)

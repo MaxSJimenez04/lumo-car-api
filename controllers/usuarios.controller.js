@@ -4,7 +4,8 @@ const bitacora = require('../middlewares/bitacora.middleware')
 const {validationResult, param, body} = require('express-validator')
 const crypto = require('crypto')
 const bcrypt = require('bcrypt')
-const { error } = require('console')
+const path = require('path');
+const fs = require('fs');
 
 let self = {}
 
@@ -58,6 +59,13 @@ self.validaciones = {
     cambiarSucursal:[
         body('idSucursal', 'Se debe especificar la sucursal').notEmpty(),
         param('usuario', 'campo vacío').notEmpty().isString()
+    ],
+    subirFoto:[
+        body('idArchivo', 'Se debe especificar el archivo').notEmpty(),
+        param('usuario', 'Se debe especificar el usuario asociado').notEmpty()
+    ],
+    consultarFoto:[
+        param('usuario', 'Se debe especificar el usuario asociado').notEmpty()
     ]
 
 }
@@ -327,4 +335,110 @@ self.transferirSucursal = async function(req, res, next) {
     }
 }
 
+self.consultarFotoPerfil = async function(req, res, next) {
+    try {
+        let errores = validationResult(req)
+        if (!errores.isEmpty()) {
+            return res.status(400).json({mensaje: errores.array()})
+        }
+
+        const {usuario} = req.params
+        let datosUsuario = await Usuario.findOne({
+            where: {usuario: usuario},
+            raw: true,
+            attributes: ['id','usuario']
+        })
+
+        if (datosUsuario === null || datosUsuario === undefined) {
+            return res.status(404).json({mensaje: "No se encontró el usuario especificado"})
+        }
+
+        let idUsuarioBD = datosUsuario.id
+
+        let datosImagen = await Archivo.findOne({
+            where: {idUsuario: idUsuarioBD, esPrincipal: true},
+            raw:true,
+            attributes:['id', 'nombreArchivo','ruta']
+        })
+
+        console.log(datosImagen.ruta);
+        
+        if (datosImagen === null || datosImagen === undefined) {
+            let rutaImagen = path.join(__dirname, '../uploads/usuarios', 'default-profile-picture-png')
+            return res.status(200).sendFile(rutaImagen)
+        }else{
+            let rutaImagen = path.join(__dirname,'../uploads/usuarios', datosImagen.nombreArchivo)
+            return res.status(200).sendFile(rutaImagen)
+        }
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+self.asociarFotoPerfil = async function(req,res, next) {
+    try {
+        let errores = validationResult(req);
+        if (!errores == null) {
+            return res.status(400).json({errores: errores.array()})
+        }
+
+        let {usuario} = req.params
+        let idArchivo = req.body.idArchivo
+        let existeImagen = await Archivo.findOne({
+            where: {id: idArchivo},
+            raw: true,
+            attributes: ['id', 'idUsuario', 'esPrincipal']
+        })
+
+        let usuarioBD = await Usuario.findOne({
+            where: {usuario: usuario},
+            raw: true,
+            attributes: ['id']
+        })
+
+        let idUsuario = usuarioBD.id
+
+        let imagenesExistentes = await Archivo.findAll({
+            where: {idUsuario: idUsuario},
+            raw:true,
+            attributes:['id', 'esPrincipal']
+        })
+
+        if (existeImagen === null || existeImagen === undefined) {
+            return res.status(404).json({mensaje: "No se encontró el archivo especificado"})
+        }
+
+        if (existeImagen.idUsuario === idUsuario) {
+            return res.status(400).json({mensaje: "El archivo ya está asociado al usuario"})
+        }
+
+        let imagenesExistentes = await Archivo.findAll({
+            where: {idUsuario: idUsuario},
+            raw: true,
+            attributes: ['id','esPrincipal']
+        })
+
+        if (imagenesExistentes.length !== 0) {
+            imagenesExistentes.forEach(imagen =>{
+                if (imagen.esPrincipal == true) {
+                    await Archivo.update({esPrincipal: true}, {where: {id: imagen.id}})
+                }
+            })    
+        }
+
+        let datos = await Archivo.update({idUsuario: idUsuario, esPrincipal: true}, {where:{id:idArchivo}})
+
+        if (datos[0] === 0) {
+            return res.status(400).json({mensaje: "No se pudo asociar la imagen"})
+        }
+
+        if (req.bitacora) {
+            req.bitacora(`CARGA DE FOTO DE PERFIL PARA USUARIO CON ID: ${idUsuario}`)
+        }
+        return res.status(204).send()   
+    } catch (error) {
+        next(error)
+    }
+}
 module.exports = self

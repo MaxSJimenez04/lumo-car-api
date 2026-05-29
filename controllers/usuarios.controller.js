@@ -1,11 +1,11 @@
-const {usuario, rol, archivo,sucursal, Usuario, Rol, Archivo, Sucursal, sequelize, AdminSucursal} = require('../models')
+const {Usuario, Rol, Archivo, Sucursal, sequelize, AdminSucursal} = require('../models')
 const Sequelize = require('sequelize')
 const bitacora = require('../middlewares/bitacora.middleware')
 const {validationResult, param, body} = require('express-validator')
 const crypto = require('crypto')
 const bcrypt = require('bcrypt')
-const path = require('path');
-const fs = require('fs');
+const path = require('path')
+const fs = require('fs')
 
 let self = {}
 

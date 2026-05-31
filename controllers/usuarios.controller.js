@@ -412,17 +412,11 @@ self.asociarFotoPerfil = async function(req,res, next) {
         if (existeImagen.idUsuario === idUsuario) {
             return res.status(400).json({mensaje: "El archivo ya está asociado al usuario"})
         }
-
-        let imagenesExistentes = await Archivo.findAll({
-            where: {idUsuario: idUsuario},
-            raw: true,
-            attributes: ['id','esPrincipal']
-        })
-
+        
         if (imagenesExistentes.length !== 0) {
             imagenesExistentes.forEach(imagen =>{
                 if (imagen.esPrincipal == true) {
-                    await Archivo.update({esPrincipal: true}, {where: {id: imagen.id}})
+                    Archivo.update({esPrincipal: false}, {where: {id: imagen.id}})
                 }
             })    
         }

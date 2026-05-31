@@ -1,11 +1,10 @@
-const {Vehiculo,Sucursal,Color,Marca,Archivo, sequelize} = require('../models')
+const {Vehiculo,Sucursal,Color,Marca,Archivo,VistaVehiculo, sequelize} = require('../models')
 const Sequelize = require('sequelize')
 const bitacora = require('../middlewares/bitacora.middleware')
 const {validationResult, body, param} = require('express-validator')
 const crypto = require('crypto')
 const path = require('path')
 const fs = require('fs')
-const { findOne } = require('../models/AdminSucursal')
 
 let self = {}
 self.idValidator = [
@@ -19,7 +18,7 @@ self.validaciones = {
         body('pasajeros', 'Formato inválido').isInt(),
         body('transmision','formato invalido').isBoolean(),
         body('tamano', 'formato invalido').isString().isLength(1),
-        body('tipo_combustible', 'Formato inválido').isString().isLength(1),
+        body('tipo_combustible', 'Formato inválido').isInt(),
         body('aireAcondicionado').isBoolean(),
         body('idColor', 'Especificar un color').isInt().notEmpty(),
         body('idMarca', 'Especificar una marca').isInt().notEmpty(),
@@ -29,9 +28,9 @@ self.validaciones = {
     modificarVehiculo:[
         param('id', 'Especificar id válida').isUUID().notEmpty(),
         body('pasajeros', 'Formato inválido').isInt(),
-        body('aireAcondicionado').isBoolean(),
-        body('idColor', 'Especificar un color').isInt().notEmpty(),
-        body('idSucursal', 'Especificar una sucursal').isInt().notEmpty()
+        body('aire_acondicionado').isBoolean(),
+        body('idColor', 'Especificar un color').isInt(),
+        body('idSucursal', 'Especificar una sucursal').isInt()
     ],
     
     consultarVehiculos:[
@@ -65,16 +64,18 @@ self.registrar = async function(req,res,next) {
 
         let idVehiculo = crypto.randomUUID()
         let datosVehiculo = req.body
+        let tipo_combustible = req.body.tipo_combustible
+        
 
         if (datosVehiculo.pasajeros <= 0) {
             return res.status(400).json({mensaje: "Número de pasajeros debe ser mayor que 0"})
         }
-        if(datosVehiculo.tamano !== 'A'|| datosVehiculo.tamano !== 'B' || datosVehiculo.tamano !== 'C' ||datosVehiculo.tamano !== 'D' || 
-            datosVehiculo.tamano !== 'E' || datosVehiculo.tamano !== 'F' || datosVehiculo.tamano !== 'S'){
+        if(datosVehiculo.tamano !== 'A' && datosVehiculo.tamano !== 'B' && datosVehiculo.tamano !== 'C' && datosVehiculo.tamano !== 'D' && 
+            datosVehiculo.tamano !== 'E' && datosVehiculo.tamano !== 'F' && datosVehiculo.tamano !== 'S'){
                 return res.status(400).json({mensaje: "Tamaño no reconocido"})
         }
 
-        if (tipo_combustible !== 0 || tipo_combustible !== 1 || tipo_combustible !== 2) {
+        if (tipo_combustible !== 0 && tipo_combustible !== 1 && tipo_combustible !== 2) {
             return res.status(400).json({mensaje: "Tipo de combustible no reconocido"})
         }
 
@@ -86,7 +87,7 @@ self.registrar = async function(req,res,next) {
             transmision: datosVehiculo.transmision,
             tamano: datosVehiculo.tamano,
             tipo_combustible: datosVehiculo.tipo_combustible,
-            aire_acondicionado: datosVehiculo.aire_acondicionado,
+            aire_acondicionado: datosVehiculo.aireAcondicionado,
             estado: 1,
             idColor: datosVehiculo.idColor,
             idMarca: datosVehiculo.idMarca,
@@ -108,14 +109,16 @@ self.modificar = async function(req,res,next) {
         if (!errores.isEmpty()) {
             return res.status(400).json({errores: errores.array()})
         }
-        let {idVehiculo} = req.params.id
+        let idVehiculo = req.params.id
         let datosVehiculo = req.body
+        console.log(idVehiculo);
+        
         let datos = await Vehiculo.findByPk(idVehiculo,{
             raw: true,
             attributes: ['id', 'placa', 'idMarca','idSucursal']
         })
 
-        if (datos === null || datos === undefined) {
+        if (datos === null) {
             return res.status(404).json({mensaje: "No se encontró el vehículo especificado"})
         }
 
@@ -136,15 +139,11 @@ self.consultarTodos = async function(req,res,next) {
             return res.status(400).json({errores: errores.array()})
         }
         let idSucursalSeleccionada = req.body.idSucursal 
-        let vehiculosSucursal = await Vehiculo.findAll({
+        let vehiculosSucursal = await VistaVehiculo.findAll({
             where:{idSucursal: idSucursalSeleccionada},
-            raw: true,
-            attributes:['placa','modelo','pasajeros','transmision','tamano','tipo_combustible','aire_acondicionado','idColor',
-                Sequelize.col('Color.color'),'idMarca', Sequelize.col('Marca.nombreMarca')],
-            include:{model:[Color, Marca],attributes:[]}
         })
 
-        if (vehiculosSucursal.isEmpty()) {
+        if (vehiculosSucursal === null) {
             return res.status(404).json({mensaje:"No se encontraron vehículos para esa sucursal"})
         }
 
@@ -161,13 +160,13 @@ self.consultar = async function(req,res,next) {
             return res.status(400).json({errores: errores.array()})
         }
 
-        let {idVehiculo} = req.params.id
+        let {id} = req.params
         let datosVehiculo = await Vehiculo.findOne({
-            where:{id:idVehiculo},
+            where:{id:id},
             raw:true,
-            attributes:['placa','modelo','pasajeros','transmision','tamano','tipo_combustible','aire_acondicionado','idColor',
-                Sequelize.col('Color.color'),'idMarca', Sequelize.col('Marca.nombreMarca')],
-            include:{model:[Color, Marca],attributes:[]}
+            attributes:['id','placa','modelo','pasajeros','transmision','tamano','tipo_combustible','aire_acondicionado','idColor','idMarca',
+                [Sequelize.col('Color.color'), 'color'],[Sequelize.col('Color.codigoHex'),'codigoHex'],[Sequelize.col('Marca.nombreMarca'),'nombreMarca']],
+            include:[{model:Color, attributes:[]},{model:Marca, attributes:[]}]
         })
 
         if (datosVehiculo === null || datosVehiculo === undefined) {
@@ -329,7 +328,7 @@ self.eliminar = async function(req,res,next) {
             }
         )
 
-        if (datos[0] === 0) {
+        if (vehiculo[0] === 0) {
             return res.status(404).json({mensaje: "No se encontró el vehiculo"})
         }
 
@@ -360,6 +359,8 @@ self.consultarColor = async function(req,res,next) {
         if (color === null) {
             return res.status(404).json({mensaje:"No se enecontró el color especificado"})
         }
+
+        return res.status(200).json(color)
     } catch (error) {
         next(error)
     }
@@ -372,15 +373,19 @@ self.registrarColor = async function (req,res,next) {
             return res.status(400).json({errores: errores.array()})
         }
 
-        let {datosColor} = req.body
+        let datosColor = req.body
 
+        console.log(datosColor);
+        
         let validarColor = await Color.findOne({
-            where:{color:datosColor.color},
+            where:{color: datosColor.color},
             raw:true,
             attributes:['codigoHex']
         })
 
-        if (validarColor !== null || validarColor.codigoHex === datosColor.codigoHex) {
+        console.log(validarColor);
+        
+        if (validarColor !== null) {
             return res.status(400).json({mensaje:"Ya hay existe ese color registrado"})
         }
 

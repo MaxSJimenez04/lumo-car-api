@@ -22,13 +22,14 @@ Pago.init(
         },
         fechaPago:{
             type: DataTypes.DATE,
+            allowNull: false
         },
         concepto:{
             type: DataTypes.STRING
         },
-         cvv:{
+        cvv:{
             type: DataTypes.CHAR(3),
-            allowNull: false
+            allowNull: true
         },
         idTarjeta:{
             type: DataTypes.UUID,

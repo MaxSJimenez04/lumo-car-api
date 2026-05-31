@@ -9,7 +9,7 @@ let self = {}
 self.validaciones = {
     registrar:[
         body('nombre', 'La sucursal debe tener un nombre').isString().notEmpty(),
-        body('direccion', 'La sucursal debe tener una direccion').isString.notEmpty(),
+        body('direccion', 'La sucursal debe tener una direccion').isString().notEmpty(),
         body('capacidad', 'Dato inválido').isInt(),
         body('idCiudad','La sucursal debe estar ligada a una ciudad').isInt()
     ],
@@ -36,16 +36,21 @@ self.consultarSucursales = async function(req,res,next) {
         }
         let idCiudadFiltro = req.body.idCiudad
 
+        console.log(idCiudadFiltro);
+        
+        
         let sucursales = await Sucursal.findAll({
             where: {idCiudad: idCiudadFiltro},
             raw:true,
-            attributes: ['id', 'nombre', 'direccion', 'capacidad', 'idCiudad', Sequelize.col(Ciudad.nombreCiudad)],
+            attributes: ['id', 'nombre', 'direccion', 'capacidad', 'idCiudad', [Sequelize.col('Ciudad.nombreCiudad'),'nombreCiudad']],
             include:{model:Ciudad, attributes:[]}
         })
 
         if (sucursales === null) {
             return res.status(404).json({mensaje: "No se encontraron sucursales"})
         }
+
+        return res.status(200).json({sucursales:sucursales})
     } catch (error) {
         next(error)
     }
@@ -58,12 +63,14 @@ self.registrar = async function(req,res,next) {
             return res.status(400).json(errores.array())
         }
 
-        let {datosSucursal} = req.body
+        let datosSucursal = req.body
+        console.log(datosSucursal);
+        
 
         let sucursalNueva = await Sucursal.create({
-            nombre:datosSucursal.nombre,
+            nombre: datosSucursal.nombre,
             direccion: datosSucursal.direccion,
-            capacidad: datosSucursal.cantidad,
+            capacidad: datosSucursal.capacidad,
             idCiudad: datosSucursal.idCiudad
         })
 
@@ -84,11 +91,11 @@ self.registrarCiudad = async function(req,res,next) {
             return res.status(400).json(errores.array())
         }
 
-        let {datosCiudad} = req.body
+        let datosCiudad = req.body
 
         let ciudadNueva = await Ciudad.create({
             nombreCiudad: datosCiudad.nombreCiudad,
-            idEstado = datosCiudad.idEstado
+            idEstado: datosCiudad.idEstado
         })
 
         if (req.bitacora) {

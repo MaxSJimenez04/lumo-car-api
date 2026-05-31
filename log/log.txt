@@ -44,3 +44,15 @@
 2026-05-17T23:36:33.198Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
 2026-05-17T23:43:43.606Z: ACCIÓN: ACTUALIZACIÓN DE SUCURSAL PARA ADMINISTRADOR BrendaMarquez - IP: ::1 - USUARIO: undefined 
 2026-05-17T23:46:52.342Z: ACCIÓN: Inicio de Sesión: EnriquePerez - IP: ::1 - USUARIO: Invitado 
+2026-05-31T00:14:07.350Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-05-31T00:31:13.681Z: ACCIÓN: VEHICULO REGISTRADO 9e4dab34-1bdc-4645-838c-79f505da033f - IP: ::1 - USUARIO: undefined 
+2026-05-31T00:50:16.565Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-05-31T00:54:37.908Z: ACCIÓN: MODIFICACIÓN DE VEHICULO CON PLACA KDA-520-G CON ID undefined - IP: ::1 - USUARIO: undefined 
+2026-05-31T01:00:26.420Z: ACCIÓN: ELIMINACIÓN DE VEHICULO 9e4dab34-1bdc-4645-838c-79f505da033f - IP: ::1 - USUARIO: undefined 
+2026-05-31T01:59:22.948Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-05-31T02:03:15.550Z: ACCIÓN: NUEVO COLOR REGISTRADO: Plata - IP: ::1 - USUARIO: undefined 
+2026-05-31T03:02:29.719Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-05-31T03:05:48.990Z: ACCIÓN: NUEVA SUCURSAL REGISTRADA CON NOMBRE Sucursal Maestros Veracruzanos - IP: ::1 - USUARIO: undefined 
+2026-05-31T03:07:44.713Z: ACCIÓN: NUEVA SUCURSAL REGISTRADA CON NOMBRE Sucursal Coatepec Juan Soto - IP: ::1 - USUARIO: undefined 
+2026-05-31T03:13:36.417Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-05-31T03:14:03.661Z: ACCIÓN: NUEVA CIUDAD REGISTRADA: Veracruz - IP: ::1 - USUARIO: undefined 

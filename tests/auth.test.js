@@ -55,8 +55,6 @@ describe('Pruebas de Iniciar Sesión',() =>{
         }
 
         Usuario.findOne.mockResolvedValue(null)
-        console.log("Auth es: "+auth);
-        console.log("Validator es: " + auth.loginValidator);
         
         await Promise.all(auth.loginValidator.map(validation => validation(req, res, () => {})))
         await auth.login(req, res, next)

@@ -56,3 +56,6 @@
 2026-05-31T03:07:44.713Z: ACCIÓN: NUEVA SUCURSAL REGISTRADA CON NOMBRE Sucursal Coatepec Juan Soto - IP: ::1 - USUARIO: undefined 
 2026-05-31T03:13:36.417Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
 2026-05-31T03:14:03.661Z: ACCIÓN: NUEVA CIUDAD REGISTRADA: Veracruz - IP: ::1 - USUARIO: undefined 
+2026-05-31T23:31:15.654Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-05-31T23:33:04.141Z: ACCIÓN: Inicio de Sesión: Pedro Torres - IP: ::1 - USUARIO: Invitado 
+2026-05-31T23:34:05.344Z: ACCIÓN: Inicio de Sesión: CarlosRuiz90 - IP: ::1 - USUARIO: Invitado 

@@ -32,6 +32,6 @@ router.post('/:usuario/admin-sucursal', Authorize('Administrador,S_Administrador
 router.put('/:usuario/admin-sucursal',Authorize('Administrador,S_Administrador'), bitacoraLogger,usuarios.validaciones.cambiarSucursal, usuarios.transferirSucursal)
 
 //GET /usuarios/id/historial
-router.get('/:id/historial', Authorize('Cliente'), rentas.validaciones.obtenerHistorial, rentas.obtenerHistorial)
+router.get('/:idUsuario/historial', Authorize('Cliente'), rentas.validaciones.obtenerHistorial, rentas.obtenerHistorial)
 
 module.exports = router

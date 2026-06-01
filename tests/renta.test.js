@@ -222,7 +222,7 @@ describe('Pruebas de Obtener Historial', () => {
             {
                 id: 1,
                 fechaInicio: '2026-05-10T10:00:00Z',
-                estadoRenta: 'Completado',
+                estadoRenta: 2,
                 Vehiculo: {
                     id: 'v123',
                     modelo: 'Aveo',

@@ -8,18 +8,19 @@ const {
     postCambiarPlan
 } = require('../controllers/suscripciones.controller');
 
-const { validarJWT } = require('../middlewares/auth.middleware');
+// Importamos Authorize correctamente
+const { Authorize } = require('../middlewares/auth.middleware');
 
 const router = Router();
 
 // Rutas Públicas
 router.get('/planes', getPlanes);
 
-// Rutas Privadas
-router.get('/mi-suscripcion', validarJWT, getMiSuscripcion);
-router.post('/suscribirse', validarJWT, postSuscribirse);
-router.put('/metodo-pago', validarJWT, putCambiarMetodoPago);
-router.put('/cancelar', validarJWT, putCancelarSuscripcion);
-router.post('/cambiar-plan', validarJWT, postCambiarPlan);
+// Rutas Privadas: Reemplazamos validarJWT por Authorize('Cliente')
+router.get('/mi-suscripcion', Authorize('Cliente'), getMiSuscripcion);
+router.post('/suscribirse', Authorize('Cliente'), postSuscribirse);
+router.put('/metodo-pago', Authorize('Cliente'), putCambiarMetodoPago);
+router.put('/cancelar', Authorize('Cliente'), putCancelarSuscripcion);
+router.post('/cambiar-plan', Authorize('Cliente'), postCambiarPlan);
 
 module.exports = router;

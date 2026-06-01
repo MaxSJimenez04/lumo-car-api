@@ -1,20 +1,20 @@
 const { sequelize, Suscripcion, SuscripcionUsuario, Pago, Tarjeta, Usuario } = require('../models');
 const { v4: uuidv4 } = require('uuid');
 
-// Caso de Uso: Consultar catálogo de planes
+// Consultar catálogo de planes
 const obtenerPlanesActivos = async () => {
-    return await Suscripcion.findAll({ where: { estado: 1 } });
+    return await Suscripcion.findAll({ where: { estado: 0 } }); // 0 es un plan activo
 };
 
-// Caso de Uso: Consultar mi suscripción
+// Consultar mi suscripción
 const obtenerSuscripcionActivaUsuario = async (idUsuario) => {
     return await SuscripcionUsuario.findOne({
-        where: { idUsuario, estado: 1 },
+        where: { idUsuario, estado: 0 },
         include: [{ model: Suscripcion }]
     });
 };
 
-// Caso de Uso: Suscribirse (Simulando pago y guardando tarjeta)
+// Suscribirse (Simulando pago y guardando tarjeta)
 const suscribirUsuario = async (idUsuario, datosSuscripcion) => {
     const { idSuscripcion, numeroTarjeta, cvv, titular, fechaVencimiento } = datosSuscripcion;
     
@@ -40,7 +40,7 @@ const suscribirUsuario = async (idUsuario, datosSuscripcion) => {
         const suscripcionUsuario = await SuscripcionUsuario.create({
             idUsuario,
             idSuscripcion: plan.id,
-            estado: 1, // Activa
+            estado: 0, 
             fechaInicio,
             fechaFin
         }, { transaction: t });
@@ -68,7 +68,7 @@ const suscribirUsuario = async (idUsuario, datosSuscripcion) => {
     }
 };
 
-// Caso de Uso: Cambiar método de pago
+// Cambiar método de pago
 const cambiarMetodoPago = async (idUsuario, datosTarjeta) => {
     const { numeroTarjeta, cvv, titular, fechaVencimiento } = datosTarjeta;
     
@@ -84,29 +84,29 @@ const cambiarMetodoPago = async (idUsuario, datosTarjeta) => {
     return nuevaTarjeta;
 };
 
-// Caso de Uso: Cancelar Suscripción
+// Cancelar Suscripción
 const cancelarSuscripcion = async (idUsuario) => {
-    const suscripcion = await SuscripcionUsuario.findOne({ where: { idUsuario, estado: 1 } });
+    const suscripcion = await SuscripcionUsuario.findOne({ where: { idUsuario, estado: 0 } });
     if (!suscripcion) throw new Error('No tienes una suscripción activa para cancelar');
 
-    suscripcion.estado = 0; // cancelada
+    // estado a 1 (Cancelada / Inactiva)
+    suscripcion.estado = 1; 
     await suscripcion.save();
 
-    // Quitamos la suscripcion del perfil del usuario
     await Usuario.update({ idSuscripcion: null }, { where: { id: idUsuario } });
 
     return suscripcion;
 };
 
-// Caso de Uso: Cambiar de Plan 
+// Cambiar de Plan 
 const cambiarPlan = async (idUsuario, datosCambio) => {
     const { nuevoIdSuscripcion, idTarjetaExistente, cvv } = datosCambio;
     const t = await sequelize.transaction();
 
     try {
         await SuscripcionUsuario.update(
-            { estado: 0 }, 
-            { where: { idUsuario, estado: 1 }, transaction: t }
+            { estado: 1 }, 
+            { where: { idUsuario, estado: 0 }, transaction: t }
         );
 
         const nuevoPlan = await Suscripcion.findByPk(nuevoIdSuscripcion);
@@ -119,7 +119,7 @@ const cambiarPlan = async (idUsuario, datosCambio) => {
         const nuevaSuscripcion = await SuscripcionUsuario.create({
             idUsuario,
             idSuscripcion: nuevoPlan.id,
-            estado: 1,
+            estado: 0, // 0 es activo
             fechaInicio,
             fechaFin
         }, { transaction: t });

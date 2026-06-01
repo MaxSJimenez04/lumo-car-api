@@ -1,4 +1,5 @@
 const suscripcionesService = require('../services/suscripciones.service');
+const { ClaimTypes } = require('../config/claimtypes');
 
 const getPlanes = async (req, res) => {
     try {
@@ -11,7 +12,8 @@ const getPlanes = async (req, res) => {
 
 const getMiSuscripcion = async (req, res) => {
     try {
-        const idUsuario = req.usuario.id; 
+        const idUsuario = req.decodedToken[ClaimTypes.Name]; 
+        
         const suscripcion = await suscripcionesService.obtenerSuscripcionActivaUsuario(idUsuario);
         
         if (!suscripcion) {
@@ -25,7 +27,7 @@ const getMiSuscripcion = async (req, res) => {
 
 const postSuscribirse = async (req, res) => {
     try {
-        const idUsuario = req.usuario.id;
+        const idUsuario = req.decodedToken[ClaimTypes.Name];
         const datosSuscripcion = req.body; 
 
         const resultado = await suscripcionesService.suscribirUsuario(idUsuario, datosSuscripcion);
@@ -42,7 +44,7 @@ const postSuscribirse = async (req, res) => {
 
 const putCambiarMetodoPago = async (req, res) => {
     try {
-        const idUsuario = req.usuario.id;
+        const idUsuario = req.decodedToken[ClaimTypes.Name];
         const datosTarjeta = req.body;
 
         const nuevaTarjeta = await suscripcionesService.cambiarMetodoPago(idUsuario, datosTarjeta);
@@ -54,7 +56,7 @@ const putCambiarMetodoPago = async (req, res) => {
 
 const putCancelarSuscripcion = async (req, res) => {
     try {
-        const idUsuario = req.usuario.id;
+        const idUsuario = req.decodedToken[ClaimTypes.Name];
         await suscripcionesService.cancelarSuscripcion(idUsuario);
         res.json({ ok: true, msg: 'Suscripción cancelada correctamente.' });
     } catch (error) {
@@ -64,7 +66,7 @@ const putCancelarSuscripcion = async (req, res) => {
 
 const postCambiarPlan = async (req, res) => {
     try {
-        const idUsuario = req.usuario.id;
+        const idUsuario = req.decodedToken[ClaimTypes.Name];
         const datosCambio = req.body; 
 
         await suscripcionesService.cambiarPlan(idUsuario, datosCambio);

@@ -2,7 +2,7 @@ const {DataTypes, Model} = require('sequelize');
 const sequelize = require('../config/db');
 
 class Tarjeta extends Model{
-    static aassociate(models){
+    static associate(models){
         Tarjeta.belongsTo(models.Usuario, {foreignKey: 'idCliente'})
     }
 }

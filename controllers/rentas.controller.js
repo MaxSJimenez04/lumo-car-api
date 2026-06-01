@@ -1,4 +1,4 @@
-const { Renta, Vehiculo, Usuario, Sucursal, sequelize } = require('../models');
+const { Renta, Vehiculo, Usuario, Sucursal, sequelize, Marca } = require('../models');
 const Sequelize = require('sequelize');
 const bitacora = require('../middlewares/bitacora.middleware');
 const { validationResult, body, param } = require('express-validator');
@@ -7,27 +7,20 @@ const fs = require('fs');
 
 let self = {}
 
-self.rentaValidator = [
-    body('idVehiculo')
-        .notEmpty().withMessage('El id del vehículo no puede estar vacío')
-        .bail()
-        .isUUID().withMessage('Especificar id válida del vehículo'),
-    body('idUsuario')
-        .notEmpty().withMessage('El id del usuario no puede estar vacío')
-        .bail()
-        .isUUID().withMessage('Especificar id válida del usuario')
-]
+const reglaIdVehiculo = (origen) => origen('idVehiculo')
+    .notEmpty().withMessage('El id del vehículo no puede estar vacío')
+    .bail()
+    .isUUID().withMessage('Especificar id válida del vehículo');
+
+const reglaIdUsuario = (origen) => origen('idUsuario')
+    .notEmpty().withMessage('El id del usuario no puede estar vacío')
+    .bail()
+    .isUUID().withMessage('Especificar id válida del usuario');
 
 self.validaciones = {
     crearRenta: [
-        body('idVehiculo')
-            .notEmpty().withMessage('El id del vehículo no puede estar vacío')
-            .bail()
-            .isUUID().withMessage('Especificar id válida del vehículo'),
-        body('idUsuario')
-            .notEmpty().withMessage('El id del usuario no puede estar vacío')
-            .bail()
-            .isUUID().withMessage('Especificar id válida del usuario'),
+        reglaIdVehiculo(body),
+        reglaIdUsuario(body),
         body('fechaInicio')
             .notEmpty().withMessage('Especificar fecha de inicio')
             .bail()
@@ -36,8 +29,13 @@ self.validaciones = {
             .notEmpty().withMessage('Especificar fecha de finalización')
             .bail()
             .isISO8601().withMessage('Especificar fecha de finalización válida')
+    ],
+
+    obtenerHistorial: [
+        reglaIdUsuario(param)
     ]
 }
+
 self.crearRenta = async function (req, res, next) {
     try {
         const errores = validationResult(req);
@@ -107,6 +105,64 @@ self.crearRenta = async function (req, res, next) {
 
     } catch (error) {
         next(error);
+    }
+}
+
+self.obtenerHistorial = async function (req, res, next) {
+    try {
+        const errores = validationResult(req)
+        if (!errores.isEmpty()) {
+            return res.status(400).json({ errores: errores.array() })
+        }
+
+        const { idUsuario } = req.params;
+
+        const usuarioExiste = await Usuario.findByPk(idUsuario, { attributes: ['id'] });
+
+        if (!usuarioExiste) {
+            return res.status(404).json({
+                mensaje: "No se encontró el usuario"
+            });
+        }
+
+        const historial = await Renta.findAll({
+            where: {
+                idUsuario: idUsuario,
+                estadoRenta: [2, 4]
+            },
+            attributes: ['id', 'fechaInicio', 'fechaFin', 'estadoRenta'],
+            include: [
+                {
+                    model: Vehiculo,
+                    attributes: ['id', 'modelo', 'placa'],
+                    include: [
+                        {
+                            model: Sucursal,
+                            attributes: ['nombre', 'direccion']
+                        },
+                        {
+                            model: Marca,
+                            attributes: ['nombreMarca']
+                        }
+                    ]
+                }
+            ],
+            order: [['fechaInicio', 'DESC']]
+        })
+
+        if (!historial || historial.length === 0) {
+            return res.status(200).json({
+                mensaje: "Sin rentas",
+                datos: []
+            })
+        }
+
+        return res.status(200).json({
+            mensaje: "Historial de rentas recuperado con éxito",
+            datos: historial
+        })
+    } catch (error) {
+        console.error()
     }
 }
 

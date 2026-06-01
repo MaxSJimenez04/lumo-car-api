@@ -6,23 +6,45 @@ const mockTransaction = {
     LOCK: { UPDATE: 'UPDATE' }
 };
 
-jest.mock('../models', () => ({
-    sequelize: {
-        transaction: jest.fn(() => Promise.resolve(mockTransaction))
-    },
-    Vehiculo: {
-        findByPk: jest.fn()
-    },
-    Renta: {
-        create: jest.fn()
-    }
-}));
+jest.mock('../models', () => {
+    return {
+        sequelize: {
+            transaction: jest.fn(() => Promise.resolve(mockTransaction)),
+
+            queryInterface: {
+                describeTable: jest.fn().mockResolvedValue({})
+            },
+
+            models: {}
+        },
+
+        Sequelize: {
+            Op: {}
+        },
+
+        Vehiculo: {
+            findByPk: jest.fn()
+        },
+        Renta: {
+            create: jest.fn(),
+            findAll: jest.fn()
+        },
+        Usuario: {
+            findByPk: jest.fn()
+        },
+        Sucursal: { nombre: 'Sucursal' },
+        Marca: { nombreMarca: 'Marca' }
+    };
+});
+
+jest.mock('../middlewares/bitacora.middleware', () => {
+    return jest.fn((req, res, next) => next());
+});
 
 const rentaController = require('../controllers/rentas.controller');
 const { validaciones } = require('../controllers/rentas.controller');
-const { Vehiculo, Renta, sequelize } = require('../models');
-const { body, header } = require("express-validator");
- 
+const { Vehiculo, Renta, sequelize, Sucursal, Marca, Usuario } = require('../models');
+
 describe('Pruebas de Reservar Vehículo', () => {
     let req, res, next;
 
@@ -31,7 +53,8 @@ describe('Pruebas de Reservar Vehículo', () => {
 
         req = {
             body: {},
-            header: jest.fn()
+            header: jest.fn(),
+            bitacora: jest.fn()
         };
         res = {
             status: jest.fn().mockReturnThis(),
@@ -48,7 +71,7 @@ describe('Pruebas de Reservar Vehículo', () => {
             fechaFin: '20/05/2026'
         };
 
-        await Promise.all(validaciones.crearRenta.map(validacion => validacion(req, res, () => {})));
+        await Promise.all(validaciones.crearRenta.map(validacion => validacion(req, res, () => { })));
 
         await rentaController.crearRenta(req, res, next);
 
@@ -65,7 +88,7 @@ describe('Pruebas de Reservar Vehículo', () => {
             fechaFin: '2020-01-01T15:00:00.000Z'
         };
 
-        await Promise.all(validaciones.crearRenta.map(validacion => validacion(req, res, () => {})));
+        await Promise.all(validaciones.crearRenta.map(validacion => validacion(req, res, () => { })));
         await rentaController.crearRenta(req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(400);
@@ -84,7 +107,7 @@ describe('Pruebas de Reservar Vehículo', () => {
 
         Vehiculo.findByPk.mockResolvedValue(null);
 
-        await Promise.all(validaciones.crearRenta.map(validacion => validacion(req, res, () => {})));
+        await Promise.all(validaciones.crearRenta.map(validacion => validacion(req, res, () => { })));
         await rentaController.crearRenta(req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(404);
@@ -102,7 +125,7 @@ describe('Pruebas de Reservar Vehículo', () => {
         const mockVehiculoOcupado = { estado: 2 };
         Vehiculo.findByPk.mockResolvedValue(mockVehiculoOcupado);
 
-        await Promise.all(validaciones.crearRenta.map(validacion => validacion(req, res, () => {})));
+        await Promise.all(validaciones.crearRenta.map(validacion => validacion(req, res, () => { })));
         await rentaController.crearRenta(req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(409);
@@ -127,7 +150,7 @@ describe('Pruebas de Reservar Vehículo', () => {
         const mockRentaGenerada = { id: 1 };
         Renta.create.mockResolvedValue(mockRentaGenerada);
 
-        await Promise.all(validaciones.crearRenta.map(validacion => validacion(req, res, () => {})));
+        await Promise.all(validaciones.crearRenta.map(validacion => validacion(req, res, () => { })));
         await rentaController.crearRenta(req, res, next);
 
         expect(Vehiculo.findByPk).toHaveBeenCalledWith(req.body.idVehiculo, {
@@ -140,10 +163,87 @@ describe('Pruebas de Reservar Vehículo', () => {
         expect(Renta.create).toHaveBeenCalled();
 
         expect(mockTransaction.commit).toHaveBeenCalled();
-        
+
         expect(res.status).toHaveBeenCalledWith(201);
         expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
             renta: mockRentaGenerada
         }));
+    });
+});
+
+describe('Pruebas de Obtener Historial', () => {
+    let req, res, next;
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        req = { params: {}, header: jest.fn() };
+        res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+        next = jest.fn();
+    });
+
+    test('Devolver código 404 si el usuario no existe', async () => {
+        req.params = { idUsuario: 'a1b2c3d4-e5f6-7890-abcd-1234567890ab' };
+
+        Usuario.findByPk.mockResolvedValue(null);
+
+        await Promise.all(validaciones.obtenerHistorial.map(validacion => validacion(req, res, () => { })));
+        await rentaController.obtenerHistorial(req, res, next);
+
+        expect(Usuario.findByPk).toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+            mensaje: expect.stringContaining('No se encontró el usuario')
+        }));
+    });
+
+    test('Devolver código 200 y arreglo vacío si el usuario no tiene rentas', async () => {
+        req.params = { idUsuario: 'a1b2c3d4-e5f6-7890-abcd-1234567890ab' };
+
+        Usuario.findByPk.mockResolvedValue({ id: req.params.idUsuario });
+
+        Renta.findAll.mockResolvedValue([]);
+
+        await Promise.all(validaciones.obtenerHistorial.map(validacion => validacion(req, res, () => { })));
+        await rentaController.obtenerHistorial(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+            mensaje: "Sin rentas",
+            datos: []
+        }));
+    });
+
+    test('Devolver código 200 y el historial con los datos', async () => {
+        req.params = { idUsuario: 'a1b2c3d4-e5f6-7890-abcd-1234567890ab' };
+
+        Usuario.findByPk.mockResolvedValue({ id: req.params.idUsuario });
+
+        const historialMockeado = [
+            {
+                id: 1,
+                fechaInicio: '2026-05-10T10:00:00Z',
+                estadoRenta: 'Completado',
+                Vehiculo: {
+                    id: 'v123',
+                    modelo: 'Aveo',
+                    placa: 'ABC-123',
+                    Sucursal: { nombre: 'Sucursal Centro', direccion: 'Calle Juárez #403, Colonia Centro' },
+                    Marca: { nombreMarca: 'Chevrolet' }
+                }
+            }
+        ];
+
+        Renta.findAll.mockResolvedValue(historialMockeado);
+
+        await Promise.all(validaciones.obtenerHistorial.map(validacion => validacion(req, res, () => {})));
+        await rentaController.obtenerHistorial(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(200);
+
+        const respuesta = res.json.mock.calls[0][0];
+        expect(respuesta.mensaje).toBe('Historial de rentas recuperado con éxito');
+        expect(respuesta.datos).toHaveLength(1);
+        expect(respuesta.datos[0].Vehiculo.Sucursal.nombre).toBe('Sucursal Centro')
+        expect(respuesta.datos[0].Vehiculo.Marca.nombreMarca).toBe('Chevrolet');
     });
 });

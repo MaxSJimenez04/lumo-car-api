@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const usuarios = require('../controllers/usuarios.controller')
+const rentas = require('../controllers/rentas.controller')
 const {Authorize} = require('../middlewares/auth.middleware')
 const bitacoraLogger = require('../middlewares/bitacora.middleware')
 
@@ -29,5 +30,8 @@ router.post('/:usuario/admin-sucursal', Authorize('Administrador,S_Administrador
 
 //PUT /usuarios/usuario/admin-sucursal
 router.put('/:usuario/admin-sucursal',Authorize('Administrador,S_Administrador'), bitacoraLogger,usuarios.validaciones.cambiarSucursal, usuarios.transferirSucursal)
+
+//GET /usuarios/id/historial
+router.get('/:id/historial', Authorize('Cliente'), rentas.validaciones.obtenerHistorial, rentas.obtenerHistorial)
 
 module.exports = router

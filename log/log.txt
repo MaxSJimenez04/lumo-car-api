@@ -59,3 +59,6 @@
 2026-05-31T23:31:15.654Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
 2026-05-31T23:33:04.141Z: ACCIÓN: Inicio de Sesión: Pedro Torres - IP: ::1 - USUARIO: Invitado 
 2026-05-31T23:34:05.344Z: ACCIÓN: Inicio de Sesión: CarlosRuiz90 - IP: ::1 - USUARIO: Invitado 
+2026-05-31T23:44:48.371Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-05-31T23:54:00.134Z: ACCIÓN: VEHICULO REGISTRADO 6a453624-f5d3-49dd-9970-70bebf84bdc2 - IP: ::1 - USUARIO: undefined 
+2026-05-31T23:54:18.092Z: ACCIÓN: RENTA CREADA 1 - VEHICULO 6a453624-f5d3-49dd-9970-70bebf84bdc2 - USUARIO ea9fe38a-6441-4ef7-b981-3703a71a8ac0 - IP: ::1 - USUARIO: undefined 

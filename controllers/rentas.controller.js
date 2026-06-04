@@ -1,9 +1,10 @@
-const { Renta, Vehiculo, Usuario, Sucursal, sequelize, Marca } = require('../models');
+const { Renta, Vehiculo, Usuario, Sucursal, Marca, sequelize } = require('../models');
 const Sequelize = require('sequelize');
 const bitacora = require('../middlewares/bitacora.middleware');
 const { validationResult, body, param } = require('express-validator');
-const path = require('path');
-const fs = require('fs');
+const servicioNotificacion = require('../services/notificacion.service');
+const rentasServicio = require('../services/rentas.service');
+
 
 let self = {}
 
@@ -28,11 +29,26 @@ self.validaciones = {
         body('fechaFin')
             .notEmpty().withMessage('Especificar fecha de finalización')
             .bail()
-            .isISO8601().withMessage('Especificar fecha de finalización válida')
+            .isISO8601().withMessage('Especificar fecha de finalización válida'),
+        body('idTarjeta')
+            .notEmpty().withMessage('El id de la tarjeta no puede estar vacío')
+            .bail()
+            .isUUID().withMessage('Especificar id válido de la tarjeta'),
+        body('cvv')
+            .notEmpty().withMessage('El CVV de la tarjeta no puede estar vacío')
+            .bail()
+            .isLength({ min: 3, max: 3 }).withMessage('El CVV debe ser de 3 dígitos')
     ],
 
     obtenerHistorial: [
         reglaIdUsuario(param)
+    ],
+
+    finalizarRenta: [
+        param('idRenta')
+            .notEmpty().withMessage('El id de la renta no puede estar vacío')
+            .bail()
+            .isInt().withMessage('Especificar id válido de la renta')
     ]
 }
 
@@ -43,66 +59,45 @@ self.crearRenta = async function (req, res, next) {
             return res.status(400).json({ errores: errores.array() });
         }
 
-        let { idVehiculo, idUsuario, fechaInicio, fechaFin } = req.body;
+        const { idVehiculo, idUsuario, fechaInicio, fechaFin, idTarjeta, cvv } = req.body;
 
-        let fechaInicioParsed = new Date(fechaInicio);
-        let fechaFinParsed = new Date(fechaFin);
+        const fechaInicioParsed = new Date(fechaInicio);
+        const fechaFinParsed = new Date(fechaFin);
 
         if (fechaFinParsed <= fechaInicioParsed) {
             return res.status(400).json({
                 mensaje: "La fecha y hora de fin debe ser posterior a la de inicio."
-            })
+            });
         }
 
-        const t = await sequelize.transaction();
-
+        let renta, notificacion;
         try {
-            const vehiculo = await Vehiculo.findByPk(idVehiculo, {
-                transaction: t,
-                lock: t.LOCK.UPDATE
-            })
-
-            if (!vehiculo) {
-                await t.rollback()
-                return res.status(404).json({
-                    mensaje: "El vehículo especificado no existe."
-                })
-            }
-
-            if (vehiculo.estado !== 1) {
-                await t.rollback()
-                return res.status(409).json({
-                    mensaje: "Lo sentimos, este vehículo ya no se encuentra disponible." +
-                        "Por favor, seleccione otro."
-                })
-            }
-
-            vehiculo.estado = 2
-            await vehiculo.save({ transaction: t })
-
-            let rentaGenerada = await Renta.create({
+            ({ renta, notificacion } = await rentasServicio.ejecutarCreacionRenta({
+                idVehiculo,
+                idUsuario,
                 fechaInicio: fechaInicioParsed,
                 fechaFin: fechaFinParsed,
-                estadoRenta: 1,
-                idUsuario: idUsuario,
-                idVehiculo: idVehiculo
-            }, { transaction: t })
-
-            await t.commit();
-
-            if (req.bitacora) {
-                req.bitacora(`RENTA CREADA ${rentaGenerada.id} - VEHICULO ${idVehiculo} - USUARIO ${idUsuario}`);
-            }
-
-            return res.status(201).json({
-                mensaje: "Vehículo reservado con éxito. Recuerde llegar a tiempo.",
-                renta: rentaGenerada
-            })
-        } catch (innerError) {
-            t.rollback();
-            throw innerError;
+                idTarjeta,
+                cvv
+            }));
+        } catch (err) {
+            if (err.status) return res.status(err.status).json({ mensaje: err.message });
+            throw err;
         }
 
+        servicioNotificacion.enviarNotificacion(idUsuario, {
+            tipo: 'NUEVA_NOTIFICACION',
+            datos: notificacion
+        });
+
+        if (req.bitacora) {
+            req.bitacora(`RENTA CREADA ${renta.id} - VEHICULO ${idVehiculo} - USUARIO ${idUsuario}`);
+        }
+
+        return res.status(201).json({
+            mensaje: "Vehículo reservado con éxito. Recuerde llegar a tiempo.",
+            renta
+        });
     } catch (error) {
         next(error);
     }
@@ -163,6 +158,23 @@ self.obtenerHistorial = async function (req, res, next) {
         })
     } catch (error) {
         console.error()
+    }
+}
+
+self.finalizarRenta = async function (req, res, next) {
+    const t = await sequelize.transaction();
+
+    try {
+        const errores = validationResult(req);
+        if (!errores.isEmpty()) {
+            await t.rollback();
+            return res.status(400).json({ errores: errores.array() });
+        }
+
+        // TODO: implementar lógica de finalización
+    } catch (error) {
+        await t.rollback();
+        next(error);
     }
 }
 

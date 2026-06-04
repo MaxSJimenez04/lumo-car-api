@@ -4,6 +4,7 @@ const cors = require('cors');
 const db = require('./models')
 const app = express();
 const bitacoraLogger = require('./middlewares/bitacora.middleware')
+const { iniciarScheduler } = require('./services/scheduler.service')
 
 dotenv.config(); //Carga el contenido del .env
 
@@ -38,6 +39,8 @@ async function iniciarServidor() {
         //Si se requiere actualizar el modelo de base de datos
         //await db.sequelize.sync();
         //console.log('Modelo en Base de Datos actualizado.\n')
+
+        iniciarScheduler();
 
         app.listen(process.env.SERVER_PORT, () => {
             console.log(`Servidor activo en puerto ${process.env.SERVER_PORT}...`)

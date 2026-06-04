@@ -21,7 +21,9 @@ jest.mock('../models', () => ({
 jest.mock('../middlewares/bitacora.middleware', () => jest.fn((req, res, next) => next()));
 
 jest.mock('../services/rentas.service', () => ({
-    ejecutarCreacionRenta: jest.fn()
+    ejecutarCreacionRenta: jest.fn(),
+    ejecutarCancelacionRenta: jest.fn(),
+    ejecutarFinalizacionRenta: jest.fn()
 }));
 
 jest.mock('../services/notificacion.service', () => ({
@@ -245,5 +247,182 @@ describe('Pruebas de Obtener Historial', () => {
         expect(respuesta.datos).toHaveLength(1);
         expect(respuesta.datos[0].Vehiculo.Sucursal.nombre).toBe('Sucursal Centro');
         expect(respuesta.datos[0].Vehiculo.Marca.nombreMarca).toBe('Chevrolet');
+    });
+});
+
+describe('Pruebas de Cancelar Renta', () => {
+    let req, res, next;
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        req = { params: {}, header: jest.fn(), bitacora: jest.fn() };
+        res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+        next = jest.fn();
+    });
+
+    test('Devolver código 400 si el idRenta es inválido', async () => {
+        req.params = { idRenta: 'abc' };
+
+        await Promise.all(validaciones.cancelarRenta.map(v => v(req, res, () => {})));
+        await rentaController.cancelarRenta(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(400);
+        const errores = res.json.mock.calls[0][0].errores;
+        expect(errores).toHaveLength(1);
+    });
+
+    test('Devolver código 404 si la renta no existe', async () => {
+        req.params = { idRenta: '99' };
+
+        const err = Object.assign(new Error('La renta especificada no existe.'), { status: 404 });
+        rentasServicio.ejecutarCancelacionRenta.mockRejectedValue(err);
+
+        await Promise.all(validaciones.cancelarRenta.map(v => v(req, res, () => {})));
+        await rentaController.cancelarRenta(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+            mensaje: expect.stringContaining('no existe')
+        }));
+    });
+
+    test('Devolver código 409 si la renta ya no está en estado creada', async () => {
+        req.params = { idRenta: '1' };
+
+        const err = Object.assign(new Error('Solo se pueden cancelar rentas que aún no han iniciado.'), { status: 409 });
+        rentasServicio.ejecutarCancelacionRenta.mockRejectedValue(err);
+
+        await Promise.all(validaciones.cancelarRenta.map(v => v(req, res, () => {})));
+        await rentaController.cancelarRenta(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(409);
+        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+            mensaje: expect.stringContaining('no han iniciado')
+        }));
+    });
+
+    test('Cancelar renta, enviar notificación y responder 200', async () => {
+        req.params = { idRenta: '1' };
+
+        const mockRenta = { id: 1, idUsuario: 'a1b2c3d4-e5f6-7890-abcd-1234567890ab', estadoRenta: 3 };
+        const mockNotificacion = { id: 20, tipo: 'RENTA_CANCELADA' };
+        rentasServicio.ejecutarCancelacionRenta.mockResolvedValue({
+            renta: mockRenta,
+            notificacion: mockNotificacion
+        });
+
+        await Promise.all(validaciones.cancelarRenta.map(v => v(req, res, () => {})));
+        await rentaController.cancelarRenta(req, res, next);
+
+        expect(rentasServicio.ejecutarCancelacionRenta).toHaveBeenCalledWith({ idRenta: '1' });
+
+        expect(servicioNotificacion.enviarNotificacion).toHaveBeenCalledWith(
+            mockRenta.idUsuario,
+            expect.objectContaining({ tipo: 'NUEVA_NOTIFICACION', datos: mockNotificacion })
+        );
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+            renta: mockRenta
+        }));
+    });
+});
+
+describe('Pruebas de Finalizar Renta', () => {
+    let req, res, next;
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        req = { params: {}, header: jest.fn(), bitacora: jest.fn() };
+        res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+        next = jest.fn();
+    });
+
+    test('Devolver código 400 si el idRenta es inválido', async () => {
+        req.params = { idRenta: 'abc' };
+
+        await Promise.all(validaciones.finalizarRenta.map(v => v(req, res, () => {})));
+        await rentaController.finalizarRenta(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(400);
+        const errores = res.json.mock.calls[0][0].errores;
+        expect(errores).toHaveLength(1);
+    });
+
+    test('Devolver código 404 si la renta no existe', async () => {
+        req.params = { idRenta: '99' };
+
+        const err = Object.assign(new Error('La renta especificada no existe.'), { status: 404 });
+        rentasServicio.ejecutarFinalizacionRenta.mockRejectedValue(err);
+
+        await Promise.all(validaciones.finalizarRenta.map(v => v(req, res, () => {})));
+        await rentaController.finalizarRenta(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+            mensaje: expect.stringContaining('no existe')
+        }));
+    });
+
+    test('Devolver código 409 si la renta ya fue finalizada', async () => {
+        req.params = { idRenta: '1' };
+
+        const err = Object.assign(new Error('Esta renta ya fue finalizada.'), { status: 409 });
+        rentasServicio.ejecutarFinalizacionRenta.mockRejectedValue(err);
+
+        await Promise.all(validaciones.finalizarRenta.map(v => v(req, res, () => {})));
+        await rentaController.finalizarRenta(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(409);
+        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+            mensaje: expect.stringContaining('ya fue finalizada')
+        }));
+    });
+
+    test('Finalizar renta a tiempo, sin recargo, y responder 200', async () => {
+        req.params = { idRenta: '1' };
+
+        const mockRenta = { id: 1, idUsuario: 'a1b2c3d4-e5f6-7890-abcd-1234567890ab', estadoRenta: 2 };
+        const mockNotificacion = { id: 30, tipo: 'RENTA_FINALIZADA' };
+        rentasServicio.ejecutarFinalizacionRenta.mockResolvedValue({
+            renta: mockRenta,
+            notificacion: mockNotificacion,
+            recargo: { aplicaRecargo: false, montoRecargo: 0 }
+        });
+
+        await Promise.all(validaciones.finalizarRenta.map(v => v(req, res, () => {})));
+        await rentaController.finalizarRenta(req, res, next);
+
+        expect(servicioNotificacion.enviarNotificacion).toHaveBeenCalledWith(
+            mockRenta.idUsuario,
+            expect.objectContaining({ tipo: 'NUEVA_NOTIFICACION', datos: mockNotificacion })
+        );
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+            recargo: 0,
+            renta: mockRenta
+        }));
+    });
+
+    test('Finalizar renta con retraso, aplicar recargo y responder 200', async () => {
+        req.params = { idRenta: '1' };
+
+        const mockRenta = { id: 1, idUsuario: 'a1b2c3d4-e5f6-7890-abcd-1234567890ab', estadoRenta: 4 };
+        const mockNotificacion = { id: 31, tipo: 'RENTA_FINALIZADA' };
+        rentasServicio.ejecutarFinalizacionRenta.mockResolvedValue({
+            renta: mockRenta,
+            notificacion: mockNotificacion,
+            recargo: { aplicaRecargo: true, horasExtra: 2, montoRecargo: 100 }
+        });
+
+        await Promise.all(validaciones.finalizarRenta.map(v => v(req, res, () => {})));
+        await rentaController.finalizarRenta(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+            recargo: 100,
+            renta: mockRenta
+        }));
     });
 });

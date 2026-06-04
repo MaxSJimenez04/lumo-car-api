@@ -1,4 +1,4 @@
-const { Renta, Vehiculo, Usuario, Sucursal, Marca, sequelize } = require('../models');
+const { Renta, Vehiculo, Usuario, Sucursal, Marca } = require('../models');
 const Sequelize = require('sequelize');
 const bitacora = require('../middlewares/bitacora.middleware');
 const { validationResult, body, param } = require('express-validator');
@@ -37,6 +37,8 @@ self.validaciones = {
         body('cvv')
             .notEmpty().withMessage('El CVV de la tarjeta no puede estar vacío')
             .bail()
+            .isNumeric({ no_symbols: true }).withMessage('El CVV debe contener únicamente números')
+            .bail()
             .isLength({ min: 3, max: 3 }).withMessage('El CVV debe ser de 3 dígitos')
     ],
 
@@ -45,6 +47,13 @@ self.validaciones = {
     ],
 
     finalizarRenta: [
+        param('idRenta')
+            .notEmpty().withMessage('El id de la renta no puede estar vacío')
+            .bail()
+            .isInt().withMessage('Especificar id válido de la renta')
+    ],
+
+    cancelarRenta: [
         param('idRenta')
             .notEmpty().withMessage('El id de la renta no puede estar vacío')
             .bail()
@@ -162,18 +171,72 @@ self.obtenerHistorial = async function (req, res, next) {
 }
 
 self.finalizarRenta = async function (req, res, next) {
-    const t = await sequelize.transaction();
-
     try {
         const errores = validationResult(req);
         if (!errores.isEmpty()) {
-            await t.rollback();
             return res.status(400).json({ errores: errores.array() });
         }
 
-        // TODO: implementar lógica de finalización
+        const { idRenta } = req.params;
+
+        let renta, notificacion, recargo;
+        try {
+            ({ renta, notificacion, recargo } = await rentasServicio.ejecutarFinalizacionRenta({ idRenta }));
+        } catch (err) {
+            if (err.status) return res.status(err.status).json({ mensaje: err.message });
+            throw err;
+        }
+
+        servicioNotificacion.enviarNotificacion(renta.idUsuario, {
+            tipo: 'NUEVA_NOTIFICACION',
+            datos: notificacion
+        });
+
+        if (req.bitacora) {
+            req.bitacora(`RENTA FINALIZADA ${renta.id} - USUARIO ${renta.idUsuario}`);
+        }
+
+        return res.status(200).json({
+            mensaje: 'Renta finalizada con éxito.',
+            recargo: recargo.aplicaRecargo ? recargo.montoRecargo : 0,
+            renta
+        });
     } catch (error) {
-        await t.rollback();
+        next(error);
+    }
+}
+
+self.cancelarRenta = async function (req, res, next) {
+    try {
+        const errores = validationResult(req);
+        if (!errores.isEmpty()) {
+            return res.status(400).json({ errores: errores.array() });
+        }
+
+        const { idRenta } = req.params;
+
+        let renta, notificacion;
+        try {
+            ({ renta, notificacion } = await rentasServicio.ejecutarCancelacionRenta({ idRenta }));
+        } catch (err) {
+            if (err.status) return res.status(err.status).json({ mensaje: err.message });
+            throw err;
+        }
+
+        servicioNotificacion.enviarNotificacion(renta.idUsuario, {
+            tipo: 'NUEVA_NOTIFICACION',
+            datos: notificacion
+        });
+
+        if (req.bitacora) {
+            req.bitacora(`RENTA CANCELADA ${renta.id} - USUARIO ${renta.idUsuario}`);
+        }
+
+        return res.status(200).json({
+            mensaje: 'Renta cancelada con éxito.',
+            renta
+        });
+    } catch (error) {
         next(error);
     }
 }

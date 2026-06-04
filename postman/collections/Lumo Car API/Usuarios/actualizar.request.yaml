@@ -1,0 +1,21 @@
+$kind: http-request
+name: 'actualizar usuario :usuario'
+description: 'Update a user profile. Bearer auth required.'
+method: PUT
+url: '{{baseUrl}}/usuarios/:usuario'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+pathVariables:
+  - key: usuario
+    value: johndoe
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "John",
+      "apellidos": "Doe",
+      "correo": "john@example.com",
+      "telefono": "5551234567"
+    }

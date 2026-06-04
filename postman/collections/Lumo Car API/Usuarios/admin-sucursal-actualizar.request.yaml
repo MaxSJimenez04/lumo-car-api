@@ -1,0 +1,18 @@
+$kind: http-request
+name: 'actualizar admin-sucursal :usuario'
+description: 'Update the branch assigned to a branch admin. Bearer auth required.'
+method: PUT
+url: '{{baseUrl}}/usuarios/:usuario/admin-sucursal'
+order: 8000
+headers:
+  - key: Content-Type
+    value: application/json
+pathVariables:
+  - key: usuario
+    value: johndoe
+body:
+  type: json
+  content: |-
+    {
+      "idSucursal": 2
+    }

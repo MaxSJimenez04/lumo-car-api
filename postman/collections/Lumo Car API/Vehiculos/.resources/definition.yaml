@@ -1,0 +1,4 @@
+$kind: collection
+name: Vehiculos
+description: 'Vehicle endpoints (base path /vehiculos).'
+order: 5000

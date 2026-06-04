@@ -1,0 +1,9 @@
+$kind: http-request
+name: 'obtener usuario :usuario'
+description: 'Get a user profile. Bearer auth required.'
+method: GET
+url: '{{baseUrl}}/usuarios/:usuario'
+order: 3000
+pathVariables:
+  - key: usuario
+    value: johndoe

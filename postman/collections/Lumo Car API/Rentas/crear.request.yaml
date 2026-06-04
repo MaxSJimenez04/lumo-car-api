@@ -1,0 +1,20 @@
+$kind: http-request
+name: crear renta
+description: 'Create a rental. Bearer auth required (role: Cliente).'
+method: POST
+url: '{{baseUrl}}/rentas/'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "idVehiculo": "<uuid vehiculo>",
+      "idUsuario": "<uuid usuario>",
+      "fechaInicio": "2026-06-10T10:00:00Z",
+      "fechaFin": "2026-06-12T10:00:00Z",
+      "idTarjeta": "<uuid tarjeta>",
+      "cvv": "123"
+    }

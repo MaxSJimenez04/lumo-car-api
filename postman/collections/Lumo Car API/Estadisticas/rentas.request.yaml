@@ -1,0 +1,6 @@
+$kind: http-request
+name: estadisticas rentas
+description: 'Rental statistics. Bearer auth required (role: Administrador).'
+method: GET
+url: '{{baseUrl}}/estadisticas/rentas'
+order: 1000

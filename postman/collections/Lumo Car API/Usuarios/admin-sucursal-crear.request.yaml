@@ -1,0 +1,18 @@
+$kind: http-request
+name: 'crear admin-sucursal :usuario'
+description: 'Assign a branch admin role to the user. Bearer auth required.'
+method: POST
+url: '{{baseUrl}}/usuarios/:usuario/admin-sucursal'
+order: 7000
+headers:
+  - key: Content-Type
+    value: application/json
+pathVariables:
+  - key: usuario
+    value: johndoe
+body:
+  type: json
+  content: |-
+    {
+      "idSucursal": 1
+    }

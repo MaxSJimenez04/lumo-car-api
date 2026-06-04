@@ -1,0 +1,4 @@
+$kind: collection
+name: Estadisticas
+description: 'Statistics endpoints (base path /estadisticas).'
+order: 8000

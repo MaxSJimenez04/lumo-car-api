@@ -1,0 +1,24 @@
+$kind: http-request
+name: crear vehiculo
+description: 'Create a vehicle. Bearer auth required.'
+method: POST
+url: '{{baseUrl}}/vehiculos/'
+order: 3000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "placa": "ABC-12-34",
+      "modelo": "Civic",
+      "pasajeros": 5,
+      "transmision": true,
+      "tamano": "B",
+      "tipo_combustible": 1,
+      "aireAcondicionado": true,
+      "idColor": 1,
+      "idMarca": 1,
+      "idSucursal": 1
+    }

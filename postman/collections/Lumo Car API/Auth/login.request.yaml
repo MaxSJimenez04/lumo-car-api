@@ -1,0 +1,18 @@
+$kind: http-request
+name: login
+description: 'Authenticate a user and receive a JWT. No Auth (public).'
+method: POST
+url: '{{baseUrl}}/auth/login'
+order: 1000
+auth:
+  type: noauth
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "usuario": "<usuario>",
+      "contrasena": "<contrasena>"
+    }

@@ -1,0 +1,17 @@
+$kind: http-request
+name: listar ciudades por estado
+description: 'List cities by state. No Auth (public).'
+method: GET
+url: '{{baseUrl}}/sucursales/ciudades'
+order: 3000
+auth:
+  type: noauth
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "idEstado": 1
+    }

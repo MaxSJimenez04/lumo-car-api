@@ -1,0 +1,11 @@
+$kind: http-request
+name: 'obtener main-picture :id'
+description: 'Get the vehicle main picture. No Auth (public).'
+method: GET
+url: '{{baseUrl}}/vehiculos/:id/main-picture'
+order: 8000
+auth:
+  type: noauth
+pathVariables:
+  - key: id
+    value: '1'

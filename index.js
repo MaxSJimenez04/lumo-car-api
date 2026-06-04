@@ -29,6 +29,7 @@ app.use("/archivos", require('./routes/archivos.routes'))
 app.use("/vehiculos",require('./routes/vehiculos.routes'))
 app.use("/sucursales", require('./routes/sucursales.routes'))
 app.use("/rentas", require('./routes/rentas.routes'))
+app.use("/estadisticas", require('./routes/estadisticas.routes'))
 app.get('/*splat', (req, res) => {res.status(404).send("RECURSO NO ENCONTRADO")})
 
 async function iniciarServidor() {

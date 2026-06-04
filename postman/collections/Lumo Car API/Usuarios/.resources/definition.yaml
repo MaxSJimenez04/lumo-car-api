@@ -1,0 +1,4 @@
+$kind: collection
+name: Usuarios
+description: 'User management endpoints (base path /usuarios).'
+order: 2000

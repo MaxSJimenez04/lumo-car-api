@@ -1,0 +1,16 @@
+$kind: collection
+name: Lumo Car API
+description: |-
+  Collection for the LUMO vehicle-rental API (Node/Express). Uses Bearer token auth
+  inherited at the collection level via {{token}}. Public and login endpoints override
+  with No Auth.
+variables:
+  - key: baseUrl
+    value: 'http://localhost:3000'
+  - key: token
+    value: ''
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'

@@ -16,7 +16,7 @@ router.get('/:usuario', Authorize('Cliente,Administrador,S_Administrador'), usua
 router.put('/:usuario',bitacoraLogger,Authorize('Cliente,Administrador'), usuarios.validaciones.modificarPerfil, usuarios.modificar)
 
 //GET /usuarios/usuario/pfp
-router.get('/:usuario', Authorize('Cliente,Administrador,S_Administrador'), usuarios.validaciones.consultarFoto, usuarios.consultarFotoPerfil)
+router.get('/:usuario/pfp', Authorize('Cliente,Administrador,S_Administrador'), usuarios.validaciones.consultarFoto, usuarios.consultarFotoPerfil)
 
 //POST /usuarios/usuario/pfp/
 router.post('/:usuario/pfp/', bitacoraLogger, Authorize('Cliente,Administrador'), usuarios.validaciones.subirFoto, usuarios.asociarFotoPerfil)

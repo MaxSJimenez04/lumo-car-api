@@ -10,34 +10,32 @@ const Authorize = (rol) => {
             const authHeader = req.header('Authorization')
 
             if (!authHeader || !authHeader.startsWith('Bearer ')) {
-                const error = new Error('Acceso denegado')
-                error.statusCode = 401
-                return next(error)
+                return res.status(401).json({ mensaje: 'Acceso denegado' })
             }
 
             const token = authHeader.split(' ')[1]
             const decodedToken = jwt.verify(token, jwtSecret)
 
-            if (rol.split(',').indexOf(decodedToken[ClaimTypes.Role]) == -1) {
-                const error = new Error('Acceso denegado')
-                error.statusCode = 401
-                return next(error)
+            if (rol.split(',').indexOf(decodedToken[ClaimTypes.Role]) === -1) {
+                return res.status(401).json({ mensaje: 'Acceso denegado' })
             }
 
             req.decodedToken = decodedToken
 
-            var minutosRestantes = (decodedToken.exp - (new Date().getTime() / 1000)) / 60
+            const segundosRestantes =
+                decodedToken.exp - Math.floor(Date.now() / 1000)
 
-            //Renovar token cuando tiempo restate < 2 minutos
-            if (minutosRestantes < 2) {
-                var nuevoToken = GenerarToken(decodedToken[ClaimTypes.Name],decodedToken[ClaimTypes.GivenName], decodedToken[ClaimTypes.Role])
-                res.header("Set-Authorization", nuevoToken)
+            if (segundosRestantes < 120) {
+                req.nuevoToken = GenerarToken(
+                    decodedToken[ClaimTypes.Name],
+                    decodedToken[ClaimTypes.GivenName],
+                    decodedToken[ClaimTypes.Role]
+                )
             }
 
             return next()
         } catch (error) {
-            error.statusCode = 401
-            return next(error)
+            return res.status(401).json({ mensaje: 'Token inválido' })
         }
     }
 }

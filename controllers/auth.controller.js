@@ -127,13 +127,22 @@ self.solicitudRestablecerContrasena = async function(req, res, next) {
     }
 }
 
-self.tiempoRestante = async function(req,res) {
+self.tiempoRestante = async function(req, res) {
     const tiempo = tiempoRestanteToken(req)
 
     if (tiempo === null) {
-        return res.status(401).json({mensaje: "Token inválido o ya ha expirado"})
+        return res.status(401).json({
+            mensaje: "Token inválido o ya ha expirado"
+        })
     }
-    return res.status(200).json({tiempo: tiempo})
+
+    const response = { tiempo }
+
+    if (req.nuevoToken) {
+        response.jwt = req.nuevoToken
+    }
+
+    return res.status(200).json(response)
 }
 
 self.validarCodigoSolicitud = async function(req, res) {

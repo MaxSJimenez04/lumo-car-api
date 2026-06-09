@@ -10,7 +10,7 @@ const GenerarToken = (usuario, nombre, rol) => {
     },
     jwtSecret,
     {
-        expiresIn: '3m'
+        expiresIn: '30m'
     })
     return token
 }

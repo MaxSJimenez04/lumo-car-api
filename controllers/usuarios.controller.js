@@ -361,10 +361,9 @@ self.consultarFotoPerfil = async function(req, res, next) {
             attributes:['id', 'nombreArchivo','ruta']
         })
 
-        console.log(datosImagen.ruta);
         
         if (datosImagen === null || datosImagen === undefined) {
-            let rutaImagen = path.join(__dirname, '../uploads/usuarios', 'default-profile-picture-png')
+            let rutaImagen = path.join(__dirname, '../uploads/usuarios', 'default-profile-picture.png')
             return res.status(200).sendFile(rutaImagen)
         }else{
             let rutaImagen = path.join(__dirname,'../uploads/usuarios', datosImagen.nombreArchivo)

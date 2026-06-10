@@ -378,7 +378,7 @@ self.consultarFotoPerfil = async function(req, res, next) {
 self.asociarFotoPerfil = async function(req,res, next) {
     try {
         let errores = validationResult(req);
-        if (!errores == null) {
+        if (!errores.isEmpty()) {
             return res.status(400).json({errores: errores.array()})
         }
 
@@ -398,6 +398,10 @@ self.asociarFotoPerfil = async function(req,res, next) {
 
         let idUsuario = usuarioBD.id
 
+        if (!usuarioBD) {
+            return res.status(404).json({mensaje: "No se encontró el usuario"})
+        }
+
         let imagenesExistentes = await Archivo.findAll({
             where: {idUsuario: idUsuario},
             raw:true,
@@ -413,11 +417,10 @@ self.asociarFotoPerfil = async function(req,res, next) {
         }
         
         if (imagenesExistentes.length !== 0) {
-            imagenesExistentes.forEach(imagen =>{
-                if (imagen.esPrincipal == true) {
-                    Archivo.update({esPrincipal: false}, {where: {id: imagen.id}})
-                }
-            })    
+              await Promise.all(
+                    imagenesExistentes.filter(imagen => imagen.esPrincipal).map(imagen =>
+                    Archivo.update({ esPrincipal: false },{ where: { id: imagen.id } })
+            ));  
         }
 
         let datos = await Archivo.update({idUsuario: idUsuario, esPrincipal: true}, {where:{id:idArchivo}})

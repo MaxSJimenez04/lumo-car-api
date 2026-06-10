@@ -5,43 +5,39 @@ const bitacora = require('../middlewares/bitacora.middleware')
 
 let self = {}
 
-self.crear = async function(req, res, next) {
+self.crearUsuario = async (req, res, next) => {
     try {
-        console.log(req.file);
-        let binario = null;
-        let indb = false;
-        let carpeta = req.carpeta
 
-        if (req.file === undefined) {
-            return res.status(400).json({mensaje: 'El archivo es obligatorio'})
-        }
+        const datos = await guardarArchivo(
+            req,
+            "usuarios"
+        );
 
-        if (process.env.FILES_IN_BD == "true") {
-            /*En esta implementación no se requiere guardar los archivos en la base de datos
-            Pero si se requiere en otras implementaciones se debe implementar la creación del objeto aquí */
-            indb = true
-        }
+        return res.status(201).json({
+            detalles: datos
+        });
 
-        const ruta = "/uploads" + carpeta
-        binario = fs.readFileSync(ruta + req.file.filename)
-        fs.existsSync(ruta + req.file.filename) && fs.unlinkSync(ruta + req.file.filename)
-
-        let datos = await Archivo.create({
-            id: crypto.randomUUID(),
-            nombreOriginal: req.file.originalname,
-            nombreArchivo: req.file.filename,
-            ruta: ruta+req.file.filename
-        })
-
-        if (req.bitacora) {
-            req.bitacora(`SUBIR ARCHIVO ${req.file.filename}`)
-        }
-
-        return res.status(201).json({detalles: datos})
     } catch (error) {
-        next(error)
+        next(error);
     }
-}
+};
+
+self.crearVehiculo = async (req, res, next) => {
+    try {
+
+        const datos = await guardarArchivo(
+            req,
+            "vehiculos"
+        );
+
+        return res.status(201).json({
+            detalles: datos
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};
 
 self.eliminar = async function(req, res, next) {
     try {
@@ -66,6 +62,33 @@ self.eliminar = async function(req, res, next) {
     } catch (error) {
         next(error)
     }
+}
+
+async function guardarArchivo(req, carpeta) {
+
+
+    /*let binario = null; Datos para guardar en BASE DE DATOS
+    let indb = false;*/
+
+    if (!req.file) {
+        throw new Error("El archivo es obligatorio");
+    }
+
+    const ruta = `/uploads/${carpeta}/${req.file.filename}`;
+
+    if (process.env.FILES_IN_BD == "true") {
+            /*En esta implementación no se requiere guardar los archivos en la base de datos
+            Pero si se requiere en otras implementaciones se debe implementar la creación del objeto aquí */
+            indb = true
+    }
+    const datos = await Archivo.create({
+        id: crypto.randomUUID(),
+        nombreOriginal: req.file.originalname,
+        nombreArchivo: req.file.filename,
+        ruta
+    });
+
+    return datos;
 }
 
 module.exports = self

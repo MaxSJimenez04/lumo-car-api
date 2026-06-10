@@ -52,12 +52,12 @@ module.exports = {
     ])
 
     await queryInterface.bulkInsert('Sucursal',[
-      {nombre: 'Sucursal 20 de Noviembre', direccion: 'Av. 20 de Noviembre 278', capacidad: 250, idCiudad: 1, createdAt: new Date(), updatedAt: new Date()},
-      {nombre: 'Sucursal Avenida Américas', direccion: 'Av. Américas 37A', capacidad: 350, idCiudad: 1, createdAt: new Date(), updatedAt: new Date()},
-      {nombre: 'Sucursal Centro', direccion: 'José Azueta 25', capacidad: 100, idCiudad: 1, createdAt: new Date(), updatedAt: new Date()},
-      {nombre: 'Sucursal Coatepec', direccion: 'C. Libertad 280', capacidad: 650, idCiudad: 2, createdAt: new Date(), updatedAt: new Date()},
-      {nombre: 'Sucursal 5 poniente', direccion: 'Av 5 Pte 139', capacidad: 100, idCiudad: 3, createdAt: new Date(), updatedAt: new Date()},
-      {nombre: 'Sucursal Angelópolis', direccion: 'Blvd. América 401', capacidad: 780, idCiudad: 3, createdAt: new Date(), updatedAt: new Date()}
+      {nombre: 'Sucursal 20 de Noviembre', direccion: 'Av. 20 de Noviembre 278', capacidad: 250, latitud:19.5306657, longitud:-96.9135644,idCiudad: 1, createdAt: new Date(), updatedAt: new Date()},
+      {nombre: 'Sucursal Avenida Américas', direccion: 'Av. Américas 37A', capacidad: 350,latitud:19.543159, longitud:-96.9286889, idCiudad: 1, createdAt: new Date(), updatedAt: new Date()},
+      {nombre: 'Sucursal Centro', direccion: 'José Azueta 25', capacidad: 100,latitud:19.5303581, longitud:-96.928378 ,idCiudad: 1, createdAt: new Date(), updatedAt: new Date()},
+      {nombre: 'Sucursal Coatepec', direccion: 'C. Libertad 280', capacidad: 650, latitud:19.4518528, longitud:-96.9567275,idCiudad: 2, createdAt: new Date(), updatedAt: new Date()},
+      {nombre: 'Sucursal 5 poniente', direccion: 'Av 5 Pte 139', capacidad: 100, latitud:19.0434741, longitud:-98.2033738,idCiudad: 3, createdAt: new Date(), updatedAt: new Date()},
+      {nombre: 'Sucursal Angelópolis', direccion: 'Blvd. América 401', capacidad: 780,latitud:18.9971112, longitud:-98.2834959 ,idCiudad: 3, createdAt: new Date(), updatedAt: new Date()}
     ])
 
     await queryInterface.bulkInsert('Vehiculo',[

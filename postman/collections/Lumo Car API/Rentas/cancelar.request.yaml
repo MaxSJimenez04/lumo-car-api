@@ -1,0 +1,9 @@
+$kind: http-request
+name: 'cancelar :idRenta'
+description: 'Cancel a rental. Bearer auth required (role: Cliente). No body.'
+method: PUT
+url: '{{baseUrl}}/rentas/:idRenta/cancelar'
+order: 4000
+pathVariables:
+  - key: idRenta
+    value: '<uuid renta>'

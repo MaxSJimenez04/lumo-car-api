@@ -1,0 +1,8 @@
+$kind: http-request
+name: listar estados
+description: 'List all states. No Auth (public).'
+method: GET
+url: '{{baseUrl}}/sucursales/estados'
+order: 5000
+auth:
+  type: noauth

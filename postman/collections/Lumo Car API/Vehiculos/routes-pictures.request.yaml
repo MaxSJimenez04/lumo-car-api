@@ -1,0 +1,11 @@
+$kind: http-request
+name: 'obtener routes-pictures :id'
+description: 'Get the vehicle route pictures. No Auth (public).'
+method: GET
+url: '{{baseUrl}}/vehiculos/:id/routes-pictures'
+order: 9000
+auth:
+  type: noauth
+pathVariables:
+  - key: id
+    value: '1'

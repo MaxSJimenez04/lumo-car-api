@@ -1,4 +1,4 @@
-const {Usuario, Rol, Archivo, Sucursal, sequelize, AdminSucursal} = require('../models')
+const {Usuario, Rol, Archivo, Sucursal, sequelize} = require('../models')
 const Sequelize = require('sequelize')
 const bitacora = require('../middlewares/bitacora.middleware')
 const {validationResult, param, body} = require('express-validator')
@@ -110,13 +110,11 @@ self.registro = async function(req, res, next){
 self.consultaGeneral = async function(req, res, next){
     try {
         let datos = await Usuario.findAll({
-            where: sequelize.or(
-                {idRol: 2},
-                {idRol: 3}
-            ),
+            where:{idRol: 2},
             raw: true,
-            attributes: ['id', 'usuario', 'nombre', 'apellidos', 'correo','fecha_nacimiento', Sequelize.col('Rol.nombreRol')],
-            include: {model: Rol, attributes: []}
+            attributes: ['id', 'usuario', 'nombre', 'apellidos', 'correo', 'telefono', 'fecha_nacimiento', 'idRol', 
+                [Sequelize.col('Rol.nombreRol'), 'Rol'], 'idSucursal',[Sequelize.col('Sucursals.nombre'), 'Sucursal']],
+            include:[{model: Rol, attributes:[]},{model:Sucursal, attributes:[]}]
         })
 
         if (datos === null) {
@@ -125,6 +123,9 @@ self.consultaGeneral = async function(req, res, next){
         return res.status(200).json({usuarios: datos})
 
     } catch (error) {
+        console.error(error);
+        
+        
         next(error)
     }
 }
@@ -199,7 +200,7 @@ self.modificar = async function(req, res, next){
         }
 
         if (req.bitacora) {
-            req.bitacora(`MODIFICACION DE PERFIL ${usuario} con ID ${req.body.id}`)
+            req.bitacora(`MODIFICACION DE PERFIL ${usuario} con ID ${coincidencia.id}`)
         }
 
         return res.status(204).send()
@@ -240,7 +241,7 @@ self.eliminar = async function(req, res, next) {
 self.asignarSucursal = async function(req, res, next) {
     try {
         let errores = validationResult(req)
-        if (!errores == null) {
+        if (!errores.isEmpty()) {
             return res.status(400).json({mensaje: errores.array()})
         }
         let {usuario} = req.params
@@ -255,13 +256,13 @@ self.asignarSucursal = async function(req, res, next) {
         }
 
         if (datos.idRol !== 2) {
-            return res(400).json({mensaje: "Operación inválida, no se puede asignar una sucursal a un cliente"})
             if (req.bitacora) {
                 req.bitacora(`INTENTO DE ELEVACIÓN DE PRIVILEGIOS`)
-            }
+            } 
+            return res.status(400).json({mensaje: "Operación inválida, no se puede asignar una sucursal a un cliente"})
         }
 
-        let sucursal = await Sucursal.findByPk(idSucursal)
+        let sucursal = await Sucursal.findByPk(idSucursal, {raw:true})
 
         if (sucursal === null || sucursal === undefined) {
             return res.status(404).json({mensaje: "No se encontró la sucursal especificada"})
@@ -272,8 +273,19 @@ self.asignarSucursal = async function(req, res, next) {
             raw:true
         })
 
-        if (datosAsignacion !== null) {
-            return res.status(400).json({mensaje: "El usuario ya está asignado a una sucursal."})
+        if (datosAsignacion) {
+            await AdminSucursal.update(
+                { idSucursal },
+                {
+                    where: {
+                        idUsuario: datos.id
+                    }
+                }
+            )
+
+            return res.status(200).json({
+                mensaje: "Sucursal actualizada correctamente"
+            })
         }
 
         let asignacionSucursal = await AdminSucursal.create({
@@ -287,6 +299,8 @@ self.asignarSucursal = async function(req, res, next) {
 
         return res.status(201).json({asignacion: asignacionSucursal})
     } catch (error) {
+        console.error(error);
+        
         next(error)
     }
 }
@@ -361,10 +375,9 @@ self.consultarFotoPerfil = async function(req, res, next) {
             attributes:['id', 'nombreArchivo','ruta']
         })
 
-        console.log(datosImagen.ruta);
         
         if (datosImagen === null || datosImagen === undefined) {
-            let rutaImagen = path.join(__dirname, '../uploads/usuarios', 'default-profile-picture-png')
+            let rutaImagen = path.join(__dirname, '../uploads/usuarios', 'default-profile-picture.png')
             return res.status(200).sendFile(rutaImagen)
         }else{
             let rutaImagen = path.join(__dirname,'../uploads/usuarios', datosImagen.nombreArchivo)
@@ -379,7 +392,7 @@ self.consultarFotoPerfil = async function(req, res, next) {
 self.asociarFotoPerfil = async function(req,res, next) {
     try {
         let errores = validationResult(req);
-        if (!errores == null) {
+        if (!errores.isEmpty()) {
             return res.status(400).json({errores: errores.array()})
         }
 
@@ -399,6 +412,10 @@ self.asociarFotoPerfil = async function(req,res, next) {
 
         let idUsuario = usuarioBD.id
 
+        if (!usuarioBD) {
+            return res.status(404).json({mensaje: "No se encontró el usuario"})
+        }
+
         let imagenesExistentes = await Archivo.findAll({
             where: {idUsuario: idUsuario},
             raw:true,
@@ -414,11 +431,10 @@ self.asociarFotoPerfil = async function(req,res, next) {
         }
         
         if (imagenesExistentes.length !== 0) {
-            imagenesExistentes.forEach(imagen =>{
-                if (imagen.esPrincipal == true) {
-                    Archivo.update({esPrincipal: false}, {where: {id: imagen.id}})
-                }
-            })    
+              await Promise.all(
+                    imagenesExistentes.filter(imagen => imagen.esPrincipal).map(imagen =>
+                    Archivo.update({ esPrincipal: false },{ where: { id: imagen.id } })
+            ));  
         }
 
         let datos = await Archivo.update({idUsuario: idUsuario, esPrincipal: true}, {where:{id:idArchivo}})

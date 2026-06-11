@@ -1,0 +1,6 @@
+$kind: http-request
+name: estadisticas suscripciones
+description: 'Subscription statistics. Bearer auth required (role: Administrador).'
+method: GET
+url: '{{baseUrl}}/estadisticas/suscripciones'
+order: 2000

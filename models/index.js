@@ -1,5 +1,4 @@
 const sequelize = require('../config/db');
-const AdminSucursal = require('./AdminSucursal');
 const Archivo = require('./Archivo');
 const Ciudad = require('./Ciudad');
 const Color = require('./Color');
@@ -17,7 +16,7 @@ const Vehiculo = require('./Vehiculo');
 const Notificacion = require('./Notificacion');
 const VistaVehiculo = require('./VistaVehiculo');
 
-const models = { AdminSucursal, Archivo, Ciudad, Color, Estado,
+const models = {Archivo, Ciudad, Color, Estado,
     Marca, Pago, Renta, Rol, Sucursal, Suscripcion, SuscripcionUsuario, Tarjeta, Usuario, Vehiculo, Notificacion, VistaVehiculo
 }
 
@@ -28,6 +27,6 @@ Object.keys(models).forEach(modelName => {
 });
 
 module.exports = {
-    sequelize, AdminSucursal, Archivo, Ciudad, Color, Estado,
+    sequelize, Archivo, Ciudad, Color, Estado,
     Marca, Pago, Renta, Rol, Sucursal, Suscripcion, SuscripcionUsuario, Tarjeta, Usuario, Vehiculo, Notificacion,VistaVehiculo
 }

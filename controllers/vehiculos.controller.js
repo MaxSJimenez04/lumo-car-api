@@ -203,7 +203,7 @@ self.consultarFotoPrincipal = async function(req,res,next) {
         })
 
         if (imagen === null | imagen === undefined) {
-            let rutaImagen = path.join(__dirname, '../uploads/vehiculos', 'default-car-picture-png')
+            let rutaImagen = path.join(__dirname, '../uploads/vehiculos', 'default-car-picture.png')
             return res.status(200).sendFile(rutaImagen)
         }else{
             let rutaImagen = path.join(__dirname,'../uploads/usuarios', imagen.nombreArchivo)

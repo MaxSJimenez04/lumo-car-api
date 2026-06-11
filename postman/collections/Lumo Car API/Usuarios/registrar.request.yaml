@@ -1,0 +1,28 @@
+$kind: http-request
+name: registrar usuario
+description: 'Public user registration. No Auth.'
+method: POST
+url: '{{baseUrl}}/usuarios/'
+order: 1000
+auth:
+  type: noauth
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "usuario": "johndoe",
+      "contrasena": "Passw0rd!",
+      "correo": "john@example.com",
+      "nombre": "John",
+      "apellidos": "Doe",
+      "telefono": "5551234567",
+      "fecha": {
+        "ano": 1995,
+        "mes": 5,
+        "dia": 12
+      },
+      "idRol": 1
+    }

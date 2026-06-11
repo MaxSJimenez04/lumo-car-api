@@ -1,0 +1,17 @@
+$kind: http-request
+name: suscribirse
+description: 'Subscribe to a plan. Bearer auth required (role: Cliente).'
+method: POST
+url: '{{baseUrl}}/suscripciones/suscribirse'
+order: 3000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "idPlan": 1,
+      "idTarjeta": "<uuid tarjeta>",
+      "cvv": "123"
+    }

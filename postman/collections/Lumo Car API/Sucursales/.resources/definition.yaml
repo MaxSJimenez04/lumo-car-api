@@ -1,0 +1,4 @@
+$kind: collection
+name: Sucursales
+description: 'Branch endpoints (base path /sucursales).'
+order: 6000

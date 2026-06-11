@@ -59,3 +59,98 @@
 2026-05-31T23:31:15.654Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
 2026-05-31T23:33:04.141Z: ACCIÓN: Inicio de Sesión: Pedro Torres - IP: ::1 - USUARIO: Invitado 
 2026-05-31T23:34:05.344Z: ACCIÓN: Inicio de Sesión: CarlosRuiz90 - IP: ::1 - USUARIO: Invitado 
+2026-05-31T23:44:48.371Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-05-31T23:54:00.134Z: ACCIÓN: VEHICULO REGISTRADO 6a453624-f5d3-49dd-9970-70bebf84bdc2 - IP: ::1 - USUARIO: undefined 
+2026-05-31T23:54:18.092Z: ACCIÓN: RENTA CREADA 1 - VEHICULO 6a453624-f5d3-49dd-9970-70bebf84bdc2 - USUARIO ea9fe38a-6441-4ef7-b981-3703a71a8ac0 - IP: ::1 - USUARIO: undefined 
+2026-06-01T04:44:30.022Z: ACCIÓN: Inicio de Sesión: CarlosRuiz90 - IP: ::1 - USUARIO: Invitado 
+2026-06-01T04:45:42.746Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-01T04:59:10.914Z: ACCIÓN: VEHICULO REGISTRADO b2a9b92c-5940-42b7-9b26-1c320f3955cc - IP: ::1 - USUARIO: undefined 
+2026-06-01T05:00:03.334Z: ACCIÓN: RENTA CREADA 2 - VEHICULO b2a9b92c-5940-42b7-9b26-1c320f3955cc - USUARIO ea9fe38a-6441-4ef7-b981-3703a71a8ac0 - IP: ::1 - USUARIO: undefined 
+2026-06-01T05:04:04.552Z: ACCIÓN: VEHICULO REGISTRADO 0b4bc66d-dbdd-46a3-8336-360c1749382c - IP: ::1 - USUARIO: undefined 
+2026-06-01T05:04:15.664Z: ACCIÓN: RENTA CREADA 3 - VEHICULO 0b4bc66d-dbdd-46a3-8336-360c1749382c - USUARIO 7d3ee64d-8ed4-473e-8c9d-67df8a8ca9e8 - IP: ::1 - USUARIO: undefined 
+2026-06-06T17:40:45.693Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T17:40:59.507Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T17:41:12.683Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T17:59:38.275Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T17:59:39.905Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T17:59:42.894Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T18:00:05.762Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T18:00:29.972Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T18:02:02.984Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T18:02:30.911Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T18:03:09.681Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T18:04:28.417Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T18:04:29.586Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T18:04:34.723Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T18:04:35.493Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T18:04:35.652Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T18:04:35.846Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T18:04:36.025Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T18:04:36.196Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-06T19:50:21.197Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T01:42:05.797Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T04:53:33.470Z: ACCIÓN: REGISTRO DE USUARIO 74546832-cc0e-40c4-a071-90780b9c53be - IP: ::1 - USUARIO: Invitado 
+2026-06-08T18:41:20.526Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T19:00:56.201Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T19:20:23.629Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T19:24:48.683Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T19:26:48.267Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T19:33:21.059Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T19:34:12.529Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T19:35:43.526Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T19:36:15.340Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T19:36:42.582Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T19:37:09.321Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T19:37:20.903Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T19:38:50.902Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T19:39:18.060Z: ACCIÓN: MODIFICACION DE PERFIL BrendaMarquez con ID undefined - IP: ::1 - USUARIO: undefined 
+2026-06-08T19:45:40.278Z: ACCIÓN: MODIFICACION DE PERFIL BrendaMarquez con ID undefined - IP: ::1 - USUARIO: undefined 
+2026-06-08T19:46:49.370Z: ACCIÓN: MODIFICACION DE PERFIL BrendaMarquez con ID undefined - IP: ::1 - USUARIO: undefined 
+2026-06-08T19:47:36.865Z: ACCIÓN: MODIFICACION DE PERFIL BrendaMarquez con ID undefined - IP: ::1 - USUARIO: undefined 
+2026-06-08T19:48:28.615Z: ACCIÓN: MODIFICACION DE PERFIL BrendaMarquez con ID undefined - IP: ::1 - USUARIO: BrendaMarquez 
+2026-06-08T19:50:57.542Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T20:11:02.456Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T20:13:43.683Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T20:13:49.108Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T20:15:31.844Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T20:16:11.948Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T20:18:28.629Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T20:20:41.164Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T22:00:57.127Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T22:35:19.149Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T23:05:51.845Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T23:15:38.650Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T23:46:12.717Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T23:49:47.849Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-08T23:50:50.894Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T00:30:03.550Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T00:45:15.682Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T00:54:51.245Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T01:00:25.710Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T01:06:20.366Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T01:06:38.101Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T01:14:36.222Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T01:20:20.668Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T01:52:40.462Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T01:52:40.461Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T01:57:41.770Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T02:54:41.682Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T03:09:30.513Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T17:23:32.841Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T17:33:29.289Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-09T18:06:39.267Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-10T02:19:27.484Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-10T02:19:38.730Z: ACCIÓN: MODIFICACION DE PERFIL BrendaMarquez con ID undefined - IP: ::1 - USUARIO: BrendaMarquez 
+2026-06-10T02:32:58.298Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-10T02:41:27.199Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-10T02:47:44.772Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-10T06:07:35.660Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-10T06:10:12.932Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-10T06:15:43.427Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-10T06:21:44.206Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-10T06:32:29.952Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-10T06:35:32.616Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-10T17:37:05.014Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-10T17:41:19.470Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-10T17:59:50.132Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-10T18:27:46.745Z: ACCIÓN: ASIGNACIÓN DE EnriquePerez A SUCURSAL CON ID 2 - IP: ::1 - USUARIO: Sadministrador001 

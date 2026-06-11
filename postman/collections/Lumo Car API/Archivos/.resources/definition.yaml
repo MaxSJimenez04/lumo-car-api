@@ -1,0 +1,4 @@
+$kind: collection
+name: Archivos
+description: 'File upload/management endpoints (base path /archivos).'
+order: 4000

@@ -1,0 +1,6 @@
+$kind: http-request
+name: cancelar suscripcion
+description: 'Cancel the current subscription. Bearer auth required (role: Cliente). No body.'
+method: PUT
+url: '{{baseUrl}}/suscripciones/cancelar'
+order: 5000

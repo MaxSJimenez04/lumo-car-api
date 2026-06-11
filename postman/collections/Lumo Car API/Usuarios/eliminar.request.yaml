@@ -1,0 +1,15 @@
+$kind: http-request
+name: eliminar usuario
+description: 'Delete a user by UUID. Bearer auth required.'
+method: DELETE
+url: '{{baseUrl}}/usuarios/'
+order: 6000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "id": "<uuid del usuario>"
+    }

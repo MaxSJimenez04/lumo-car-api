@@ -1,5 +1,5 @@
 const requestip = require('request-ip')
-const ClaimTypes = require('../config/claimtypes')
+const {ClaimTypes} = require('../config/claimtypes')
 const fs = require('fs')
 const path = require('path')
 
@@ -7,8 +7,10 @@ const bitacoraLogger = (req, res, next) => {
     const ip = requestip.getClientIp(req)
     req.bitacora = (accion) => {
         let usuario = 'Invitado'
+        
         if (req.decodedToken) {
             usuario = req.decodedToken[ClaimTypes.Name]
+            console.log(usuario);
         }
 
         //Registra en un archivo de texto

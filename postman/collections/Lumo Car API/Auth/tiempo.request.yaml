@@ -1,0 +1,6 @@
+$kind: http-request
+name: tiempo
+description: 'Get server/session time. Bearer auth required (roles: Cliente, Administrador, S_Administrador).'
+method: GET
+url: '{{baseUrl}}/auth/tiempo'
+order: 2000

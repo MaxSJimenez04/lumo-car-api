@@ -1,0 +1,4 @@
+$kind: collection
+name: Suscripciones
+description: 'Subscription endpoints (base path /suscripciones).'
+order: 3000

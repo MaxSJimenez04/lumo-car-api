@@ -3,9 +3,9 @@ const sequelize = require('../config/db');
 
 class Sucursal extends Model{
     static associate(models){
-        Sucursal.belongsTo(models.Ciudad, {foreignKey: 'idCiudad'})
+        Sucursal.belongsTo(models.Ciudad, {foreignKey: 'idCiudad'}) 
         Sucursal.hasMany(models.Vehiculo, {foreignKey: 'idSucursal'})
-        Sucursal.belongsToMany(models.Usuario, {through: models.AdminSucursal, foreignKey: 'idSucursal'})
+        Sucursal.hasMany(models.Usuario, {foreignKey: 'idSucursal'})
     }
 }
 
@@ -23,6 +23,14 @@ Sucursal.init(
         },
         direccion:{
             type: DataTypes.STRING(1000),
+            allowNull: false
+        },
+        latitud:{
+            type:DataTypes.DECIMAL(9,6),
+            allowNull:false
+        },
+        longitud:{
+            type: DataTypes.DECIMAL(9,6),
             allowNull: false
         },
         capacidad:{

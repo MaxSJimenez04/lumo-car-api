@@ -15,7 +15,7 @@ SuscripcionUsuario.init(
             type: DataTypes.INTEGER,
             primaryKey: true,
             allowNull: false,
-            autoIncrement: true
+            autoIncrement: false
         },
         idUsuario:{
             type: DataTypes.UUID,

@@ -166,7 +166,7 @@ self.modificar = async function(req, res, next){
         let {usuario} = req.params
 
         if (req.body.telefono !== undefined) {
-             let telefonoReq = req.body.telefono
+            let telefonoReq = req.body.telefono
         }
 
         if (req.body.correo !== undefined) {
@@ -181,7 +181,7 @@ self.modificar = async function(req, res, next){
             
         }
 
-       
+
         let body = req.body
         let coincidencia = await Usuario.findOne({
             where: {usuario: usuario},

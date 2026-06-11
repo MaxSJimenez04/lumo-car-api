@@ -1,36 +1,48 @@
 const { sequelize, Suscripcion, SuscripcionUsuario, Pago, Tarjeta, Usuario } = require('../models');
 const { v4: uuidv4 } = require('uuid');
 
+// Función ayudante para traducir "LuciaLopez1986" a su UUID real
+const obtenerIdReal = async (nombreUsuario) => {
+    const usuario = await Usuario.findOne({ where: { usuario: nombreUsuario } });
+    if (!usuario) throw new Error('Usuario no encontrado en la base de datos');
+    return usuario.id;
+};
+
 // Consultar catálogo de planes
 const obtenerPlanesActivos = async () => {
-    return await Suscripcion.findAll({ where: { estado: 0 } }); // 0 es un plan activo
+    return await Suscripcion.findAll({ where: { estado: 0 } }); 
 };
 
 // Consultar mi suscripción
-const obtenerSuscripcionActivaUsuario = async (idUsuario) => {
+const obtenerSuscripcionActivaUsuario = async (nombreUsuario) => {
+    const idReal = await obtenerIdReal(nombreUsuario);
     return await SuscripcionUsuario.findOne({
-        where: { idUsuario, estado: 0 },
+        where: { idUsuario: idReal, estado: 0 },
         include: [{ model: Suscripcion }]
     });
 };
 
-// Suscribirse (Simulando pago y guardando tarjeta)
-const suscribirUsuario = async (idUsuario, datosSuscripcion) => {
+// Suscribirse 
+const suscribirUsuario = async (nombreUsuario, datosSuscripcion) => {
     const { idSuscripcion, numeroTarjeta, cvv, titular, fechaVencimiento } = datosSuscripcion;
     
     const t = await sequelize.transaction();
 
     try {
+        const usuarioBD = await Usuario.findOne({ where: { usuario: nombreUsuario } });
+        if (!usuarioBD) throw new Error('Usuario no encontrado');
+        const idReal = usuarioBD.id;
+
         const plan = await Suscripcion.findByPk(idSuscripcion);
         if (!plan) throw new Error('El plan seleccionado no existe');
 
         const nuevaTarjeta = await Tarjeta.create({
-            id: uuidv4(),
+            id: uuidv4(), 
             numeroTarjeta,
             cvv,
             titular,
             fechaVencimiento,
-            idCliente: idUsuario
+            idCliente: idReal 
         }, { transaction: t });
 
         const fechaInicio = new Date();
@@ -38,7 +50,8 @@ const suscribirUsuario = async (idUsuario, datosSuscripcion) => {
         fechaFin.setMonth(fechaInicio.getMonth() + 1); 
 
         const suscripcionUsuario = await SuscripcionUsuario.create({
-            idUsuario,
+            id: Math.floor(Math.random() * 100000000), 
+            idUsuario: idReal, 
             idSuscripcion: plan.id,
             estado: 0, 
             fechaInicio,
@@ -46,6 +59,7 @@ const suscribirUsuario = async (idUsuario, datosSuscripcion) => {
         }, { transaction: t });
 
         await Pago.create({
+            id: Math.floor(Math.random() * 100000000), 
             monto: plan.precio,
             fechaPago: new Date(),
             concepto: `Suscripción mensual: ${plan.nombre}`,
@@ -56,7 +70,7 @@ const suscribirUsuario = async (idUsuario, datosSuscripcion) => {
 
         await Usuario.update(
             { idSuscripcion: plan.id },
-            { where: { id: idUsuario }, transaction: t }
+            { where: { id: idReal }, transaction: t } 
         );
 
         await t.commit();
@@ -64,12 +78,13 @@ const suscribirUsuario = async (idUsuario, datosSuscripcion) => {
 
     } catch (error) {
         await t.rollback();
-        throw new Error(error.message || 'Error al procesar la suscripción');
+        throw new Error(error.original ? error.original.message : error.message);
     }
 };
 
 // Cambiar método de pago
-const cambiarMetodoPago = async (idUsuario, datosTarjeta) => {
+const cambiarMetodoPago = async (nombreUsuario, datosTarjeta) => {
+    const idReal = await obtenerIdReal(nombreUsuario);
     const { numeroTarjeta, cvv, titular, fechaVencimiento } = datosTarjeta;
     
     const nuevaTarjeta = await Tarjeta.create({
@@ -78,35 +93,38 @@ const cambiarMetodoPago = async (idUsuario, datosTarjeta) => {
         cvv,
         titular,
         fechaVencimiento,
-        idCliente: idUsuario
+        idCliente: idReal 
     });
 
     return nuevaTarjeta;
 };
 
 // Cancelar Suscripción
-const cancelarSuscripcion = async (idUsuario) => {
-    const suscripcion = await SuscripcionUsuario.findOne({ where: { idUsuario, estado: 0 } });
+const cancelarSuscripcion = async (nombreUsuario) => {
+    const idReal = await obtenerIdReal(nombreUsuario);
+    const suscripcion = await SuscripcionUsuario.findOne({ where: { idUsuario: idReal, estado: 0 } });
     if (!suscripcion) throw new Error('No tienes una suscripción activa para cancelar');
 
-    // estado a 1 (Cancelada / Inactiva)
     suscripcion.estado = 1; 
     await suscripcion.save();
-
-    await Usuario.update({ idSuscripcion: null }, { where: { id: idUsuario } });
+    await Usuario.update({ idSuscripcion: null }, { where: { id: idReal } }); 
 
     return suscripcion;
 };
 
 // Cambiar de Plan 
-const cambiarPlan = async (idUsuario, datosCambio) => {
+const cambiarPlan = async (nombreUsuario, datosCambio) => {
     const { nuevoIdSuscripcion, idTarjetaExistente, cvv } = datosCambio;
     const t = await sequelize.transaction();
 
     try {
+        const usuarioBD = await Usuario.findOne({ where: { usuario: nombreUsuario } });
+        if (!usuarioBD) throw new Error('Usuario no encontrado');
+        const idReal = usuarioBD.id;
+
         await SuscripcionUsuario.update(
             { estado: 1 }, 
-            { where: { idUsuario, estado: 0 }, transaction: t }
+            { where: { idUsuario: idReal, estado: 0 }, transaction: t }
         );
 
         const nuevoPlan = await Suscripcion.findByPk(nuevoIdSuscripcion);
@@ -117,14 +135,16 @@ const cambiarPlan = async (idUsuario, datosCambio) => {
         fechaFin.setMonth(fechaInicio.getMonth() + 1);
 
         const nuevaSuscripcion = await SuscripcionUsuario.create({
-            idUsuario,
+            id: Math.floor(Math.random() * 100000000), 
+            idUsuario: idReal, 
             idSuscripcion: nuevoPlan.id,
-            estado: 0, // 0 es activo
+            estado: 0, 
             fechaInicio,
             fechaFin
         }, { transaction: t });
 
         await Pago.create({
+            id: Math.floor(Math.random() * 100000000), 
             monto: nuevoPlan.precio,
             fechaPago: new Date(),
             concepto: `Cambio de plan a ${nuevoPlan.nombre}`,
@@ -135,7 +155,7 @@ const cambiarPlan = async (idUsuario, datosCambio) => {
 
         await Usuario.update(
             { idSuscripcion: nuevoPlan.id },
-            { where: { id: idUsuario }, transaction: t }
+            { where: { id: idReal }, transaction: t } 
         );
 
         await t.commit();
@@ -143,7 +163,7 @@ const cambiarPlan = async (idUsuario, datosCambio) => {
 
     } catch (error) {
         await t.rollback();
-        throw new Error(error.message || 'Error al cambiar de plan');
+        throw new Error(error.original ? error.original.message : error.message);
     }
 };
 

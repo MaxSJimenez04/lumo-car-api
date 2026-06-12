@@ -144,3 +144,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# fotos de perfil
+*.png
+*.jpg
+*.jpeg

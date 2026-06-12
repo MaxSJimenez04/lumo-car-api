@@ -48,7 +48,7 @@ self.validaciones = {
     ],
 
     elimnarUsuario:[
-        body('id', 'Campo vacío').isString().notEmpty()
+        param('id', 'Campo vacío').isUUID().notEmpty()
     ],
 
     asignarSucursal:[
@@ -79,10 +79,8 @@ self.registro = async function(req, res, next){
 
         let contrasenaHasheada = await bcrypt.hash(req.body.contrasena, 10)
         let fecha = req.body.fecha
-        console.log(fecha);
 
         let fechaParseada = new Date(fecha.ano, fecha.mes, fecha.dia)
-        console.log(fechaParseada);
         let idGenerada = crypto.randomUUID()
         let datos = await Usuario.create({
             id: idGenerada,
@@ -109,24 +107,54 @@ self.registro = async function(req, res, next){
 
 self.consultaGeneral = async function(req, res, next){
     try {
-        let datos = await Usuario.findAll({
-            where:{idRol: 2},
-            raw: true,
-            attributes: ['id', 'usuario', 'nombre', 'apellidos', 'correo', 'telefono', 'fecha_nacimiento', 'idRol', 
-                [Sequelize.col('Rol.nombreRol'), 'Rol'], 'idSucursal',[Sequelize.col('Sucursals.nombre'), 'Sucursal']],
-            include:[{model: Rol, attributes:[]},{model:Sucursal, attributes:[]}]
-        })
+        const { idSucursal } = req.query;
 
-        if (datos === null) {
-            return res.status(404).json({mensaje: "No se encontraron usuarios"})
+        const where = {
+            idRol: 2
+        };
+
+        if (idSucursal) {
+            where.idSucursal = idSucursal;
         }
-        return res.status(200).json({usuarios: datos})
+
+        let datos = await Usuario.findAll({
+            where,
+            raw: true,
+            attributes: [
+                'id',
+                'usuario',
+                'nombre',
+                'apellidos',
+                'correo',
+                'telefono',
+                'fecha_nacimiento',
+                'idRol',
+                'idSucursal',
+                [Sequelize.col('Rol.nombreRol'), 'Rol'],
+                [Sequelize.col('Sucursal.nombre'), 'Sucursal']
+            ],
+            include: [
+                {
+                    model: Rol,
+                    attributes: []
+                },
+                {
+                    model: Sucursal,
+                    attributes: []
+                }
+            ]
+        });
+
+        if (datos.length === 0) {
+            return res.status(404).json({
+                mensaje: "No se encontraron empleados"
+            });
+        }
+
+        return res.status(200).json(datos);
 
     } catch (error) {
-        console.error(error);
-        
-        
-        next(error)
+        next(error);
     }
 }
 
@@ -216,7 +244,7 @@ self.eliminar = async function(req, res, next) {
             return res.status(400).json(errores.array())
         }
 
-        let id = req.body.id
+        let id = req.params.id
 
         let datos = Usuario.destroy(
             {
@@ -229,7 +257,7 @@ self.eliminar = async function(req, res, next) {
         }
 
         if (req.bitacora) {
-            req.bitacora(`ELIMINICACIÓN DE USUARIO ${usuario} - ID ${id}`)
+            req.bitacora(`ELIMINICACIÓN DE USUARIO CON ID ${id}`)
         }
 
         return res.status(204).send()
@@ -321,22 +349,20 @@ self.transferirSucursal = async function(req, res, next) {
             attributes: ['id', 'usuario', 'idRol']
         })
 
-        let consultarAsignacion = await AdminSucursal.findOne({
-            where: {idUsuario: datosUsuario.id},
-            raw: true
-        })
-
-        if (consultarAsignacion === null) {
-            let asignacionSucursal = await AdminSucursal.create({
-                idUsuario: datosUsuario.id,
-                idSucursal: idNuevaSucursal
-            })
-            return res.status(201).json({asignacion: asignacionSucursal})
+        if (datosUsuario == null) {
+            return res.status(404).json({mensaje: "No se encontró el usuario"})
         }
 
-        let actualizacionSucursal = await AdminSucursal.update({idSucursal: idNuevaSucursal},{where:{idUsuario: datosUsuario.id}})
-        if (actualizacionSucursal[0] === 0) {
-            return res.status(400).json({mensaje: "No se pudo actualizar la sucursal"})
+        let sucursalExiste = await Sucursal.findByPk(idNuevaSucursal)
+
+        if (sucursalExiste == null) {
+            return res.status(404).json({mensaje: "No se encontró la sucursal"})
+        }
+
+        let usuarioActualizar = await Usuario.update({idSucursal: idNuevaSucursal}, {where: {id: datosUsuario.id}})
+
+        if (usuarioActualizar[0] === 0) {
+            return res.status(400).json({mensaje: "No se pudo cambiar la sucursal"})
         }
 
         if(req.bitacora){
@@ -410,11 +436,13 @@ self.asociarFotoPerfil = async function(req,res, next) {
             attributes: ['id']
         })
 
+        if (!usuarioBD) {
+                return res.status(404).json({mensaje: "No se encontró el usuario"})
+        }
+        
         let idUsuario = usuarioBD.id
 
-        if (!usuarioBD) {
-            return res.status(404).json({mensaje: "No se encontró el usuario"})
-        }
+        
 
         let imagenesExistentes = await Archivo.findAll({
             where: {idUsuario: idUsuario},

@@ -21,8 +21,8 @@ router.get('/:usuario/pfp', Authorize('Cliente,Administrador,S_Administrador'), 
 //POST /usuarios/usuario/pfp/
 router.post('/:usuario/pfp/', bitacoraLogger, Authorize('Cliente,Administrador'), usuarios.validaciones.subirFoto, usuarios.asociarFotoPerfil)
 
-//DELETE /usuarios/
-router.delete('/', Authorize('Usuario,S_Administrador'), usuarios.validaciones.elimnarUsuario, usuarios.eliminar)
+//DELETE /usuarios/1
+router.delete('/:id', Authorize('Usuario,S_Administrador'), usuarios.validaciones.elimnarUsuario, usuarios.eliminar)
 
 //POST /usuarios/usuario/admin-sucursal
 router.post('/:usuario/admin-sucursal', Authorize('Administrador,S_Administrador'), bitacoraLogger,usuarios.validaciones.asignarSucursal, usuarios.asignarSucursal)

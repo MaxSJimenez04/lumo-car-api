@@ -1,7 +1,7 @@
 const {Sucursal,Ciudad,Estado, sequelize} = require('../models')
 const Sequelize = require('sequelize')
 const bitacora = require('../middlewares/bitacora.middleware')
-const {validationResult, body, param} = require('express-validator')
+const {validationResult, body, param, query} = require('express-validator')
 
 
 let self = {}
@@ -11,6 +11,8 @@ self.validaciones = {
         body('nombre', 'La sucursal debe tener un nombre').isString().notEmpty(),
         body('direccion', 'La sucursal debe tener una direccion').isString().notEmpty(),
         body('capacidad', 'Dato inválido').isInt(),
+        body('latitud', 'Se debe especificar coordenadas').notEmpty().isDecimal(),
+        body('longitud', 'Se debe especificar coordenadas').notEmpty().isDecimal(),
         body('idCiudad','La sucursal debe estar ligada a una ciudad').isInt()
     ],
 
@@ -20,11 +22,11 @@ self.validaciones = {
     ],
 
     consultarCiudades:[
-        body('idEstado', 'Se debe especificar el estado').isInt()
+        query('idEstado', 'Se debe especificar el estado').isInt()
     ],
 
     consultarSucursales:[
-        body('idCiudad', 'Se debe especificar ciudad').isInt()
+        query('idCiudad', 'Se debe especificar ciudad').isInt()
     ]
 }
 
@@ -34,10 +36,7 @@ self.consultarSucursales = async function(req,res,next) {
         if (!errores.isEmpty()) {
             return res.status(400).json(errores.array())
         }
-        let idCiudadFiltro = req.body.idCiudad
-
-        console.log(idCiudadFiltro);
-        
+        let idCiudadFiltro = req.query.idCiudad
         
         let sucursales = await Sucursal.findAll({
             where: {idCiudad: idCiudadFiltro},
@@ -71,6 +70,8 @@ self.registrar = async function(req,res,next) {
             nombre: datosSucursal.nombre,
             direccion: datosSucursal.direccion,
             capacidad: datosSucursal.capacidad,
+            latitud: datosSucursal.latitud,
+            longitud: datosSucursal.longitud,
             idCiudad: datosSucursal.idCiudad
         })
 
@@ -115,12 +116,12 @@ self.consultarCiudades = async function(req,res,next) {
             return res.status(400).json(errores.array())
         }
 
-        let idEstadoFiltro = req.body.idEstado
+        let idEstadoFiltro = req.query.idEstado
 
         let ciudades = await Ciudad.findAll({
             where: {idEstado: idEstadoFiltro},
             raw: true,
-            attributes:['id', 'nombreCiudad', 'idEstado', Sequelize.col('Estado.nombreEstado')],
+            attributes:['id', 'nombreCiudad', 'idEstado', [Sequelize.col('Estado.nombreEstado'), 'nombreEstado']],
             include:{model:Estado, attributes:[]}
         })
 

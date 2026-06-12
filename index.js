@@ -38,8 +38,8 @@ async function iniciarServidor() {
         console.log('Conexión a base de datos establecida.\n')
 
         //Si se requiere actualizar el modelo de base de datos
-        await db.sequelize.sync();
-        console.log('Modelo en Base de Datos actualizado.\n')
+        //await db.sequelize.sync();
+        //console.log('Modelo en Base de Datos actualizado.\n')
 
         iniciarScheduler();
 

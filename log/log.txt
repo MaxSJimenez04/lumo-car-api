@@ -154,3 +154,36 @@
 2026-06-10T17:41:19.470Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
 2026-06-10T17:59:50.132Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
 2026-06-10T18:27:46.745Z: ACCIÓN: ASIGNACIÓN DE EnriquePerez A SUCURSAL CON ID 2 - IP: ::1 - USUARIO: Sadministrador001 
+2026-06-11T19:54:38.370Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-11T20:28:32.039Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-11T20:40:16.750Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-11T22:32:07.324Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-11T22:37:49.869Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-11T22:41:52.659Z: ACCIÓN: MODIFICACION DE PERFIL BrendaMarquez con ID 80117c1d-4e43-4956-84b4-cba5d18a9f49 - IP: ::1 - USUARIO: BrendaMarquez 
+2026-06-11T22:43:38.660Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-11T22:44:02.487Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-11T23:01:28.045Z: ACCIÓN: MODIFICACION DE PERFIL BrendaMarquez con ID 80117c1d-4e43-4956-84b4-cba5d18a9f49 - IP: ::1 - USUARIO: BrendaMarquez 
+2026-06-11T23:12:50.868Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-11T23:14:43.596Z: ACCIÓN: CARGA DE FOTO DE PERFIL PARA USUARIO CON ID: 80117c1d-4e43-4956-84b4-cba5d18a9f49 - IP: ::1 - USUARIO: BrendaMarquez 
+2026-06-11T23:14:43.610Z: ACCIÓN: MODIFICACION DE PERFIL BrendaMarquez con ID 80117c1d-4e43-4956-84b4-cba5d18a9f49 - IP: ::1 - USUARIO: BrendaMarquez 
+2026-06-11T23:15:15.035Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-11T23:17:56.321Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-11T23:49:15.712Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-12T00:35:38.270Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-12T00:40:28.008Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-12T01:12:06.996Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-12T01:21:19.570Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-12T01:39:24.357Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-12T01:47:37.846Z: ACCIÓN: ACTUALIZACIÓN DE SUCURSAL PARA ADMINISTRADOR EnriquePerez - IP: ::1 - USUARIO: Sadministrador001 
+2026-06-12T01:48:06.846Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-12T03:07:57.257Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-12T03:59:01.238Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-12T04:08:53.500Z: ACCIÓN: ACTUALIZACIÓN DE SUCURSAL PARA ADMINISTRADOR EnriquePerez - IP: ::1 - USUARIO: Sadministrador001 
+2026-06-12T04:11:12.401Z: ACCIÓN: ACTUALIZACIÓN DE SUCURSAL PARA ADMINISTRADOR EnriquePerez - IP: ::1 - USUARIO: Sadministrador001 
+2026-06-12T04:11:38.246Z: ACCIÓN: ACTUALIZACIÓN DE SUCURSAL PARA ADMINISTRADOR EnriquePerez - IP: ::1 - USUARIO: Sadministrador001 
+2026-06-12T04:11:46.795Z: ACCIÓN: ACTUALIZACIÓN DE SUCURSAL PARA ADMINISTRADOR EnriquePerez - IP: ::1 - USUARIO: Sadministrador001 
+2026-06-12T04:12:06.763Z: ACCIÓN: ACTUALIZACIÓN DE SUCURSAL PARA ADMINISTRADOR EnriquePerez - IP: ::1 - USUARIO: Sadministrador001 
+2026-06-12T04:57:43.868Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-12T04:57:56.404Z: ACCIÓN: ACTUALIZACIÓN DE SUCURSAL PARA ADMINISTRADOR PedroTorres - IP: ::1 - USUARIO: Sadministrador001 
+2026-06-12T04:58:09.190Z: ACCIÓN: ACTUALIZACIÓN DE SUCURSAL PARA ADMINISTRADOR PedroTorres - IP: ::1 - USUARIO: Sadministrador001 
+2026-06-12T05:11:12.375Z: ACCIÓN: ELIMINICACIÓN DE USUARIO CON ID 216c07bb-8af4-4ceb-addf-00ba126b616a - IP: ::1 - USUARIO: Sadministrador001 

@@ -6,10 +6,13 @@ const bitacoraLogger = require('../middlewares//bitacora.middleware')
 //POST /sucursales/
 router.post('/', bitacoraLogger, Authorize('Administrador,S_Administrador'), sucursales.validaciones.registrar, sucursales.registrar)
 
-//GET /sucursales/
+//GET /sucursales/general
+router.get('/general', sucursales.consultar)
+
+//GET /sucursales/15
 router.get('/', sucursales.validaciones.consultarSucursales, sucursales.consultarSucursales)
 
-//GET /sucursales/ciudades
+//GET /sucursales/ciudades/15
 router.get('/ciudades', sucursales.validaciones.consultarCiudades, sucursales.consultarCiudades)
 
 //POST /sucursales/ciudad

@@ -30,6 +30,20 @@ self.validaciones = {
     ]
 }
 
+self.consultar = async function (req,res,next) {
+    try {
+        let sucursales = await Sucursal.findAll()
+
+        if (sucursales === null) {
+            return res.status(404).json({mensaje: "No se encontraron sucursales"})
+        }
+
+        return res.status(200).json(sucursales)
+    } catch (error) {
+        next(error)
+    }
+}
+
 self.consultarSucursales = async function(req,res,next) {
     try {
         let errores = validationResult(req)

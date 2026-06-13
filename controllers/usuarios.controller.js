@@ -74,11 +74,11 @@ self.registro = async function(req, res, next){
     try {
         const errores = validationResult(req)
         if (!errores.isEmpty()) {
-            res.status(400).json(errores.array())
+            return res.status(400).json(errores.array())
         }
 
         let contrasenaHasheada = await bcrypt.hash(req.body.contrasena, 10)
-        let fecha = req.body.fecha
+        let {fecha, idSucursal }= req.body
 
         let fechaParseada = new Date(fecha.ano, fecha.mes, fecha.dia)
         let idGenerada = crypto.randomUUID()
@@ -91,7 +91,8 @@ self.registro = async function(req, res, next){
             correo: req.body.correo,
             telefono: req.body.telefono,
             fecha_nacimiento: fechaParseada,
-            idRol: req.body.idRol
+            idRol: req.body.idRol,
+            idSucursal: idSucursal ?? null
         })
 
         if (req.bitacora) {
@@ -262,73 +263,6 @@ self.eliminar = async function(req, res, next) {
 
         return res.status(204).send()
     } catch (error) {
-        next(error)
-    }
-}
-
-self.asignarSucursal = async function(req, res, next) {
-    try {
-        let errores = validationResult(req)
-        if (!errores.isEmpty()) {
-            return res.status(400).json({mensaje: errores.array()})
-        }
-        let {usuario} = req.params
-        let idSucursal = req.body.idSucursal
-        let datos = await Usuario.findOne({
-            where: {usuario: usuario},
-            raw: true,
-            attributes:['id', 'usuario', 'idRol']
-        })
-        if (datos === null || datos === undefined) {
-            return res.status(404).json({mensaje: "No se encontró el usuario"})
-        }
-
-        if (datos.idRol !== 2) {
-            if (req.bitacora) {
-                req.bitacora(`INTENTO DE ELEVACIÓN DE PRIVILEGIOS`)
-            } 
-            return res.status(400).json({mensaje: "Operación inválida, no se puede asignar una sucursal a un cliente"})
-        }
-
-        let sucursal = await Sucursal.findByPk(idSucursal, {raw:true})
-
-        if (sucursal === null || sucursal === undefined) {
-            return res.status(404).json({mensaje: "No se encontró la sucursal especificada"})
-        }
-
-        let datosAsignacion = await AdminSucursal.findOne({
-            where:{idUsuario: datos.id},
-            raw:true
-        })
-
-        if (datosAsignacion) {
-            await AdminSucursal.update(
-                { idSucursal },
-                {
-                    where: {
-                        idUsuario: datos.id
-                    }
-                }
-            )
-
-            return res.status(200).json({
-                mensaje: "Sucursal actualizada correctamente"
-            })
-        }
-
-        let asignacionSucursal = await AdminSucursal.create({
-            idUsuario: datos.id,
-            idSucursal: idSucursal
-        })
-
-        if (req.bitacora) {
-            req.bitacora(`ASIGNACIÓN DE ${usuario} A SUCURSAL CON ID ${idSucursal}`)
-        }
-
-        return res.status(201).json({asignacion: asignacionSucursal})
-    } catch (error) {
-        console.error(error);
-        
         next(error)
     }
 }

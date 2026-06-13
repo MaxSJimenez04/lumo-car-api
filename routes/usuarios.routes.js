@@ -24,9 +24,6 @@ router.post('/:usuario/pfp/', bitacoraLogger, Authorize('Cliente,Administrador')
 //DELETE /usuarios/1
 router.delete('/:id', Authorize('Usuario,S_Administrador'), usuarios.validaciones.elimnarUsuario, usuarios.eliminar)
 
-//POST /usuarios/usuario/admin-sucursal
-router.post('/:usuario/admin-sucursal', Authorize('Administrador,S_Administrador'), bitacoraLogger,usuarios.validaciones.asignarSucursal, usuarios.asignarSucursal)
-
 //PUT /usuarios/usuario/admin-sucursal
 router.put('/:usuario/admin-sucursal',Authorize('Administrador,S_Administrador'), bitacoraLogger,usuarios.validaciones.cambiarSucursal, usuarios.transferirSucursal)
 

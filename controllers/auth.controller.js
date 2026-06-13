@@ -153,7 +153,7 @@ self.validarCodigoSolicitud = async function(req, res) {
         return res.status(400).json(validacion.array())
     }
 
-    if (listaCodigos.get(usuario) !== codigo) {
+    if (String(listaCodigos.get(usuario)) !== String(codigo)) {
 
         return res.status(401).json({mensaje: "Código inválido"})
     }

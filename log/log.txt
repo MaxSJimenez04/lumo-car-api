@@ -196,3 +196,10 @@
 2026-06-13T02:21:26.155Z: ACCIÓN: Solicitud de restablecimiento de contraseña para MaxSJimenez - IP: ::1 - USUARIO: Invitado 
 2026-06-13T02:25:20.418Z: ACCIÓN: Solicitud de restablecimiento de contraseña para MaxSJimenez - IP: ::1 - USUARIO: Invitado 
 2026-06-13T02:25:50.836Z: ACCIÓN: RESTABLECIMIENTO DE CONTRASEÑA MaxSJimenez - IP: ::1 - USUARIO: Invitado 
+2026-06-13T22:35:48.633Z: ACCIÓN: Inicio de Sesión: ElenaRivas82 - IP: ::1 - USUARIO: Invitado 
+2026-06-13T22:36:13.674Z: ACCIÓN: CARGA DE FOTO DE PERFIL PARA USUARIO CON ID: 31b52c74-0673-435d-bed9-7ec083054bb2 - IP: ::1 - USUARIO: ElenaRivas82 
+2026-06-13T22:36:13.685Z: ACCIÓN: MODIFICACION DE PERFIL ElenaRivas82 con ID 31b52c74-0673-435d-bed9-7ec083054bb2 - IP: ::1 - USUARIO: ElenaRivas82 
+2026-06-14T01:10:45.696Z: ACCIÓN: Inicio de Sesión: ElenaRivas82 - IP: ::1 - USUARIO: Invitado 
+2026-06-14T01:45:14.333Z: ACCIÓN: Inicio de Sesión: ElenaRivas82 - IP: ::1 - USUARIO: Invitado 
+2026-06-14T01:56:59.853Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-14T02:09:13.225Z: ACCIÓN: Inicio de Sesión: ElenaRivas82 - IP: ::1 - USUARIO: Invitado 

@@ -24,20 +24,33 @@ self.crearUsuario = async (req, res, next) => {
 
 self.crearVehiculo = async (req, res, next) => {
     try {
-
-        const datos = await guardarArchivo(
-            req,
-            "vehiculos"
-        );
-
-        return res.status(201).json({
-            detalles: datos
-        });
-
+        const idVehiculo = req.params.id
+ 
+        // Eliminar foto principal anterior si existe
+        const fotoAnterior = await Archivo.findOne({
+            where: { idVehiculo, esPrincipal: true },
+            attributes: ['id', 'ruta']
+        })
+ 
+        if (fotoAnterior) {
+            fs.existsSync(fotoAnterior.ruta) && fs.unlinkSync(fotoAnterior.ruta)
+            await Archivo.destroy({ where: { id: fotoAnterior.id } })
+        }
+ 
+        const datos = await guardarArchivo(req, "vehiculos", {
+            idVehiculo,
+            esPrincipal: true
+        })
+ 
+        if (req.bitacora) {
+            req.bitacora(`FOTO PRINCIPAL REGISTRADA PARA VEHÍCULO ${idVehiculo}`)
+        }
+ 
+        return res.status(201).json({ detalles: datos })
     } catch (error) {
-        next(error);
+        next(error)
     }
-};
+}
 
 self.eliminar = async function(req, res, next) {
     try {

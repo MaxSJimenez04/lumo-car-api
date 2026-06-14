@@ -4,20 +4,23 @@ const {Authorize} = require('../middlewares/auth.middleware')
 const bitacoraLogger = require('../middlewares/bitacora.middleware')
 
 
-//POST /vehiculos/colores
-router.get('/colores', vehiculos.validaciones.consultarColor, vehiculos.consultarColor)
+//GET vehiculos/colores/1
+router.get("/colores", vehiculos.validaciones.consultarColor, vehiculos.consultarColor)
 
 //GET /vehiculos/colores
-router.post('/colores', bitacoraLogger, Authorize('Administrador,S_Administrador'), vehiculos.validaciones.registrarColor, vehiculos.registrarColor)
+router.get('/colores', vehiculos.consultarColores)
+
+//POST /vehiculos/colores/
+router.post('/colores/', bitacoraLogger, Authorize('Administrador,S_Administrador'), vehiculos.validaciones.registrarColor, vehiculos.registrarColor)
 
 //POST /vehiculos/
 router.post('/', bitacoraLogger, Authorize('Administrador,S_Administrador'), vehiculos.validaciones.registrarVehiculo, vehiculos.registrar)
 
-//GET /vehiculos/
-router.get('/', vehiculos.validaciones.consultarVehiculos, vehiculos.consultarTodos)
+//GET /vehiculos/1
+router.get('/', vehiculos.validaciones.consultarVehiculos, vehiculos.consultarPorSucursal)
 
 //DELETE /vehiculos/:id
-router.delete('/', bitacoraLogger,Authorize('Administrador,S_Administrador'), vehiculos.validaciones.eliminarVehiculo ,vehiculos.eliminar)
+router.delete('/:id', bitacoraLogger,Authorize('Administrador,S_Administrador'), vehiculos.validaciones.eliminarVehiculo ,vehiculos.eliminar)
 
 //GET /vehiculos/:id
 router.get('/:id', vehiculos.idValidator, vehiculos.consultar)
@@ -25,16 +28,16 @@ router.get('/:id', vehiculos.idValidator, vehiculos.consultar)
 //PUT /vehiculos/:id
 router.put('/:id', bitacoraLogger, Authorize('Administrador,S_Administrador'), vehiculos.validaciones.modificarVehiculo, vehiculos.modificar)
 
-//GET /vehiculos/:id/main-picture
+// GET  /vehiculos/:id/main-picture
 router.get('/:id/main-picture', vehiculos.idValidator, vehiculos.consultarFotoPrincipal)
-
-//GET /vehiculos/:id/routes-pictures
-router.get('/:id/routes-pictures', vehiculos.idValidator, vehiculos.consultarFotos)
-
-//GET /vehiculos/:id/picture
-router.get('/:id/picture', vehiculos.idValidator, vehiculos.consultarFoto)
-
-//PUT /vehiculos/:id/main-picture
-router.put('/:id/main-picture', bitacoraLogger, Authorize('Administrador,S_Administrador'), vehiculos.validaciones.actualizarFotoPrincipal, vehiculos.actualizarFotoPrincipal)
+ 
+// PATCH /vehiculos/:id/foto-principal
+router.put('/:id/foto-principal', bitacoraLogger, Authorize('Administrador,S_Administrador'), vehiculos.validaciones.asociarFoto, vehiculos.asociarFotoPrincipal)
+ 
+// GET  /vehiculos/:id/secondary-pictures
+router.get('/:id/secondary-pictures', vehiculos.idValidator, vehiculos.consultarFotosSecundarias)
+ 
+// PATCH /vehiculos/:id/fotos-secundarias
+router.put('/:id/fotos-secundarias', bitacoraLogger, Authorize('Administrador,S_Administrador'), vehiculos.validaciones.asociarFoto, vehiculos.asociarFotoSecundaria)
 
 module.exports = router

@@ -27,5 +27,6 @@ const crearUpload = (carpeta) => {
 
 module.exports = {
     uploadUsuarios: crearUpload("usuarios"),
-    uploadVehiculos: crearUpload("vehiculos")
+    uploadVehiculos: crearUpload("vehiculos"),
+    uploadVehiculosMultiple:  crearUpload("vehiculos")
 };

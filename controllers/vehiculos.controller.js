@@ -1,7 +1,7 @@
 const {Vehiculo,Sucursal,Color,Marca,Archivo,VistaVehiculo, sequelize} = require('../models')
 const Sequelize = require('sequelize')
 const bitacora = require('../middlewares/bitacora.middleware')
-const {validationResult, body, param} = require('express-validator')
+const {validationResult, body, param, query} = require('express-validator')
 const crypto = require('crypto')
 const path = require('path')
 const fs = require('fs')
@@ -34,7 +34,7 @@ self.validaciones = {
     ],
     
     consultarVehiculos:[
-        body('idSucursal', 'Especificar una sucursal válida').isInt()
+        query('idSucursal', 'Especificar una sucursal válida').isInt()
     ],
 
     eliminarVehiculo:[
@@ -45,14 +45,19 @@ self.validaciones = {
         param('id', 'Especificar id válida').isUUID().notEmpty()
     ],
 
-    consultarColor:[
-        body('idColor', 'Especificar ID de color válido').isInt()
+    asociarFoto: [
+        param('id', 'Especificar id válida').isUUID().notEmpty(),
+        body('idArchivo', 'Especificar ID del Archivo').isUUID().notEmpty()
     ],
 
     registrarColor:[
         body('color', 'Campo vacío').isString().notEmpty(),
         body('codigoHex', 'Campo invalido').isHexColor()
     ],
+
+    consultarColor:[
+        query('idColor', 'Campo vacío').isInt()
+    ]
 }
 
 self.registrar = async function(req,res,next) {
@@ -132,15 +137,19 @@ self.modificar = async function(req,res,next) {
     }
 }
 
-self.consultarTodos = async function(req,res,next) {
+self.consultarPorSucursal = async function(req,res,next) {
     try {
         const errores = validationResult(req)
         if (!errores.isEmpty()) {
             return res.status(400).json({errores: errores.array()})
         }
-        let idSucursalSeleccionada = req.body.idSucursal 
-        let vehiculosSucursal = await VistaVehiculo.findAll({
+        let idSucursalSeleccionada = req.query.idSucursal
+        let vehiculosSucursal = await Vehiculo.findAll({
             where:{idSucursal: idSucursalSeleccionada},
+            raw:true,
+            attributes:['id','placa','modelo','pasajeros','transmision','tamano','tipo_combustible','aire_acondicionado','idColor','idMarca',
+                [Sequelize.col('Color.color'), 'color'],[Sequelize.col('Color.codigoHex'),'codigoHex'],[Sequelize.col('Marca.nombreMarca'),'nombreMarca']],
+            include:[{model:Color, attributes:[]},{model:Marca, attributes:[]}]
         })
 
         if (vehiculosSucursal === null) {
@@ -179,140 +188,220 @@ self.consultar = async function(req,res,next) {
     }
 }
 
-self.consultarFotoPrincipal = async function(req,res,next) {
+self.consultarFotoPrincipal = async function (req, res, next) {
     try {
         const errores = validationResult(req)
         if (!errores.isEmpty()) {
             return res.status(400).json({errores: errores.array()})
         }
-
-        const {idVehiculo} = req.params.id
-        let datosVehiculo = await Vehiculo.findByPk(idVehiculo,{
-            attributes: ['id', 'placa', 'idSucursal']
+ 
+        const idVehiculo = req.params.id
+ 
+        let datosVehiculo = await Vehiculo.findByPk(idVehiculo, {
+            attributes: ['id']
         })
-
-        if (datosVehiculo === null || datosVehiculo === undefined) {
+ 
+        if (!datosVehiculo) {
             return res.status(404).json({mensaje: "No se encontró el vehículo"})
         }
-
-        let idVehiculoBD = datosVehiculo.id
+ 
         let imagen = await Archivo.findOne({
-            where: {idVehiculo: idVehiculoBD, esPrincipal:true},
+            where: {idVehiculo: datosVehiculo.id, esPrincipal: true},
             raw: true,
-            attributes:['id', 'nombreArchivo', 'ruta', 'esPrincipal', 'idVehiculo']
+            attributes: ['nombreArchivo']
         })
-
-        if (imagen === null | imagen === undefined) {
-            let rutaImagen = path.join(__dirname, '../uploads/vehiculos', 'default-car-picture.png')
-            return res.status(200).sendFile(rutaImagen)
-        }else{
-            let rutaImagen = path.join(__dirname,'../uploads/usuarios', imagen.nombreArchivo)
-            return res.status(200).sendFile(rutaImagen)
+ 
+        if (!imagen) {
+            return res.status(200).sendFile(
+                path.join(__dirname, '../uploads/vehiculos/default-car-picture.png')
+            )
         }
-
+ 
+        return res.status(200).sendFile(
+            path.join(__dirname, '../uploads/vehiculos', imagen.nombreArchivo)
+        )
     } catch (error) {
         next(error)
     }
 }
 
-self.consultarFotos = async function(req,res,next) {
+
+self.consultarFotosSecundarias = async function (req, res, next) {
     try {
         const errores = validationResult(req)
         if (!errores.isEmpty()) {
             return res.status(400).json({errores: errores.array()})
         }
-
-        const {idVehiculo} = req.params.id
-        let datosVehiculo = await Vehiculo.findByPk(idVehiculo,{
-            attributes: ['id', 'placa', 'idSucursal']
-        })
-
-        if (datosVehiculo === null || datosVehiculo === undefined) {
+ 
+        const idVehiculo = req.params.id
+ 
+        let datosVehiculo = await Vehiculo.findByPk(idVehiculo, { attributes: ['id'] })
+ 
+        if (!datosVehiculo) {
             return res.status(404).json({mensaje: "No se encontró el vehículo"})
         }
-        let idVehiculoBD = datosVehiculo.id
-
-        let ImagenesVehiculo = await Vehiculo.findAll({
-            where:{id:idVehiculoBD, esPrincipal:false},
+ 
+        let imagenes = await Archivo.findAll({
+            where: {idVehiculo: datosVehiculo.id, esPrincipal: false},
             raw: true,
-            attributes:['id', 'ruta', 'nombreArchivo', 'esPrincipal']
+            attributes: ['id', 'nombreArchivo', 'ruta'],
+            limit: 5
         })
-
-        if (!ImagenesVehiculo.length === 0) {
-            let rutaImagen = path.join(__dirname, '../uploads/vehiculos', 'default-car-picture-png')
-            return res.status(200).sendFile(rutaImagen)
-        }else{
-            let rutasImagenes = []
-            ImagenesVehiculo.forEach(imagen => {
-                let ruta = imagen.ruta
-                rutasImagenes.push(ruta)
-            });
-
-            return res.status(200).json({rutas: rutasImagenes})
+ 
+        if (!imagenes || imagenes.length === 0) {
+            return res.status(404).json({mensaje: "El vehículo no tiene fotos secundarias"})
         }
+ 
+        // Verificar que todos los archivos existen en disco antes de comenzar la respuesta
+        for (const img of imagenes) {
+            const rutaAbsoluta = path.join(__dirname, '..', img.ruta)
+            if (!fs.existsSync(rutaAbsoluta)) {
+                return res.status(500).json({
+                    mensaje: `Archivo no encontrado en disco: ${img.nombreArchivo}`
+                })
+            }
+        }
+ 
+        const boundary = `----FotosVehiculo${Date.now()}`
+        res.setHeader('Content-Type', `multipart/form-data; boundary=${boundary}`)
+        res.status(200)
+ 
+        for (const img of imagenes) {
+            const rutaAbsoluta = path.join(__dirname, '..', img.ruta)
+            const extension = path.extname(img.nombreArchivo).toLowerCase().replace('.', '')
+            const mimeType = extension === 'png'  ? 'image/png'
+                           : extension === 'webp' ? 'image/webp'
+                           : 'image/jpeg'
+ 
+            const contenido = fs.readFileSync(rutaAbsoluta)
+ 
+            // name es el id del archivo para identificarlo en el frontend
+            res.write(
+                `--${boundary}\r\n` +
+                `Content-Disposition: form-data; name="${img.id}"; filename="${img.nombreArchivo}"\r\n` +
+                `Content-Type: ${mimeType}\r\n\r\n`
+            )
+            res.write(contenido)
+            res.write('\r\n')
+        }
+ 
+        res.end(`--${boundary}--\r\n`)
+ 
     } catch (error) {
         next(error)
     }
 }
-
-self.consultarFoto = async function(req,res,next){
+ 
+self.asociarFotoPrincipal = async function (req, res, next) {
     try {
-        let rutaImagen = req.body.ruta
-
-        res.status(200).sendFile(rutaImagen, {root: __dirname})
-    } catch (error) {
-        next(error)
-    }
-}
-
-self.actualizarFotoPrincipal = async function(req,res,next){
-    try {
-       const errores = validationResult(req)
+        const errores = validationResult(req)
         if (!errores.isEmpty()) {
             return res.status(400).json({errores: errores.array()})
         }
-
-        const {idVehiculo} = req.params.id
-        const idArchivo = req.params.idArchivo
-        let datosVehiculo = await Vehiculo.findByPk(idVehiculo,{
-            attributes: ['id', 'placa', 'idSucursal']
-        })
-
-        if (datosVehiculo === null || datosVehiculo === undefined) {
+ 
+        const idVehiculo = req.params.id
+        const { idArchivo } = req.body
+ 
+        let datosVehiculo = await Vehiculo.findByPk(idVehiculo, { attributes: ['id'] })
+ 
+        if (!datosVehiculo) {
             return res.status(404).json({mensaje: "No se encontró el vehículo"})
         }
-        let idVehiculoBD = datosVehiculo.id
-
-        let imagen = await Archivo.findOne({
-            where: {idVehiculo: idVehiculoBD, esPrincipal:true},
+ 
+        // Verificar que el archivo exista y no esté ya asociado a otro vehículo
+        let archivo = await Archivo.findOne({
+            where: {id: idArchivo},
             raw: true,
-            attributes:['id', 'nombreArchivo', 'ruta', 'esPrincipal', 'idVehiculo']
+            attributes: ['id', 'idVehiculo', 'esPrincipal']
         })
-
-        if (imagen !== null) {
-            let data = await Archivo.destroy({where: {id: imagen.id}})
+ 
+        if (!archivo) {
+            return res.status(404).json({mensaje: "No se encontró el archivo especificado"})
         }
-            
-        let imagenActualizada = findOne({
-            where:{id:idArchivo},
-            raw:true,
-            attributes: ['id', 'ruta', 'esPrincipal','idVehiculo']
-        })
-        if (imagenActualizada === null) {
-            res.status(404).json({mensaje: "No se encontró la imagen actualizada"})
+ 
+        if (archivo.idVehiculo && archivo.idVehiculo !== datosVehiculo.id) {
+            return res.status(400).json({mensaje: "El archivo ya está asociado a otro vehículo"})
         }
-
-        let asociacion = await Archivo.update({idVehiculo:idVehiculoBD, esPrincipal: true},{where:{id:idArchivo}})
-
+ 
+        // Quitar flag a la foto principal actual (si existe)
+        await Archivo.update(
+            {esPrincipal: false},
+            {where: {idVehiculo: datosVehiculo.id, esPrincipal: true}}
+        )
+ 
+        // Asociar y marcar como principal
+        await Archivo.update(
+            {idVehiculo: datosVehiculo.id, esPrincipal: true},
+            {where: {id: idArchivo}}
+        )
+ 
         if (req.bitacora) {
-            req.bitacora(`ACTUALIZACION DE FOTO PRINCIPAL DE VEHICULO: ${idVehiculoBD}`)
+            req.bitacora(`FOTO PRINCIPAL ASOCIADA AL VEHÍCULO ${datosVehiculo.id}: archivo ${idArchivo}`)
         }
-
+ 
         return res.status(204).send()
     } catch (error) {
         next(error)
     }
 }
+ 
+self.asociarFotoSecundaria = async function (req, res, next) {
+    try {
+        const errores = validationResult(req)
+        if (!errores.isEmpty()) {
+            return res.status(400).json({errores: errores.array()})
+        }
+ 
+        const idVehiculo = req.params.id
+        const { idArchivo } = req.body
+ 
+        let datosVehiculo = await Vehiculo.findByPk(idVehiculo, { attributes: ['id'] })
+ 
+        if (!datosVehiculo) {
+            return res.status(404).json({mensaje: "No se encontró el vehículo"})
+        }
+ 
+        // Verificar límite de 5 fotos secundarias
+        const cantidadActual = await Archivo.count({
+            where: {idVehiculo: datosVehiculo.id, esPrincipal: false}
+        })
+ 
+        if (cantidadActual >= 5) {
+            return res.status(400).json({
+                mensaje: "El vehículo ya tiene el máximo de 5 fotos secundarias permitidas"
+            })
+        }
+ 
+        // Verificar que el archivo exista y no esté ya asociado a otro vehículo
+        let archivo = await Archivo.findOne({
+            where: {id: idArchivo},
+            raw: true,
+            attributes: ['id', 'idVehiculo']
+        })
+ 
+        if (!archivo) {
+            return res.status(404).json({mensaje: "No se encontró el archivo especificado"})
+        }
+ 
+        if (archivo.idVehiculo && archivo.idVehiculo !== datosVehiculo.id) {
+            return res.status(400).json({mensaje: "El archivo ya está asociado a otro vehículo"})
+        }
+ 
+        await Archivo.update(
+            {idVehiculo: datosVehiculo.id, esPrincipal: false},
+            {where: {id: idArchivo}}
+        )
+ 
+        if (req.bitacora) {
+            req.bitacora(`FOTO SECUNDARIA ASOCIADA AL VEHÍCULO ${datosVehiculo.id}: archivo ${idArchivo}`)
+        }
+ 
+        return res.status(204).send()
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 self.eliminar = async function(req,res,next) {
     try {
@@ -321,7 +410,7 @@ self.eliminar = async function(req,res,next) {
             return res.status(400).json({errores: errores.array()})
         }
 
-        let idVehiculo = req.body.id
+        let idVehiculo = req.params.id
         let vehiculo = await Vehiculo.destroy(
             {where:
                 {id:idVehiculo}
@@ -343,24 +432,38 @@ self.eliminar = async function(req,res,next) {
 }
 
 
+self.consultarColores = async function(req,res,next) {
+    try {
+
+        let colores = await Color.findAll()
+
+        if (colores === null) {
+            return res.status(404).json({mensaje:"No se encontraron colores"})
+        }
+
+        return res.status(200).json(colores)
+    } catch (error) {
+        next(error)
+    }
+}
+
 self.consultarColor = async function(req,res,next) {
     try {
-        const errores = validationResult(req)
+        let errores = validationResult(req)
         if (!errores.isEmpty()) {
-            return res.status(400).json({errores: errores.array()})
+            return res.status(400).json(errores.array())
         }
-        let idColor = req.body.idColor
 
-        let color = await Color.findByPk(idColor, {
-            raw:true,
-            attributes:['id', 'color', 'codigoHex']
-        })
+        let idColor = req.query.idColor
+
+        let color = await Color.findByPk(idColor)
 
         if (color === null) {
-            return res.status(404).json({mensaje:"No se enecontró el color especificado"})
+            return res.status(404).json({mensaje: "No se encontró el color"})
         }
 
         return res.status(200).json(color)
+
     } catch (error) {
         next(error)
     }

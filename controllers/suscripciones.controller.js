@@ -1,4 +1,5 @@
 const suscripcionesService = require('../services/suscripciones.service');
+const servicioNotificacion = require('../services/notificacion.service');
 const { ClaimTypes } = require('../config/claimtypes');
 
 const getPlanes = async (req, res) => {
@@ -28,14 +29,19 @@ const getMiSuscripcion = async (req, res) => {
 const postSuscribirse = async (req, res) => {
     try {
         const idUsuario = req.decodedToken[ClaimTypes.Name];
-        const datosSuscripcion = req.body; 
+        const datosSuscripcion = req.body;
 
-        const resultado = await suscripcionesService.suscribirUsuario(idUsuario, datosSuscripcion);
-        
-        res.status(201).json({ 
+        const { suscripcion, notificacion } = await suscripcionesService.suscribirUsuario(idUsuario, datosSuscripcion);
+
+        servicioNotificacion.enviarNotificacion(suscripcion.idUsuario, {
+            tipo: 'NUEVA_NOTIFICACION',
+            datos: notificacion
+        });
+
+        res.status(201).json({
             ok: true,
-            msg: 'Suscripción exitosa y pago procesado.', 
-            suscripcion: resultado 
+            msg: 'Suscripción exitosa y pago procesado.',
+            suscripcion
         });
     } catch (error) {
         res.status(400).json({ ok: false, msg: error.message });
@@ -57,7 +63,14 @@ const putCambiarMetodoPago = async (req, res) => {
 const putCancelarSuscripcion = async (req, res) => {
     try {
         const idUsuario = req.decodedToken[ClaimTypes.Name];
-        await suscripcionesService.cancelarSuscripcion(idUsuario);
+
+        const { suscripcion, notificacion } = await suscripcionesService.cancelarSuscripcion(idUsuario);
+
+        servicioNotificacion.enviarNotificacion(suscripcion.idUsuario, {
+            tipo: 'NUEVA_NOTIFICACION',
+            datos: notificacion
+        });
+
         res.json({ ok: true, msg: 'Suscripción cancelada correctamente.' });
     } catch (error) {
         res.status(400).json({ ok: false, msg: error.message });
@@ -67,9 +80,15 @@ const putCancelarSuscripcion = async (req, res) => {
 const postCambiarPlan = async (req, res) => {
     try {
         const idUsuario = req.decodedToken[ClaimTypes.Name];
-        const datosCambio = req.body; 
+        const datosCambio = req.body;
 
-        await suscripcionesService.cambiarPlan(idUsuario, datosCambio);
+        const { suscripcion, notificacion } = await suscripcionesService.cambiarPlan(idUsuario, datosCambio);
+
+        servicioNotificacion.enviarNotificacion(suscripcion.idUsuario, {
+            tipo: 'NUEVA_NOTIFICACION',
+            datos: notificacion
+        });
+
         res.json({ ok: true, msg: 'Cambio de plan exitoso y pago procesado.' });
     } catch (error) {
         res.status(400).json({ ok: false, msg: error.message });

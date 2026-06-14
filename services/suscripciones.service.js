@@ -1,4 +1,4 @@
-const { sequelize, Suscripcion, SuscripcionUsuario, Pago, Tarjeta, Usuario } = require('../models');
+const { sequelize, Suscripcion, SuscripcionUsuario, Pago, Tarjeta, Usuario, Notificacion } = require('../models');
 const { v4: uuidv4 } = require('uuid');
 
 // Función ayudante para traducir "LuciaLopez1986" a su UUID real
@@ -73,8 +73,18 @@ const suscribirUsuario = async (nombreUsuario, datosSuscripcion) => {
             { where: { id: idReal }, transaction: t } 
         );
 
+        const notificacion = await Notificacion.create({
+            idUsuario: idReal,
+            idSuscripcionUsuario: suscripcionUsuario.id,
+            titulo: 'Suscripción activada',
+            mensaje: `Tu suscripción al plan "${plan.nombre}" ha sido activada exitosamente.`,
+            tipo: 'SUSCRIPCION_CREADA',
+            leida: false,
+            fecha_envio: new Date()
+        }, { transaction: t });
+
         await t.commit();
-        return suscripcionUsuario;
+        return { suscripcion: suscripcionUsuario, notificacion };
 
     } catch (error) {
         await t.rollback();
@@ -101,15 +111,32 @@ const cambiarMetodoPago = async (nombreUsuario, datosTarjeta) => {
 
 // Cancelar Suscripción
 const cancelarSuscripcion = async (nombreUsuario) => {
-    const idReal = await obtenerIdReal(nombreUsuario);
-    const suscripcion = await SuscripcionUsuario.findOne({ where: { idUsuario: idReal, estado: 0 } });
-    if (!suscripcion) throw new Error('No tienes una suscripción activa para cancelar');
+    const t = await sequelize.transaction();
+    try {
+        const idReal = await obtenerIdReal(nombreUsuario);
+        const suscripcion = await SuscripcionUsuario.findOne({ where: { idUsuario: idReal, estado: 0 }, transaction: t });
+        if (!suscripcion) throw new Error('No tienes una suscripción activa para cancelar');
 
-    suscripcion.estado = 1; 
-    await suscripcion.save();
-    await Usuario.update({ idSuscripcion: null }, { where: { id: idReal } }); 
+        suscripcion.estado = 1;
+        await suscripcion.save({ transaction: t });
+        await Usuario.update({ idSuscripcion: null }, { where: { id: idReal }, transaction: t });
 
-    return suscripcion;
+        const notificacion = await Notificacion.create({
+            idUsuario: idReal,
+            idSuscripcionUsuario: suscripcion.id,
+            titulo: 'Suscripción cancelada',
+            mensaje: 'Tu suscripción ha sido cancelada. Puedes volver a suscribirte cuando quieras.',
+            tipo: 'SUSCRIPCION_CANCEL',
+            leida: false,
+            fecha_envio: new Date()
+        }, { transaction: t });
+
+        await t.commit();
+        return { suscripcion, notificacion };
+    } catch (error) {
+        await t.rollback();
+        throw new Error(error.original ? error.original.message : error.message);
+    }
 };
 
 // Cambiar de Plan 
@@ -158,8 +185,18 @@ const cambiarPlan = async (nombreUsuario, datosCambio) => {
             { where: { id: idReal }, transaction: t } 
         );
 
+        const notificacion = await Notificacion.create({
+            idUsuario: idReal,
+            idSuscripcionUsuario: nuevaSuscripcion.id,
+            titulo: 'Plan actualizado',
+            mensaje: `Tu plan ha sido cambiado a "${nuevoPlan.nombre}" exitosamente.`,
+            tipo: 'SUSCRIPCION_CAMBIO',
+            leida: false,
+            fecha_envio: new Date()
+        }, { transaction: t });
+
         await t.commit();
-        return nuevaSuscripcion;
+        return { suscripcion: nuevaSuscripcion, notificacion };
 
     } catch (error) {
         await t.rollback();

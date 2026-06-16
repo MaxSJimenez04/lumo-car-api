@@ -38,7 +38,7 @@ self.validaciones = {
     ],
 
     eliminarVehiculo:[
-        body('id','Especificar id válida').isUUID().notEmpty()
+        param('id','Especificar id válida').isUUID().notEmpty()
     ],
     actualizarFotoPrincipal:[
         body('idArchivo', 'Especificar ID del Archivo').isInt().notEmpty(),

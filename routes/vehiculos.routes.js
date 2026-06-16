@@ -5,7 +5,7 @@ const bitacoraLogger = require('../middlewares/bitacora.middleware')
 
 
 //GET vehiculos/colores/1
-router.get("/colores", vehiculos.validaciones.consultarColor, vehiculos.consultarColor)
+router.get('/color', vehiculos.validaciones.consultarColor, vehiculos.consultarColor)
 
 //GET /vehiculos/colores
 router.get('/colores', vehiculos.consultarColores)
@@ -37,7 +37,7 @@ router.put('/:id/foto-principal', bitacoraLogger, Authorize('Administrador,S_Adm
 // GET  /vehiculos/:id/secondary-pictures
 router.get('/:id/secondary-pictures', vehiculos.idValidator, vehiculos.consultarFotosSecundarias)
  
-// PATCH /vehiculos/:id/fotos-secundarias
+//PUT /vehiculos/:id/fotos-secundarias
 router.put('/:id/fotos-secundarias', bitacoraLogger, Authorize('Administrador,S_Administrador'), vehiculos.validaciones.asociarFoto, vehiculos.asociarFotoSecundaria)
 
 module.exports = router

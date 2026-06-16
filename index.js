@@ -24,7 +24,7 @@ app.use("/auth", require('./routes/auth.routes'))
 app.use("/usuarios", require('./routes/usuarios.routes'))
 
 app.use("/suscripciones", require('./routes/suscripciones.routes'))
-
+app.use("/marcas", require('./routes/marcas.routes'))
 app.use("/archivos", require('./routes/archivos.routes'))
 app.use("/vehiculos",require('./routes/vehiculos.routes'))
 app.use("/sucursales", require('./routes/sucursales.routes'))

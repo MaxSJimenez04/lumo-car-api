@@ -294,13 +294,15 @@ self.consultarFotosSecundarias = async function (req, res, next) {
  
 self.asociarFotoPrincipal = async function (req, res, next) {
     try {
-        const errores = validationResult(req)
+        let errores = validationResult(req)
         if (!errores.isEmpty()) {
             return res.status(400).json({errores: errores.array()})
         }
  
-        const idVehiculo = req.params.id
-        const { idArchivo } = req.body
+        let idVehiculo = req.params.id
+        let idArchivo = req.body.idArchivo
+        console.log(req.body.idArchivo);
+        
  
         let datosVehiculo = await Vehiculo.findByPk(idVehiculo, { attributes: ['id'] })
  
@@ -308,7 +310,6 @@ self.asociarFotoPrincipal = async function (req, res, next) {
             return res.status(404).json({mensaje: "No se encontró el vehículo"})
         }
  
-        // Verificar que el archivo exista y no esté ya asociado a otro vehículo
         let archivo = await Archivo.findOne({
             where: {id: idArchivo},
             raw: true,
@@ -323,13 +324,11 @@ self.asociarFotoPrincipal = async function (req, res, next) {
             return res.status(400).json({mensaje: "El archivo ya está asociado a otro vehículo"})
         }
  
-        // Quitar flag a la foto principal actual (si existe)
         await Archivo.update(
             {esPrincipal: false},
             {where: {idVehiculo: datosVehiculo.id, esPrincipal: true}}
         )
  
-        // Asociar y marcar como principal
         await Archivo.update(
             {idVehiculo: datosVehiculo.id, esPrincipal: true},
             {where: {id: idArchivo}}

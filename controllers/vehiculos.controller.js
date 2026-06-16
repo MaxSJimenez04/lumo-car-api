@@ -173,7 +173,7 @@ self.consultar = async function(req,res,next) {
         let datosVehiculo = await Vehiculo.findOne({
             where:{id:id},
             raw:true,
-            attributes:['id','placa','modelo','pasajeros','transmision','tamano','tipo_combustible','aire_acondicionado','idColor','idMarca',
+            attributes:['id','placa','modelo','pasajeros','transmision','tamano','tipo_combustible','aire_acondicionado','estado','idColor','idMarca',
                 [Sequelize.col('Color.color'), 'color'],[Sequelize.col('Color.codigoHex'),'codigoHex'],[Sequelize.col('Marca.nombreMarca'),'nombreMarca']],
             include:[{model:Color, attributes:[]},{model:Marca, attributes:[]}]
         })

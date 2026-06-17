@@ -186,7 +186,7 @@ self.obtenerHistorial = async function (req, res, next) {
                 idUsuario: idUsuario,
                 estadoRenta: [0, 2, 3, 4]
             },
-            attributes: ['id', 'fechaInicio', 'fechaFin', 'estadoRenta'],
+            attributes: ['id', 'fechaInicio', 'fechaFin', 'estadoRenta', 'createdAt'],
             include: [
                 {
                     model: Vehiculo,
@@ -207,7 +207,7 @@ self.obtenerHistorial = async function (req, res, next) {
                     attributes: ['monto', 'concepto', 'fechaPago']
                 }
             ],
-            order: [['fechaInicio', 'DESC']]
+            order: [['createdAt', 'DESC']]
         })
 
         if (!historial || historial.length === 0) {

@@ -1,63 +1,71 @@
-const { Notificacion } = require('../models');
+const { Notificacion, Usuario } = require('../models');
+const { ClaimTypes } = require('../config/claimtypes');
 const { validationResult, param } = require('express-validator');
-const { Op } = require('sequelize');
 
 let self = {};
 
 self.validaciones = {
-    consultarNotificaciones: [
-        param('idUsuario')
-            .notEmpty().withMessage('El id del usuario es obligatorio')
-            .bail()
-            .isUUID.withMessage('Especificar un id de usuario válido')
+    marcarUna: [
+        param('id', 'ID de notificación inválido').isInt().notEmpty()
     ]
 };
 
-self.consultarNotificaciones = async function (req, res, next) {
-    try {
-        const errores = validationResult(req);
-        if (!errores.isEmpty()) {
-            return res.status(400).json({ errores: errores.array() });
-        }
+const obtenerIdUsuario = async (nombreUsuario) => {
+    const usuario = await Usuario.findOne({ where: { usuario: nombreUsuario }, attributes: ['id'] });
+    if (!usuario) throw new Error('Usuario no encontrado');
+    return usuario.id;
+};
 
-        const { idUsuario } = req.params;
+self.obtenerNotificaciones = async (req, res, next) => {
+    try {
+        const idUsuario = await obtenerIdUsuario(req.decodedToken[ClaimTypes.Name]);
 
         const notificaciones = await Notificacion.findAll({
-            where: { idUsuario: idUsuario },
+            where: { idUsuario },
             order: [['fecha_envio', 'DESC']]
         });
 
-        if (!notificaciones || notificaciones.length === 0) {
-            return res.status(200).json({
-                mensaje: "No tienes notificaiones por el momento",
-                datos: []
-            });
-        }
-
-        const notificacionesNoLeidas = notificaciones.filter(notif => notif.leida === false);
-
-        if (notificacionesNoLeidas.length > 0) {
-            const idsNoLeidas = notificacionesNoLeidas.map(notif => notif.id);
-
-            await Notificacion.update(
-                { leida: true },
-                {
-                    where: {
-                        id: { [Op.in]: idsNoLeidas }
-                    }
-                }
-            );
-        }
-
-        return res.status(200).json({
-            mensaje: "Notificaciones recuperadas con éxito",
-            datos: notificaciones
-        });
+        return res.json({ ok: true, notificaciones });
     } catch (error) {
-        return res.status(500).json({
-            mensaje: "Ocurrió un error al procesar las notificaciones."
-        });
+        next(error);
     }
-}
+};
+
+self.marcarComoLeida = async (req, res, next) => {
+    try {
+        const errores = validationResult(req);
+        if (!errores.isEmpty()) return res.status(400).json({ errores: errores.array() });
+
+        const idUsuario = await obtenerIdUsuario(req.decodedToken[ClaimTypes.Name]);
+
+        const notificacion = await Notificacion.findOne({
+            where: { id: req.params.id, idUsuario }
+        });
+
+        if (!notificacion) return res.status(404).json({ ok: false, msg: 'Notificación no encontrada.' });
+
+        notificacion.leida = true;
+        await notificacion.save();
+
+        return res.status(204).send();
+    } catch (error) {
+        next(error);
+    }
+};
+
+self.marcarTodasComoLeidas = async (req, res, next) => {
+    try {
+        const idUsuario = await obtenerIdUsuario(req.decodedToken[ClaimTypes.Name]);
+
+        await Notificacion.update(
+            { leida: true },
+            { where: { idUsuario, leida: false } }
+        );
+
+        return res.status(204).send();
+    } catch (error) {
+        next(error);
+    }
+};
 
 module.exports = self;

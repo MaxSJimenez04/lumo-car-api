@@ -4,6 +4,7 @@ const bitacora = require('../middlewares/bitacora.middleware');
 const { validationResult, body, param } = require('express-validator');
 const servicioNotificacion = require('../services/notificacion.service');
 const rentasServicio = require('../services/rentas.service');
+const { ClaimTypes } = require('../config/claimtypes');
 
 
 let self = {}
@@ -19,9 +20,20 @@ const reglaIdUsuario = (origen) => origen('idUsuario')
     .isUUID().withMessage('Especificar id válida del usuario');
 
 self.validaciones = {
+    calcularRenta: [
+        reglaIdVehiculo(body),
+        body('fechaInicio')
+            .notEmpty().withMessage('Especificar fecha de inicio')
+            .bail()
+            .isISO8601().withMessage('Especificar fecha de inicio válida'),
+        body('fechaFin')
+            .notEmpty().withMessage('Especificar fecha de finalización')
+            .bail()
+            .isISO8601().withMessage('Especificar fecha de finalización válida')
+    ],
+
     crearRenta: [
         reglaIdVehiculo(body),
-        reglaIdUsuario(body),
         body('fechaInicio')
             .notEmpty().withMessage('Especificar fecha de inicio')
             .bail()
@@ -42,6 +54,7 @@ self.validaciones = {
             .isLength({ min: 3, max: 3 }).withMessage('El CVV debe ser de 3 dígitos')
     ],
 
+
     obtenerHistorial: [
         reglaIdUsuario(param)
     ],
@@ -61,6 +74,40 @@ self.validaciones = {
     ]
 }
 
+self.calcularRenta = async function (req, res, next) {
+    try {
+        const errores = validationResult(req);
+        if (!errores.isEmpty()) {
+            return res.status(400).json({ errores: errores.array() });
+        }
+
+        const { idVehiculo, fechaInicio, fechaFin } = req.body;
+        const fechaInicioParsed = new Date(fechaInicio);
+        const fechaFinParsed = new Date(fechaFin);
+
+        if (fechaFinParsed <= fechaInicioParsed) {
+            return res.status(400).json({ mensaje: 'La fecha y hora de fin debe ser posterior a la de inicio.' });
+        }
+
+        const vehiculo = await Vehiculo.findByPk(idVehiculo, {
+            attributes: ['id', 'modelo', 'placa', 'tamano', 'pasajeros', 'transmision', 'tipo_combustible', 'aire_acondicionado', 'estado'],
+            include: [
+                { model: Sucursal, attributes: ['id', 'nombre', 'direccion'] },
+                { model: Marca, attributes: ['nombreMarca'] }
+            ]
+        });
+
+        if (!vehiculo) return res.status(404).json({ mensaje: 'El vehículo especificado no existe.' });
+        if (vehiculo.estado !== 1) return res.status(409).json({ mensaje: 'Lo sentimos, este vehículo ya no se encuentra disponible.' });
+
+        const montoTotal = rentasServicio.calcularMontoRenta(vehiculo.tamano, fechaInicioParsed, fechaFinParsed);
+
+        return res.json({ vehiculo, fechaInicio: fechaInicioParsed, fechaFin: fechaFinParsed, montoTotal });
+    } catch (error) {
+        next(error);
+    }
+}
+
 self.crearRenta = async function (req, res, next) {
     try {
         const errores = validationResult(req);
@@ -68,7 +115,12 @@ self.crearRenta = async function (req, res, next) {
             return res.status(400).json({ errores: errores.array() });
         }
 
-        const { idVehiculo, idUsuario, fechaInicio, fechaFin, idTarjeta, cvv } = req.body;
+        const nombreUsuario = req.decodedToken[ClaimTypes.Name];
+        const usuarioBD = await Usuario.findOne({ where: { usuario: nombreUsuario }, attributes: ['id'] });
+        if (!usuarioBD) return res.status(404).json({ mensaje: 'Usuario no encontrado.' });
+        const idUsuario = usuarioBD.id;
+
+        const { idVehiculo, fechaInicio, fechaFin, idTarjeta, cvv } = req.body;
 
         const fechaInicioParsed = new Date(fechaInicio);
         const fechaFinParsed = new Date(fechaFin);

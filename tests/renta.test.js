@@ -13,7 +13,7 @@ jest.mock('../models', () => ({
     Sequelize: { Op: {} },
     Vehiculo: { findByPk: jest.fn() },
     Renta: { create: jest.fn(), findAll: jest.fn() },
-    Usuario: { findByPk: jest.fn() },
+    Usuario: { findByPk: jest.fn(), findOne: jest.fn() },
     Sucursal: { nombre: 'Sucursal' },
     Marca: { nombreMarca: 'Marca' }
 }));
@@ -35,6 +35,9 @@ const { validaciones } = require('../controllers/rentas.controller');
 const { Renta, Usuario } = require('../models');
 const rentasServicio = require('../services/rentas.service');
 const servicioNotificacion = require('../services/notificacion.service');
+const { ClaimTypes } = require('../config/claimtypes');
+
+const MOCK_ID_USUARIO = 'a1b2c3d4-e5f6-7890-abcd-1234567890ab';
 
 describe('Pruebas de Reservar Vehículo', () => {
     let req, res, next;
@@ -45,8 +48,10 @@ describe('Pruebas de Reservar Vehículo', () => {
         req = {
             body: {},
             header: jest.fn(),
-            bitacora: jest.fn()
+            bitacora: jest.fn(),
+            decodedToken: { [ClaimTypes.Name]: 'usuarioPrueba' }
         };
+        Usuario.findOne.mockResolvedValue({ id: MOCK_ID_USUARIO });
         res = {
             status: jest.fn().mockReturnThis(),
             json: jest.fn()
@@ -57,7 +62,6 @@ describe('Pruebas de Reservar Vehículo', () => {
     test('Devolver código 400 si faltan datos obligatorios o son inválidos', async () => {
         req.body = {
             idVehiculo: '',
-            idUsuario: 'uno',
             fechaInicio: '19/05/2026',
             fechaFin: '20/05/2026',
             idTarjeta: '',
@@ -69,13 +73,12 @@ describe('Pruebas de Reservar Vehículo', () => {
 
         expect(res.status).toHaveBeenCalledWith(400);
         const errores = res.json.mock.calls[0][0].errores;
-        expect(errores).toHaveLength(6);
+        expect(errores).toHaveLength(5);
     });
 
     test('Devolver código 400 si la fechaFin es anterior a la fechaInicio', async () => {
         req.body = {
             idVehiculo: 'e4d909c2-901a-4d2b-b6d5-123456789abc',
-            idUsuario: 'a1b2c3d4-e5f6-7890-abcd-1234567890ab',
             fechaInicio: '2026-05-31T12:00:00.000Z',
             fechaFin: '2020-01-01T15:00:00.000Z',
             idTarjeta: 'f1e2d3c4-b5a6-7890-abcd-1234567890ab',
@@ -94,7 +97,6 @@ describe('Pruebas de Reservar Vehículo', () => {
     test('Devolver código 404 si el vehículo no existe', async () => {
         req.body = {
             idVehiculo: 'e4d909c2-901a-4d2b-b6d5-123456789abc',
-            idUsuario: 'a1b2c3d4-e5f6-7890-abcd-1234567890ab',
             fechaInicio: '2026-05-31T12:00:00.000Z',
             fechaFin: '2026-06-01T15:00:00.000Z',
             idTarjeta: 'f1e2d3c4-b5a6-7890-abcd-1234567890ab',
@@ -116,7 +118,6 @@ describe('Pruebas de Reservar Vehículo', () => {
     test('Devolver código 409 si el vehículo ya está rentado', async () => {
         req.body = {
             idVehiculo: 'e4d909c2-901a-4d2b-b6d5-123456789abc',
-            idUsuario: 'a1b2c3d4-e5f6-7890-abcd-1234567890ab',
             fechaInicio: '2026-05-31T12:00:00.000Z',
             fechaFin: '2026-06-01T15:00:00.000Z',
             idTarjeta: 'f1e2d3c4-b5a6-7890-abcd-1234567890ab',
@@ -138,7 +139,6 @@ describe('Pruebas de Reservar Vehículo', () => {
     test('Procesar renta, enviar notificación y responder 201', async () => {
         req.body = {
             idVehiculo: 'e4d909c2-901a-4d2b-b6d5-123456789abc',
-            idUsuario: 'a1b2c3d4-e5f6-7890-abcd-1234567890ab',
             fechaInicio: '2026-05-31T12:00:00.000Z',
             fechaFin: '2026-06-01T15:00:00.000Z',
             idTarjeta: 'f1e2d3c4-b5a6-7890-abcd-1234567890ab',
@@ -157,13 +157,13 @@ describe('Pruebas de Reservar Vehículo', () => {
 
         expect(rentasServicio.ejecutarCreacionRenta).toHaveBeenCalledWith(expect.objectContaining({
             idVehiculo: req.body.idVehiculo,
-            idUsuario: req.body.idUsuario,
+            idUsuario: MOCK_ID_USUARIO,
             idTarjeta: req.body.idTarjeta,
             cvv: req.body.cvv
         }));
 
         expect(servicioNotificacion.enviarNotificacion).toHaveBeenCalledWith(
-            req.body.idUsuario,
+            MOCK_ID_USUARIO,
             expect.objectContaining({ tipo: 'NUEVA_NOTIFICACION', datos: mockNotificacion })
         );
 

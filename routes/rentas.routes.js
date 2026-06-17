@@ -3,6 +3,9 @@ const rentas = require('../controllers/rentas.controller');
 const {Authorize} = require('../middlewares/auth.middleware');
 const bitacoraLogger = require('../middlewares/bitacora.middleware');
 
+//POST /rentas/calcular
+router.post('/calcular', Authorize('Cliente'), rentas.validaciones.calcularRenta, rentas.calcularRenta);
+
 //POST /rentas/
 router.post('/', bitacoraLogger, Authorize('Cliente'), rentas.validaciones.crearRenta, rentas.crearRenta);
 

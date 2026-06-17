@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended: false}))
 
 var corsOptions = {
     origin: 'http://localhost:5173',
-    methods: 'GET,POST,PUT,DELETE'  //Solo permite métodos GET, PUT, POST y DELETE
+    methods: 'GET,POST,PUT,PATCH,DELETE'  //Solo permite métodos GET, PUT, POST y DELETE
 }
 
 app.use(cors(corsOptions))
@@ -30,6 +30,8 @@ app.use("/vehiculos",require('./routes/vehiculos.routes'))
 app.use("/sucursales", require('./routes/sucursales.routes'))
 app.use("/rentas", require('./routes/rentas.routes'))
 app.use("/estadisticas", require('./routes/estadisticas.routes'))
+app.use("/notificaciones", require('./routes/notificaciones.routes'))
+app.use("/tarjetas", require('./routes/tarjetas.routes'))
 app.get('/*splat', (req, res) => {res.status(404).send("RECURSO NO ENCONTRADO")})
 
 async function iniciarServidor() {

@@ -256,3 +256,12 @@
 2026-06-16T17:03:02.838Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
 2026-06-16T17:17:35.371Z: ACCIÓN: Inicio de Sesión: ElenaRivas82 - IP: ::1 - USUARIO: Invitado 
 2026-06-16T17:19:08.242Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-16T17:44:08.748Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-16T19:13:59.140Z: ACCIÓN: Inicio de Sesión: BrendaMarquez - IP: ::1 - USUARIO: Invitado 
+2026-06-16T19:14:34.838Z: ACCIÓN: Inicio de Sesión: ElenaRivas82 - IP: ::1 - USUARIO: Invitado 
+2026-06-16T19:24:15.727Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-16T20:21:36.991Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-17T00:06:41.961Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-17T00:08:12.658Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-17T00:33:22.037Z: ACCIÓN: Inicio de Sesión: ElenaRivas82 - IP: ::1 - USUARIO: Invitado 
+2026-06-17T00:43:28.605Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 

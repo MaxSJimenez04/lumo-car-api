@@ -34,7 +34,7 @@ self.validaciones = {
     ],
     
     consultarVehiculos:[
-        query('idSucursal', 'Especificar una sucursal válida').isInt()
+        query('idSucursal').optional().isInt().withMessage('Sucursal inválida')
     ],
 
     eliminarVehiculo:[
@@ -144,19 +144,23 @@ self.consultarPorSucursal = async function(req,res,next) {
             return res.status(400).json({errores: errores.array()})
         }
         let idSucursalSeleccionada = req.query.idSucursal
-        let vehiculosSucursal = await Vehiculo.findAll({
-            where:{idSucursal: idSucursalSeleccionada},
-            raw:true,
+        const whereClause = idSucursalSeleccionada
+            ? { idSucursal: idSucursalSeleccionada }
+            : {}
+
+        let vehiculos = await Vehiculo.findAll({
+            where: whereClause,
+            raw: true,
             attributes:['id','placa','modelo','pasajeros','transmision','tamano','tipo_combustible','aire_acondicionado','estado','idColor','idMarca',
                 [Sequelize.col('Color.color'), 'color'],[Sequelize.col('Color.codigoHex'),'codigoHex'],[Sequelize.col('Marca.nombreMarca'),'nombreMarca']],
             include:[{model:Color, attributes:[]},{model:Marca, attributes:[]}]
         })
 
-        if (vehiculosSucursal === null) {
+        if (vehiculos === null) {
             return res.status(404).json({mensaje:"No se encontraron vehículos para esa sucursal"})
         }
 
-        return res.status(200).json(vehiculosSucursal)
+        return res.status(200).json(vehiculos)
     } catch (error) {
         next(error)
     }

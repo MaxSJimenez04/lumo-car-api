@@ -119,18 +119,20 @@ describe('Pruebas de Gestionar Usuario', ()=>{
 
     test('Comprobar que se hashea la contraseña', async()=>{
         req = {
-            usuario:'PruebaUsuarioHash',
-            contrasena: 'password@2001',
-            nombre: 'Juan',
-            apellidos: 'Rulfo',
-            correo: 'correodeprueba@ejemplo.com',
-            telefono: '+520123456789',
-            fecha: {
-                ano: 2001,
-                mes: 3,
-                dia: 4
-            },
-            idRol: 3
+            body: {
+                usuario:'PruebaUsuarioHash',
+                contrasena: 'password@2001',
+                nombre: 'Juan',
+                apellidos: 'Rulfo',
+                correo: 'correodeprueba@ejemplo.com',
+                telefono: '+520123456789',
+                fecha: {
+                    ano: 2001,
+                    mes: 3,
+                    dia: 4
+                },
+                idRol: 3
+            }
         }
 
         bcrypt.hash.mockResolvedValue('$2b$10$KG3bUp9LKpLD4Fo.J3Uy6uhWOs5io8kc02DQFRwz0zvEYr1FTrF6m')

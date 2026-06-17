@@ -1,4 +1,4 @@
-const { Renta, Vehiculo, Usuario, Sucursal, Marca } = require('../models');
+const { Renta, Vehiculo, Pago, Usuario, Sucursal, Marca } = require('../models');
 const Sequelize = require('sequelize');
 const bitacora = require('../middlewares/bitacora.middleware');
 const { validationResult, body, param } = require('express-validator');
@@ -184,7 +184,7 @@ self.obtenerHistorial = async function (req, res, next) {
         const historial = await Renta.findAll({
             where: {
                 idUsuario: idUsuario,
-                estadoRenta: [2, 4]
+                estadoRenta: [0, 2, 3, 4]
             },
             attributes: ['id', 'fechaInicio', 'fechaFin', 'estadoRenta'],
             include: [
@@ -201,6 +201,10 @@ self.obtenerHistorial = async function (req, res, next) {
                             attributes: ['nombreMarca']
                         }
                     ]
+                },
+                {
+                    model: Pago,
+                    attributes: ['monto', 'concepto', 'fechaPago']
                 }
             ],
             order: [['fechaInicio', 'DESC']]
@@ -267,9 +271,9 @@ self.cancelarRenta = async function (req, res, next) {
 
         const { idRenta } = req.params;
 
-        let renta, notificacion;
+        let renta, notificacion, montoReembolso;
         try {
-            ({ renta, notificacion } = await rentasServicio.ejecutarCancelacionRenta({ idRenta }));
+            ({ renta, notificacion, montoReembolso } = await rentasServicio.ejecutarCancelacionRenta({ idRenta }));
         } catch (err) {
             if (err.status) return res.status(err.status).json({ mensaje: err.message });
             throw err;
@@ -286,6 +290,7 @@ self.cancelarRenta = async function (req, res, next) {
 
         return res.status(200).json({
             mensaje: 'Renta cancelada con éxito.',
+            montoReembolso,
             renta
         });
     } catch (error) {

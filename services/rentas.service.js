@@ -84,7 +84,7 @@ self.ejecutarCancelacionRenta = async function ({ idRenta }) {
 
     try {
         const renta = await Renta.findByPk(idRenta, {
-            include: [{ model: Vehiculo }],
+            include: [{ model: Vehiculo }, { model: Pago }],
             transaction: t,
             lock: t.LOCK.UPDATE
         });
@@ -107,11 +107,23 @@ self.ejecutarCancelacionRenta = async function ({ idRenta }) {
         renta.Vehiculo.estado = 1;
         await renta.Vehiculo.save({ transaction: t });
 
+        const montoReembolso = renta.Pago ? renta.Pago.monto : 0;
+
+        if (renta.Pago) {
+            await Pago.create({
+                monto: montoReembolso,
+                fechaPago: new Date(),
+                concepto: `Reembolso por cancelación de renta del vehículo ${renta.Vehiculo.modelo} con placa ${renta.Vehiculo.placa}`,
+                idTarjeta: renta.Pago.idTarjeta,
+                idRenta: renta.id
+            }, { transaction: t });
+        }
+
         const notificacion = await Notificacion.create({
             idUsuario: renta.idUsuario,
             idRenta: renta.id,
             titulo: 'Renta cancelada',
-            mensaje: `Tu reserva del vehículo ${renta.Vehiculo.modelo} con placa ${renta.Vehiculo.placa} ha sido cancelada.`,
+            mensaje: `Tu reserva del vehículo ${renta.Vehiculo.modelo} con placa ${renta.Vehiculo.placa} ha sido cancelada. Se realizará un reembolso de $${montoReembolso}.`,
             tipo: 'RENTA_CANCELADA',
             leida: false,
             fecha_envio: new Date()
@@ -119,7 +131,7 @@ self.ejecutarCancelacionRenta = async function ({ idRenta }) {
 
         await t.commit();
 
-        return { renta, notificacion };
+        return { renta, notificacion, montoReembolso };
     } catch (err) {
         await t.rollback();
         throw err;

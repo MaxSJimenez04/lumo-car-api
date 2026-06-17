@@ -43,7 +43,7 @@ Vehiculo.init(
             allowNull: false
         },
         aire_acondicionado:{
-           type: DataTypes.BOOLEAN 
+        type: DataTypes.BOOLEAN 
         },
         estado:{
             type: DataTypes.INTEGER,

@@ -30,7 +30,7 @@ VistaVehiculo.init({
             allowNull: false
         },
         aire_acondicionado:{
-           type: DataTypes.BOOLEAN 
+        type: DataTypes.BOOLEAN 
         },
         estado:{
             type: DataTypes.INTEGER,
@@ -59,4 +59,5 @@ VistaVehiculo.init({
     }
 )
 
+VistaVehiculo.sync = () => Promise.resolve();
 module.exports = VistaVehiculo

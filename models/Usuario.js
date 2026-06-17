@@ -5,7 +5,6 @@ class Usuario extends Model{
     static associate(models){
         Usuario.belongsTo(models.Rol, {foreignKey: 'idRol'})
         Usuario.belongsTo(models.Sucursal, {foreignKey: 'idSucursal'})
-        Usuario.belongsToMany(models.Vehiculo, {through: models.Renta})
         Usuario.hasMany(models.Tarjeta, {foreignKey: 'idUsuario'})
         Usuario.hasOne(models.Archivo, {foreignKey:'idUsuario'})
         Usuario.hasMany(models.Notificacion, {foreignKey: 'idUsuario'})

@@ -28,7 +28,7 @@ function iniciarScheduler() {
             );
 
             if (iniciadas > 0) console.log(`[Scheduler] ${iniciadas} renta(s) iniciada(s).`);
-            if (finalizada > 0)  console.log(`[Scheduler] ${finalizada} renta(s) marcada(s) como vencidas.`);
+            if (finalizada > 0)  console.log(`[Scheduler] ${finalizada} renta(s) marcada(s) como finalizadas.`);
 
         } catch (error) {
             console.error('[Scheduler] Error al actualizar estados de rentas:', error);

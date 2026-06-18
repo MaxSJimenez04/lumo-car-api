@@ -3,11 +3,12 @@ name: actualizar usuario :usuario
 description: Update a user profile. Bearer auth required.
 method: PUT
 url: "{{baseUrl}}/usuarios/:usuario"
+examples: .resources/actualizar.resources/examples
 order: 4000
 headers:
   Content-Type: application/json
 pathVariables:
-  usuario: 9425a21c-a7c5-4272-8c8f-f771485b8fb1
+  usuario: josue
 body:
   type: json
   content: |-

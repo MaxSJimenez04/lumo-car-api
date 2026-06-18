@@ -13,9 +13,9 @@ body:
   type: json
   content: |-
     {
-      "usuario": "josue",
+      "usuario": "josue12",
       "contrasena": "@contrasena2",
-      "correo": "josue@example.com",
+      "correo": "sosueyjosue@gmail.com",
       "nombre": "Josue",
       "apellidos": "MG",
       "telefono": "+525551234567",

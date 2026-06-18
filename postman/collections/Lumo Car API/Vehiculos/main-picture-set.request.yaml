@@ -1,18 +1,17 @@
 $kind: http-request
-name: 'asignar main-picture :id'
-description: 'Set the vehicle main picture. Bearer auth required.'
+name: asignar main-picture :id
+description: Set the vehicle main picture. Bearer auth required.
 method: PUT
-url: '{{baseUrl}}/vehiculos/:id/main-picture'
+url: "{{baseUrl}}/vehiculos/:id/foto-principal"
+examples: .resources/main-picture-set.resources/examples
 order: 11000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 pathVariables:
-  - key: id
-    value: '1'
+  id: e172da12-46a0-48cc-a3c5-8b862064d170
 body:
   type: json
   content: |-
     {
-      "idArchivo": 1
+      "idArchivo": "8d95bc52-c6a1-4f32-872e-4a5eb232fa65"
     }

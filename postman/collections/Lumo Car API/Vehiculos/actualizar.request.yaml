@@ -8,13 +8,10 @@ order: 7000
 headers:
   Content-Type: application/json
 pathVariables:
-  id: "1"
+  id: 67d9a4ce-9ecd-48f5-afc4-0509f33210d3
 body:
   type: json
   content: |-
     {
-      "pasajeros": 5,
-      "aire_acondicionado": true,
-      "idColor": 1,
-      "idSucursal": 1
+      "pasajeros": "cuatro"
     }

@@ -1,0 +1,30 @@
+$kind: http-example
+name: asignar pfp :usuario_204
+description: Associate a profile picture with the user. Bearer auth required.
+request:
+  url: "{{baseUrl}}/usuarios/:usuario/pfp/"
+  method: POST
+  headers:
+    Content-Type: application/json
+  pathVariables:
+    usuario: Josue15
+  body:
+    type: json
+    content: |-
+      {
+        "idArchivo": "72aef597-cdff-4247-b570-abf6cd0ea64b"
+      }
+response:
+  statusCode: 204
+  statusText: No Content
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    date: Thu, 18 Jun 2026 04:14:59 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: text
+    content: ""
+order: 1781756101783

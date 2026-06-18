@@ -1,0 +1,33 @@
+$kind: http-example
+name: actualizar usuario :usuario_204
+description: Update a user profile. Bearer auth required.
+request:
+  url: "{{baseUrl}}/usuarios/:usuario"
+  method: PUT
+  headers:
+    Content-Type: application/json
+  pathVariables:
+    usuario: josue
+  body:
+    type: json
+    content: |-
+      {
+        "nombre": "Josue",
+        "apellidos": "Melgarejo",
+        "correo": "josue@example.com",
+        "telefono": "5551234567"
+      }
+response:
+  statusCode: 204
+  statusText: No Content
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    date: Thu, 18 Jun 2026 04:15:54 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: text
+    content: ""
+order: 1781756161639

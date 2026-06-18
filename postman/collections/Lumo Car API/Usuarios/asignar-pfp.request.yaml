@@ -1,18 +1,17 @@
 $kind: http-request
-name: 'asignar pfp :usuario'
-description: 'Associate a profile picture with the user. Bearer auth required.'
+name: asignar pfp :usuario
+description: Associate a profile picture with the user. Bearer auth required.
 method: POST
-url: '{{baseUrl}}/usuarios/:usuario/pfp/'
+url: "{{baseUrl}}/usuarios/:usuario/pfp/"
+examples: .resources/asignar-pfp.resources/examples
 order: 5000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 pathVariables:
-  - key: usuario
-    value: johndoe
+  usuario: Josue15
 body:
   type: json
   content: |-
     {
-      "idArchivo": "<idArchivo>"
+      "idArchivo": "72aef597-cdff-4247-b570-abf6cd0ea64b"
     }

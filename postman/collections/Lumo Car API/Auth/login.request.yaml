@@ -3,22 +3,6 @@ name: login
 description: Authenticate a user and receive a JWT. No Auth (public).
 method: POST
 url: "{{baseUrl}}/auth/login"
-scripts:
-  - type: afterResponse
-    code: "if (pm.response.code === 200) {\r
-
-      \    const respuesta = pm.response.json();\r
-
-      \    \r
-
-      \    pm.environment.set(\"token\", respuesta.jwt);\r
-
-      \    \r
-
-      \    console.log(\"¡Token guardado exitosamente!\");\r
-
-      }"
-    language: text/javascript
 examples: .resources/login.resources/examples
 order: 1000
 auth:
@@ -29,6 +13,6 @@ body:
   type: json
   content: |-
     {
-      "usuario": "DiegoFerrer93",
-      "contrasena": "contrasena1234"
+      "usuario": "BrendaMarquez",
+      "contrasena": "password1234"
     }

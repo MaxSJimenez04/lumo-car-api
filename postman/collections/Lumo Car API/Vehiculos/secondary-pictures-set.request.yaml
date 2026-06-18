@@ -1,15 +1,13 @@
 $kind: http-request
-name: 'asignar fotos-secundarias :id'
-description: 'Set the vehicle secondary pictures. Bearer auth required (roles: Administrador, S_Administrador).'
+name: asignar fotos-secundarias :id
+description: "Set the vehicle secondary pictures. Bearer auth required (roles: Administrador, S_Administrador)."
 method: PUT
-url: '{{baseUrl}}/vehiculos/:id/fotos-secundarias'
+url: "{{baseUrl}}/vehiculos/:id/fotos-secundarias"
 order: 13000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 pathVariables:
-  - key: id
-    value: '1'
+  id: 35d3f191-2b2f-4af7-92cd-dc91a7d1e05b
 body:
   type: json
   content: |-

@@ -1,11 +1,11 @@
 $kind: http-request
-name: 'obtener secondary-pictures :id'
-description: 'Get the vehicle secondary pictures. No Auth (public).'
+name: obtener secondary-pictures :id
+description: Get the vehicle secondary pictures. No Auth (public).
 method: GET
-url: '{{baseUrl}}/vehiculos/:id/secondary-pictures'
+url: "{{baseUrl}}/vehiculos/:id/secondary-pictures"
+examples: .resources/secondary-pictures-get.resources/examples
 order: 12000
 auth:
   type: noauth
 pathVariables:
-  - key: id
-    value: '1'
+  id: "1"

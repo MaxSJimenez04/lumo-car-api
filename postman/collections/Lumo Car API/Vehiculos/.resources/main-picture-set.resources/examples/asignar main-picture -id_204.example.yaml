@@ -1,0 +1,30 @@
+$kind: http-example
+name: asignar main-picture :id_204
+description: Set the vehicle main picture. Bearer auth required.
+request:
+  url: "{{baseUrl}}/vehiculos/:id/foto-principal"
+  method: PUT
+  headers:
+    Content-Type: application/json
+  pathVariables:
+    id: e172da12-46a0-48cc-a3c5-8b862064d170
+  body:
+    type: json
+    content: |-
+      {
+        "idArchivo": "8d95bc52-c6a1-4f32-872e-4a5eb232fa65"
+      }
+response:
+  statusCode: 204
+  statusText: No Content
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    date: Thu, 18 Jun 2026 04:13:46 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: text
+    content: ""
+order: 1781756032176

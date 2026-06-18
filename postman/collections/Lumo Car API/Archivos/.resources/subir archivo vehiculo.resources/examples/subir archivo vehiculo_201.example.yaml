@@ -1,0 +1,43 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/archivos/vehiculos_201"
+  method: POST
+  body:
+    type: formdata
+    content:
+      - type: file
+        key: file
+        src:
+          - /C:/Users/sosue/Desktop/Trabajos/Web/dsw.calculadoraweb.com/resources/images/calculadora.png
+        description: ""
+        disabled: false
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "332"
+    etag: W/"14c-2ARcp30XdgFFW3B3Pgx/ThB8HwE"
+    date: Thu, 18 Jun 2026 04:11:55 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "detalles": {
+          "id": "8d95bc52-c6a1-4f32-872e-4a5eb232fa65",
+          "nombreOriginal": "calculadora.png",
+          "nombreArchivo": "1781755915826-calculadora.png",
+          "ruta": "/uploads/vehiculos/1781755915826-calculadora.png",
+          "updatedAt": "2026-06-18T04:11:55.828Z",
+          "createdAt": "2026-06-18T04:11:55.828Z",
+          "esPrincipal": false,
+          "idUsuario": null,
+          "idVehiculo": null
+        }
+      }
+order: 1781755921808

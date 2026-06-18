@@ -1,0 +1,28 @@
+$kind: http-example
+name: obtener secondary-pictures :id_404
+description: Get the vehicle secondary pictures. No Auth (public).
+request:
+  url: "{{baseUrl}}/vehiculos/:id/secondary-pictures"
+  method: GET
+  pathVariables:
+    id: 35d3f191-2b2f-4af7-92cd-dc91a7d1e05b
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "53"
+    etag: W/"35-qOnoXhi10m7RzORvQobNOvsbIdY"
+    date: Thu, 18 Jun 2026 03:46:58 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "El vehículo no tiene fotos secundarias"
+      }
+order: 1781754421236

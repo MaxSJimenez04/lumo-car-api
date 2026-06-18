@@ -1,0 +1,38 @@
+$kind: http-example
+description: "Create a city. Bearer auth required (role: S_Administrador)."
+request:
+  url: "{{baseUrl}}/sucursales/ciudad"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "nombreCiudad": "Orizaba",
+        "idEstado": 30
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "125"
+    etag: W/"7d-/xH5IKwNrhgUJELNs6VQGIxQeck"
+    date: Thu, 18 Jun 2026 02:00:00 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "id": 4,
+        "nombreCiudad": "Orizaba",
+        "idEstado": 30,
+        "updatedAt": "2026-06-18T02:00:00.754Z",
+        "createdAt": "2026-06-18T02:00:00.754Z"
+      }
+order: 1781748009527

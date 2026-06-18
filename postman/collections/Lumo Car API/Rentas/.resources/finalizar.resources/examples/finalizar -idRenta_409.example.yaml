@@ -1,0 +1,28 @@
+$kind: http-example
+name: finalizar :idRenta_409
+description: "Finalize a rental. Bearer auth required (role: Cliente). No body."
+request:
+  url: "{{baseUrl}}/rentas/:idRenta/finalizar"
+  method: PUT
+  pathVariables:
+    idRenta: "2"
+response:
+  statusCode: 409
+  statusText: Conflict
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "43"
+    etag: W/"2b-Vi3S34mG6bEW67oTiX4VW5JmDfU"
+    date: Thu, 18 Jun 2026 00:54:20 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "Esta renta ya fue finalizada."
+      }
+order: 1781744064430

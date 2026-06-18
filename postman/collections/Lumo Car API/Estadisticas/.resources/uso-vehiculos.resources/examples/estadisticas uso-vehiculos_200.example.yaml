@@ -1,0 +1,86 @@
+$kind: http-example
+description: "Vehicle usage statistics. Bearer auth required (role: Administrador)."
+request:
+  url: "{{baseUrl}}/estadisticas/uso-vehiculos"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "685"
+    etag: W/"2ad-SH2r6dsvnEBJxhLeFxs5fBk5/tU"
+    date: Thu, 18 Jun 2026 01:56:29 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "sucursales": [
+          {
+            "sucursal": {
+              "id": 1,
+              "nombre": "Sucursal 20 de Noviembre",
+              "direccion": "Av. 20 de Noviembre 278"
+            },
+            "vehiculos": [
+              {
+                "marca": "Ford",
+                "modelo": "Fiesta",
+                "totalUsos": 1,
+                "totalHoras": 5
+              },
+              {
+                "marca": "Mazda",
+                "modelo": "Mazda 3",
+                "totalUsos": 1,
+                "totalHoras": 0
+              },
+              {
+                "marca": "Nissan",
+                "modelo": "Sentra",
+                "totalUsos": 1,
+                "totalHoras": 0
+              },
+              {
+                "marca": "Nissan",
+                "modelo": "Versa",
+                "totalUsos": 1,
+                "totalHoras": 0
+              }
+            ]
+          },
+          {
+            "sucursal": {
+              "id": 2,
+              "nombre": "Sucursal Avenida Américas",
+              "direccion": "Av. Américas 37A"
+            },
+            "vehiculos": [
+              {
+                "marca": "Kia",
+                "modelo": "Rio",
+                "totalUsos": 1,
+                "totalHoras": 0
+              },
+              {
+                "marca": "Chevrolet",
+                "modelo": "Aveo",
+                "totalUsos": 1,
+                "totalHoras": 3
+              },
+              {
+                "marca": "Honda",
+                "modelo": "Civic",
+                "totalUsos": 1,
+                "totalHoras": 48
+              }
+            ]
+          }
+        ]
+      }
+order: 1781747804687

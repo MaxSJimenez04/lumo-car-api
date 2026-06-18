@@ -1,0 +1,9 @@
+$kind: http-request
+name: marcar una leida :id
+description: "Mark one notification as read. Bearer auth required (roles: Cliente, Administrador)."
+method: PATCH
+url: "{{baseUrl}}/notificaciones/:id/leida"
+examples: .resources/marcar-una-leida.resources/examples
+order: 4000
+pathVariables:
+  id: "21"

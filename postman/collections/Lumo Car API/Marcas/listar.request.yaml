@@ -1,0 +1,9 @@
+$kind: http-request
+name: listar marcas
+description: List all vehicle brands. No Auth (public).
+method: GET
+url: "{{baseUrl}}/marcas/"
+examples: .resources/listar.resources/examples
+order: 1000
+auth:
+  type: noauth

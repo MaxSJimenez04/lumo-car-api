@@ -1,0 +1,38 @@
+$kind: http-example
+description: Authenticate a user and receive a JWT. No Auth (public).
+request:
+  url: "{{baseUrl}}/auth/login"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "usuario": "DiegoFerrer931",
+        "contrasena": "contrasena1234"
+      }
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    ratelimit-policy: 5;w=900
+    ratelimit-limit: "5"
+    ratelimit-remaining: "4"
+    ratelimit-reset: "738"
+    content-type: application/json; charset=utf-8
+    content-length: "48"
+    etag: W/"30-2RibjS+JQz1feC6o6xhrOfU/ziA"
+    date: Wed, 17 Jun 2026 23:48:09 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "Usuario o contraseña incorrectos."
+      }
+order: 1148014863274890

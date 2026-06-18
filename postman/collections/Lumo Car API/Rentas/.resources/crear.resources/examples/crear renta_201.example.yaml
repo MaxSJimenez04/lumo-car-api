@@ -1,0 +1,49 @@
+$kind: http-example
+description: "Create a rental. Bearer auth required (role: Cliente)."
+request:
+  url: "{{baseUrl}}/rentas/"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "idVehiculo": "b27d867c-34c4-48be-9cf4-dbe873cb1e63",
+        "idUsuario": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+        "fechaInicio": "2026-06-10T10:00:00Z",
+        "fechaFin": "2026-06-12T10:00:00Z",
+        "idTarjeta": "4ecec4dd-9d10-4d61-b71b-52406e3a4f21",
+        "cvv": "123"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "382"
+    etag: W/"17e-3TsNGSSxSeagwLBxsfHpIEg/Qf4"
+    date: Thu, 18 Jun 2026 00:47:35 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "Vehículo reservado con éxito. Recuerde llegar a tiempo.",
+        "renta": {
+          "id": 23,
+          "fechaInicio": "2026-06-10T10:00:00.000Z",
+          "fechaFin": "2026-06-12T10:00:00.000Z",
+          "estadoRenta": 0,
+          "idUsuario": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+          "idVehiculo": "b27d867c-34c4-48be-9cf4-dbe873cb1e63",
+          "updatedAt": "2026-06-18T00:47:35.500Z",
+          "createdAt": "2026-06-18T00:47:35.500Z",
+          "UsuarioId": null
+        }
+      }
+order: 1781743661542

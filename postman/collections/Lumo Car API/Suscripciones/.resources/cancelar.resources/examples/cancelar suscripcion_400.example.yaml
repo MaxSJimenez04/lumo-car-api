@@ -1,0 +1,26 @@
+$kind: http-example
+description: "Cancel the current subscription. Bearer auth required (role: Cliente). No body."
+request:
+  url: "{{baseUrl}}/suscripciones/cancelar"
+  method: PUT
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "68"
+    etag: W/"44-/3eNLQIWuHT1O5mVvFPEtQhQdu8"
+    date: Thu, 18 Jun 2026 01:17:51 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "ok": false,
+        "msg": "No tienes una suscripción activa para cancelar"
+      }
+order: 1017119537939242

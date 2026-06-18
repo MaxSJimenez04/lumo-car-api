@@ -1,0 +1,28 @@
+$kind: http-example
+name: obtener vehiculo :id_404
+description: Get vehicle by id. No Auth (public).
+request:
+  url: "{{baseUrl}}/vehiculos/:id"
+  method: GET
+  pathVariables:
+    id: 67d9a4ce-9ecd-48f5-afc4-0509f33210d1
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "42"
+    etag: W/"2a-S/HUXvu2KYXLKtW5XkUKRL/I9GM"
+    date: Thu, 18 Jun 2026 02:07:25 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "No se encontró el vehículo"
+      }
+order: 983357293899111

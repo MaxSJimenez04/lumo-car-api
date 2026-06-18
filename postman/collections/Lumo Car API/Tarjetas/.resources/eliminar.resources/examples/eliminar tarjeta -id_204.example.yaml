@@ -1,0 +1,22 @@
+$kind: http-example
+name: eliminar tarjeta :id_204
+description: "Delete a card. Bearer auth required (role: Cliente)."
+request:
+  url: "{{baseUrl}}/tarjetas/:id"
+  method: DELETE
+  pathVariables:
+    id: 84b4726e-355c-4b6e-bc4c-892d36212d44
+response:
+  statusCode: 204
+  statusText: No Content
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    date: Thu, 18 Jun 2026 00:14:30 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: text
+    content: ""
+order: 1781741713882

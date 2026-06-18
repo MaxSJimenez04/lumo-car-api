@@ -1,0 +1,17 @@
+$kind: http-request
+name: calcular renta
+description: "Calculate rental cost before creating. Bearer auth required (role: Cliente)."
+method: POST
+url: "{{baseUrl}}/rentas/calcular"
+examples: .resources/calcular.resources/examples
+order: 500
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "idVehiculo": "b27d867c-34c4-48be-9cf4-dbe873cb1e61",
+      "fechaInicio": "2026-07-01",
+      "fechaFin": "2026-07-05"
+    }

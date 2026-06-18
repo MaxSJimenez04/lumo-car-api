@@ -1,0 +1,38 @@
+$kind: http-example
+description: "Subscribe to a plan. Bearer auth required (role: Cliente)."
+request:
+  url: "{{baseUrl}}/suscripciones/suscribirse"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "idSuscripcion": 6,
+        "numeroTarjeta": "1234567890123456",
+        "cvv": "123",
+        "titular": "Diego",
+        "fechaVencimiento": "12/28"
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "51"
+    etag: W/"33-TROSQxwMUlYKgKZ+C6fkWwfhHvk"
+    date: Thu, 18 Jun 2026 01:06:22 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "ok": false,
+        "msg": "El plan seleccionado no existe"
+      }
+order: 2115956678746384

@@ -1,0 +1,33 @@
+$kind: http-example
+description: "Subscription statistics. Bearer auth required (role: Administrador)."
+request:
+  url: "{{baseUrl}}/estadisticas/suscripciones"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "100"
+    etag: W/"64-tLzKpaSoOyXd8FdfU+ltC9CglQ0"
+    date: Thu, 18 Jun 2026 01:55:51 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "porMes": [
+          {
+            "mes": "2026-06",
+            "total": 3,
+            "ingresos": 4900
+          }
+        ],
+        "totalSuscripciones": 3,
+        "totalIngresos": 4900
+      }
+order: 1781747758048

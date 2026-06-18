@@ -1,0 +1,56 @@
+$kind: http-example
+description: Public user registration. No Auth.
+request:
+  url: "{{baseUrl}}/usuarios/"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "usuario": "josue",
+        "contrasena": "@contrasena2",
+        "correo": "josue@example.com",
+        "nombre": "Josue",
+        "apellidos": "MG",
+        "telefono": "+525551234567",
+        "fecha": {
+          "ano": 2001,
+          "mes": 5,
+          "dia": 12
+        },
+        "idRol": 3
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "385"
+    etag: W/"181-WFApMDONuwjDoH2+YNUhYOdiWfA"
+    date: Thu, 18 Jun 2026 01:43:29 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "id": "9425a21c-a7c5-4272-8c8f-f771485b8fb1",
+        "usuario": "josue",
+        "contrasena": "$2b$10$hm9QtoJD.71m8WP0k4u0nuopt22nddreN4KaKS25FPfMqk0lz0URG",
+        "nombre": "Josue",
+        "apellidos": "MG",
+        "correo": "josue@example.com",
+        "telefono": "+525551234567",
+        "fecha_nacimiento": "2001-06-11",
+        "idRol": 3,
+        "idSucursal": null,
+        "updatedAt": "2026-06-18T01:43:29.305Z",
+        "createdAt": "2026-06-18T01:43:29.305Z",
+        "rutaImagen": null
+      }
+order: 1781747011220

@@ -1,0 +1,44 @@
+$kind: http-example
+description: "Save a card. Bearer auth required (role: Cliente)."
+request:
+  url: "{{baseUrl}}/tarjetas/"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "numeroTarjeta": "4111111111111111",
+        "titular": "Diego",
+        "fechaVencimiento": "12/28",
+        "cvv": "1234"
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "114"
+    etag: W/"72-/IeT1gaulqt1wuJghotfqpWh33k"
+    date: Thu, 18 Jun 2026 00:13:18 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "errores": [
+          {
+            "type": "field",
+            "value": "1234",
+            "msg": "El CVV debe ser de 3 dígitos",
+            "path": "cvv",
+            "location": "body"
+          }
+        ]
+      }
+order: 4385280798940328

@@ -1,0 +1,68 @@
+$kind: http-example
+name: cancelar :idRenta_200
+description: "Cancel a rental. Bearer auth required (role: Cliente). No body."
+request:
+  url: "{{baseUrl}}/rentas/:idRenta/cancelar"
+  method: PUT
+  pathVariables:
+    idRenta: "24"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "1024"
+    etag: W/"400-PoLJrnqEEyQhmALOZxkbRUl5fXw"
+    date: Thu, 18 Jun 2026 00:52:36 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "Renta cancelada con éxito.",
+        "montoReembolso": 39600,
+        "renta": {
+          "id": 24,
+          "fechaInicio": "2026-07-10T10:00:00.000Z",
+          "fechaFin": "2026-08-12T10:00:00.000Z",
+          "estadoRenta": 3,
+          "idUsuario": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+          "idVehiculo": "67d9a4ce-9ecd-48f5-afc4-0509f33210d3",
+          "createdAt": "2026-06-18T00:52:21.068Z",
+          "updatedAt": "2026-06-18T00:52:36.352Z",
+          "UsuarioId": null,
+          "Vehiculo": {
+            "id": "67d9a4ce-9ecd-48f5-afc4-0509f33210d3",
+            "placa": "KWF-004-E",
+            "modelo": "Corolla",
+            "pasajeros": 5,
+            "transmision": true,
+            "tamano": "C",
+            "tipo_combustible": "2",
+            "aire_acondicionado": true,
+            "estado": 1,
+            "idColor": 4,
+            "idMarca": 1,
+            "idSucursal": 1,
+            "createdAt": "2026-06-15T17:03:42.270Z",
+            "updatedAt": "2026-06-18T00:52:36.356Z"
+          },
+          "Pago": {
+            "idPago": 15,
+            "monto": 39600,
+            "fechaPago": "2026-06-18T00:52:21.073Z",
+            "concepto": "Pago inicial por la renta del vehículo Corolla con placa KWF-004-E",
+            "cvv": "123",
+            "idTarjeta": "4ecec4dd-9d10-4d61-b71b-52406e3a4f21",
+            "idSuscripcion": null,
+            "idRenta": 24,
+            "createdAt": "2026-06-18T00:52:21.073Z",
+            "updatedAt": "2026-06-18T00:52:21.073Z"
+          }
+        }
+      }
+order: 1134821606133

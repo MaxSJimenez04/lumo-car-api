@@ -1,0 +1,19 @@
+$kind: http-example
+description: "Mark all notifications as read. Bearer auth required (roles: Cliente, Administrador)."
+request:
+  url: "{{baseUrl}}/notificaciones/leidas"
+  method: PATCH
+response:
+  statusCode: 204
+  statusText: No Content
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    date: Thu, 18 Jun 2026 01:32:35 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: text
+    content: ""
+order: 1781746358994

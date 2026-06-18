@@ -1,0 +1,33 @@
+$kind: http-example
+description: "Get saved cards. Bearer auth required (role: Cliente)."
+request:
+  url: "{{baseUrl}}/tarjetas/"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "150"
+    etag: W/"96-/YcT8yJBMmvLA6Hgp75f4trH7rg"
+    date: Thu, 18 Jun 2026 00:13:39 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "ok": true,
+        "tarjetas": [
+          {
+            "id": "84b4726e-355c-4b6e-bc4c-892d36212d44",
+            "numeroTarjeta": "4111111111111111",
+            "titular": "Diego",
+            "fechaVencimiento": "12/28"
+          }
+        ]
+      }
+order: 1781741623213

@@ -1,0 +1,38 @@
+$kind: http-example
+description: "Create a rental. Bearer auth required (role: Cliente)."
+request:
+  url: "{{baseUrl}}/rentas/"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "idVehiculo": "b27d867c-34c4-48be-9cf4-dbe873cb1e63",
+        "idUsuario": "d0982314-5a84-4b64-9df2-a7b3a3f46726",
+        "fechaInicio": "2026-06-10T10:00:00Z",
+        "fechaFin": "2026-06-12T10:00:00Z",
+        "idTarjeta": "4ecec4dd-9d10-4d61-b71b-52406e3a4f21",
+        "cvv": "123"
+      }
+response:
+  statusCode: 409
+  statusText: Conflict
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "100"
+    etag: W/"64-UYW7hpmsuBP/2BsppeUcVhzrdGk"
+    date: Thu, 18 Jun 2026 00:48:00 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "Lo sentimos, este vehículo ya no se encuentra disponible. Por favor, seleccione otro."
+      }
+order: 1423760825189351

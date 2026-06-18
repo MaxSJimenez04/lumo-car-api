@@ -1,0 +1,43 @@
+$kind: http-example
+description: "Save a card. Bearer auth required (role: Cliente)."
+request:
+  url: "{{baseUrl}}/tarjetas/"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "numeroTarjeta": "4111111111111111",
+        "titular": "Diego",
+        "fechaVencimiento": "12/28",
+        "cvv": "123"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "187"
+    etag: W/"bb-h6/v55xxFmadGy6AqeTmoOBEv04"
+    date: Thu, 18 Jun 2026 00:12:17 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "ok": true,
+        "msg": "Tarjeta guardada correctamente.",
+        "tarjeta": {
+          "id": "84b4726e-355c-4b6e-bc4c-892d36212d44",
+          "numeroTarjeta": "4111111111111111",
+          "titular": "Diego",
+          "fechaVencimiento": "12/28"
+        }
+      }
+order: 1781741552835

@@ -1,0 +1,41 @@
+$kind: http-example
+description: Authenticate a user and receive a JWT. No Auth (public).
+request:
+  url: "{{baseUrl}}/auth/login"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "usuario": "DiegoFerrer93",
+        "contrasena": "contrasena1234"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    ratelimit-policy: 5;w=900
+    ratelimit-limit: "5"
+    ratelimit-remaining: "4"
+    ratelimit-reset: "831"
+    content-type: application/json; charset=utf-8
+    content-length: "496"
+    etag: W/"1f0-pFEzcBfTmUXdZOgugZgkVgle0Pg"
+    date: Wed, 17 Jun 2026 23:46:40 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "usuario": "DiegoFerrer93",
+        "nombre": "Diego",
+        "rol": "Cliente",
+        "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRGllZ29GZXJyZXI5MyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2dpdmVubmFtZSI6IkRpZWdvIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ2xpZW50ZSIsImlhdCI6MTc4MTc0MDAwMCwiZXhwIjoxNzgxNzQxODAwfQ.Etqn6wJdm1efYKT8Li3417eqT-YgQrtDfdlHyZ1oBU8"
+      }
+order: 1781740069583

@@ -1,0 +1,158 @@
+$kind: http-example
+description: "Rental statistics. Bearer auth required (role: Administrador)."
+request:
+  url: "{{baseUrl}}/estadisticas/rentas"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "1364"
+    etag: W/"554-n1Q8uYtfAXfxKDML1cagFAPlui0"
+    date: Thu, 18 Jun 2026 01:55:30 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "porSucursal": [
+          {
+            "totalRentas": 11,
+            "Vehiculo": {
+              "Sucursal": {
+                "id": 1,
+                "nombre": "Sucursal 20 de Noviembre",
+                "direccion": "Av. 20 de Noviembre 278"
+              }
+            }
+          },
+          {
+            "totalRentas": 3,
+            "Vehiculo": {
+              "Sucursal": {
+                "id": 2,
+                "nombre": "Sucursal Avenida Américas",
+                "direccion": "Av. Américas 37A"
+              }
+            }
+          }
+        ],
+        "porVehiculo": [
+          {
+            "totalRentas": 3,
+            "Vehiculo": {
+              "modelo": "Corolla",
+              "placa": "KWF-004-E",
+              "Marca": {
+                "id": 1,
+                "nombreMarca": "Toyota"
+              }
+            }
+          },
+          {
+            "totalRentas": 2,
+            "Vehiculo": {
+              "modelo": "Sentra",
+              "placa": "LMP-883-D",
+              "Marca": {
+                "id": 5,
+                "nombreMarca": "Nissan"
+              }
+            }
+          },
+          {
+            "totalRentas": 2,
+            "Vehiculo": {
+              "modelo": "Versa",
+              "placa": "HGB-902-B",
+              "Marca": {
+                "id": 5,
+                "nombreMarca": "Nissan"
+              }
+            }
+          },
+          {
+            "totalRentas": 1,
+            "Vehiculo": {
+              "modelo": "Aveo",
+              "placa": "TRQ-552-F",
+              "Marca": {
+                "id": 4,
+                "nombreMarca": "Chevrolet"
+              }
+            }
+          },
+          {
+            "totalRentas": 1,
+            "Vehiculo": {
+              "modelo": "Civic",
+              "placa": "JRT-115-C",
+              "Marca": {
+                "id": 2,
+                "nombreMarca": "Honda"
+              }
+            }
+          },
+          {
+            "totalRentas": 1,
+            "Vehiculo": {
+              "modelo": "Fiesta",
+              "placa": "DSA-AD5-C",
+              "Marca": {
+                "id": 3,
+                "nombreMarca": "Ford"
+              }
+            }
+          },
+          {
+            "totalRentas": 1,
+            "Vehiculo": {
+              "modelo": "Fiesta",
+              "placa": "YKM-421-A",
+              "Marca": {
+                "id": 3,
+                "nombreMarca": "Ford"
+              }
+            }
+          },
+          {
+            "totalRentas": 1,
+            "Vehiculo": {
+              "modelo": "Jetta",
+              "placa": "VXD-771-H",
+              "Marca": {
+                "id": 6,
+                "nombreMarca": "Volkswagen"
+              }
+            }
+          },
+          {
+            "totalRentas": 1,
+            "Vehiculo": {
+              "modelo": "Mazda 3",
+              "placa": "MBN-339-G",
+              "Marca": {
+                "id": 12,
+                "nombreMarca": "Mazda"
+              }
+            }
+          },
+          {
+            "totalRentas": 1,
+            "Vehiculo": {
+              "modelo": "Rio",
+              "placa": "ZPA-228-I",
+              "Marca": {
+                "id": 11,
+                "nombreMarca": "Kia"
+              }
+            }
+          }
+        ]
+      }
+order: 1781747734047

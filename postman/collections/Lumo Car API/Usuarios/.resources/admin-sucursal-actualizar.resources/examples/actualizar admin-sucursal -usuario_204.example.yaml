@@ -1,0 +1,30 @@
+$kind: http-example
+name: actualizar admin-sucursal :usuario_204
+description: Update the branch assigned to a branch admin. Bearer auth required.
+request:
+  url: "{{baseUrl}}/usuarios/:usuario/admin-sucursal"
+  method: PUT
+  headers:
+    Content-Type: application/json
+  pathVariables:
+    usuario: BrendaMarquez
+  body:
+    type: json
+    content: |-
+      {
+        "idSucursal": 2
+      }
+response:
+  statusCode: 204
+  statusText: No Content
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    date: Thu, 18 Jun 2026 01:50:38 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: text
+    content: ""
+order: 1781747447187

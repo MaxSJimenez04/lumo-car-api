@@ -1,0 +1,28 @@
+$kind: http-example
+name: finalizar :idRenta_404
+description: "Finalize a rental. Bearer auth required (role: Cliente). No body."
+request:
+  url: "{{baseUrl}}/rentas/:idRenta/finalizar"
+  method: PUT
+  pathVariables:
+    idRenta: "26"
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "46"
+    etag: W/"2e-V8QlCep6wji/dNNWgdldZe5bKZc"
+    date: Thu, 18 Jun 2026 00:54:51 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "La renta especificada no existe."
+      }
+order: 949403998350

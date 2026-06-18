@@ -1,0 +1,156 @@
+$kind: http-example
+description: List vehicles by branch. No Auth (public).
+request:
+  url: "{{baseUrl}}/vehiculos?idSucursal=1"
+  method: GET
+  headers:
+    Content-Type: application/json
+  queryParams:
+    idSucursal: "1"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "2226"
+    etag: W/"8b2-tZquUlWCUvdn1IUAbFWeEgEnt+8"
+    date: Thu, 18 Jun 2026 02:04:52 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": "35d3f191-2b2f-4af7-92cd-dc91a7d1e05b",
+          "placa": "HGB-902-B",
+          "modelo": "Versa",
+          "pasajeros": 5,
+          "transmision": true,
+          "tamano": "B",
+          "tipo_combustible": "1",
+          "aire_acondicionado": true,
+          "estado": 2,
+          "idColor": 1,
+          "idMarca": 5,
+          "color": "Blanco",
+          "codigoHex": "#ffffff",
+          "nombreMarca": "Nissan"
+        },
+        {
+          "id": "4033638a-0037-437c-a6d1-5ff8356eb3c5",
+          "placa": "LMP-883-D",
+          "modelo": "Sentra",
+          "pasajeros": 5,
+          "transmision": true,
+          "tamano": "C",
+          "tipo_combustible": "1",
+          "aire_acondicionado": true,
+          "estado": 2,
+          "idColor": 2,
+          "idMarca": 5,
+          "color": "Negro",
+          "codigoHex": "#000000",
+          "nombreMarca": "Nissan"
+        },
+        {
+          "id": "4f213083-6cb1-4397-a22d-33a82b19a07c",
+          "placa": "DSA-AD5-C",
+          "modelo": "Fiesta",
+          "pasajeros": 5,
+          "transmision": true,
+          "tamano": "B",
+          "tipo_combustible": "1",
+          "aire_acondicionado": true,
+          "estado": 1,
+          "idColor": 10,
+          "idMarca": 3,
+          "color": "Verde Botella",
+          "codigoHex": "#006400",
+          "nombreMarca": "Ford"
+        },
+        {
+          "id": "6468e767-2dd9-4208-bc4f-c8082bd2f6b8",
+          "placa": "MBN-339-G",
+          "modelo": "Mazda 3",
+          "pasajeros": 5,
+          "transmision": true,
+          "tamano": "C",
+          "tipo_combustible": "1",
+          "aire_acondicionado": true,
+          "estado": 2,
+          "idColor": 9,
+          "idMarca": 12,
+          "color": "Vino",
+          "codigoHex": "#722F37",
+          "nombreMarca": "Mazda"
+        },
+        {
+          "id": "67d9a4ce-9ecd-48f5-afc4-0509f33210d3",
+          "placa": "KWF-004-E",
+          "modelo": "Corolla",
+          "pasajeros": 5,
+          "transmision": true,
+          "tamano": "C",
+          "tipo_combustible": "2",
+          "aire_acondicionado": true,
+          "estado": 2,
+          "idColor": 4,
+          "idMarca": 1,
+          "color": "Gris Carbón",
+          "codigoHex": "#36454F",
+          "nombreMarca": "Toyota"
+        },
+        {
+          "id": "6901ff4f-9ba2-45ce-9eeb-a5b788698c15",
+          "placa": "ABC-12-34",
+          "modelo": "Civic",
+          "pasajeros": 5,
+          "transmision": true,
+          "tamano": "B",
+          "tipo_combustible": "1",
+          "aire_acondicionado": true,
+          "estado": 1,
+          "idColor": 1,
+          "idMarca": 1,
+          "color": "Blanco",
+          "codigoHex": "#ffffff",
+          "nombreMarca": "Toyota"
+        },
+        {
+          "id": "80cadb25-c4f3-4070-bfd7-d30cba6b42ff",
+          "placa": "YKM-421-A",
+          "modelo": "Fiesta",
+          "pasajeros": 5,
+          "transmision": true,
+          "tamano": "B",
+          "tipo_combustible": "1",
+          "aire_acondicionado": true,
+          "estado": 2,
+          "idColor": 10,
+          "idMarca": 3,
+          "color": "Verde Botella",
+          "codigoHex": "#006400",
+          "nombreMarca": "Ford"
+        },
+        {
+          "id": "e172da12-46a0-48cc-a3c5-8b862064d170",
+          "placa": "VXD-771-H",
+          "modelo": "Jetta",
+          "pasajeros": 5,
+          "transmision": true,
+          "tamano": "C",
+          "tipo_combustible": "1",
+          "aire_acondicionado": true,
+          "estado": 2,
+          "idColor": 2,
+          "idMarca": 6,
+          "color": "Negro",
+          "codigoHex": "#000000",
+          "nombreMarca": "Volkswagen"
+        }
+      ]
+order: 1781748298681

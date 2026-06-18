@@ -1,0 +1,7 @@
+name: Lumo
+values:
+  - key: baseUrl
+    value: 'http://localhost:8080'
+  - key: token
+    value: ''
+color: 240

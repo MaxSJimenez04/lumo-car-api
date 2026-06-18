@@ -1,0 +1,18 @@
+$kind: http-request
+name: guardar tarjeta
+description: "Save a card. Bearer auth required (role: Cliente)."
+method: POST
+url: "{{baseUrl}}/tarjetas/"
+examples: .resources/guardar.resources/examples
+order: 2000
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "numeroTarjeta": "4111111111111111",
+      "titular": "Diego",
+      "fechaVencimiento": "12/28",
+      "cvv": "123"
+    }

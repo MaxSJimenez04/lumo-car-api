@@ -1,0 +1,174 @@
+$kind: http-example
+description: List all vehicle brands. No Auth (public).
+request:
+  url: "{{baseUrl}}/marcas/"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "2782"
+    etag: W/"ade-JDnNEOvq/ky75tV7opFmMFoJIJ4"
+    date: Thu, 18 Jun 2026 01:53:23 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": 1,
+          "nombreMarca": "Toyota",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 2,
+          "nombreMarca": "Honda",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 3,
+          "nombreMarca": "Ford",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 4,
+          "nombreMarca": "Chevrolet",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 5,
+          "nombreMarca": "Nissan",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 6,
+          "nombreMarca": "Volkswagen",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 7,
+          "nombreMarca": "BMW",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 8,
+          "nombreMarca": "Mercedes-Benz",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 9,
+          "nombreMarca": "Audi",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 10,
+          "nombreMarca": "Hyundai",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 11,
+          "nombreMarca": "Kia",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 12,
+          "nombreMarca": "Mazda",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 13,
+          "nombreMarca": "Subaru",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 14,
+          "nombreMarca": "Lexus",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 15,
+          "nombreMarca": "Porsche",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 16,
+          "nombreMarca": "Ferrari",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 17,
+          "nombreMarca": "Lamborghini",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 18,
+          "nombreMarca": "Jeep",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 19,
+          "nombreMarca": "Tesla",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 20,
+          "nombreMarca": "Volvo",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 21,
+          "nombreMarca": "Mitsubishi",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 22,
+          "nombreMarca": "Land Rover",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 23,
+          "nombreMarca": "Jaguar",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 24,
+          "nombreMarca": "Peugeot",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        },
+        {
+          "id": 25,
+          "nombreMarca": "Renault",
+          "createdAt": "2026-06-15T17:03:42.242Z",
+          "updatedAt": "2026-06-15T17:03:42.242Z"
+        }
+      ]
+order: 1781747606414

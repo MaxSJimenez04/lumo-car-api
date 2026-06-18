@@ -1,0 +1,57 @@
+$kind: http-example
+description: List available subscription plans. No Auth (public).
+request:
+  url: "{{baseUrl}}/suscripciones/planes"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "890"
+    etag: W/"37a-UTGCbfuE/Lt+unFuyG3pTTSgmXU"
+    date: Wed, 17 Jun 2026 23:50:05 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "ok": true,
+        "planes": [
+          {
+            "id": 1,
+            "nombre": "LUMO Urbano",
+            "precio": 1200,
+            "estado": 0,
+            "descripcion": "Tamaños disponibles: A, B y C. Tiempo de préstamo de vehículos: mayor a 15 días.",
+            "createdAt": "2026-06-15T17:03:43.540Z",
+            "updatedAt": "2026-06-15T17:03:43.540Z",
+            "idSuscripcion": null
+          },
+          {
+            "id": 2,
+            "nombre": "LUMO Ejecutivo",
+            "precio": 2500,
+            "estado": 0,
+            "descripcion": "Tamaños disponibles: A,B,C,D y E. Tiempo de préstamo de vehículos: mayor a 1 mes. Lavado de Vehículos incluido",
+            "createdAt": "2026-06-15T17:03:43.540Z",
+            "updatedAt": "2026-06-15T17:03:43.540Z",
+            "idSuscripcion": null
+          },
+          {
+            "id": 3,
+            "nombre": "LUMO Urbano",
+            "precio": 3600,
+            "estado": 0,
+            "descripcion": "Tamaños disponibles: A,B,C,D,E,F y s. Tiempo de préstamo de vehículos: mayor a 2 meses.Lavado de vehículos y seguro de cobertura total incluido.",
+            "createdAt": "2026-06-15T17:03:43.540Z",
+            "updatedAt": "2026-06-15T17:03:43.540Z",
+            "idSuscripcion": null
+          }
+        ]
+      }
+order: 1781740240227

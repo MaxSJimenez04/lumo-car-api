@@ -1,0 +1,98 @@
+$kind: http-example
+description: List branches by city. No Auth (public).
+request:
+  url: "{{baseUrl}}/sucursales/general"
+  method: GET
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "idCiudad": 1
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "1333"
+    etag: W/"535-1GG0nvF7IxbKIwZmOT5STlQyOVY"
+    date: Thu, 18 Jun 2026 01:22:01 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": 1,
+          "nombre": "Sucursal 20 de Noviembre",
+          "direccion": "Av. 20 de Noviembre 278",
+          "latitud": 19.530666,
+          "longitud": -96.913564,
+          "capacidad": 250,
+          "idCiudad": 1,
+          "createdAt": "2026-06-15T17:03:42.259Z",
+          "updatedAt": "2026-06-15T17:03:42.259Z"
+        },
+        {
+          "id": 2,
+          "nombre": "Sucursal Avenida Américas",
+          "direccion": "Av. Américas 37A",
+          "latitud": 19.543159,
+          "longitud": -96.928689,
+          "capacidad": 350,
+          "idCiudad": 1,
+          "createdAt": "2026-06-15T17:03:42.259Z",
+          "updatedAt": "2026-06-15T17:03:42.259Z"
+        },
+        {
+          "id": 3,
+          "nombre": "Sucursal Centro",
+          "direccion": "José Azueta 25",
+          "latitud": 19.530358,
+          "longitud": -96.928378,
+          "capacidad": 100,
+          "idCiudad": 1,
+          "createdAt": "2026-06-15T17:03:42.259Z",
+          "updatedAt": "2026-06-15T17:03:42.259Z"
+        },
+        {
+          "id": 4,
+          "nombre": "Sucursal Coatepec",
+          "direccion": "C. Libertad 280",
+          "latitud": 19.451853,
+          "longitud": -96.956728,
+          "capacidad": 650,
+          "idCiudad": 2,
+          "createdAt": "2026-06-15T17:03:42.259Z",
+          "updatedAt": "2026-06-15T17:03:42.259Z"
+        },
+        {
+          "id": 5,
+          "nombre": "Sucursal 5 poniente",
+          "direccion": "Av 5 Pte 139",
+          "latitud": 19.043474,
+          "longitud": -98.203374,
+          "capacidad": 100,
+          "idCiudad": 3,
+          "createdAt": "2026-06-15T17:03:42.259Z",
+          "updatedAt": "2026-06-15T17:03:42.259Z"
+        },
+        {
+          "id": 6,
+          "nombre": "Sucursal Angelópolis",
+          "direccion": "Blvd. América 401",
+          "latitud": 18.997111,
+          "longitud": -98.283496,
+          "capacidad": 780,
+          "idCiudad": 3,
+          "createdAt": "2026-06-15T17:03:42.259Z",
+          "updatedAt": "2026-06-15T17:03:42.259Z"
+        }
+      ]
+order: 1781745724273

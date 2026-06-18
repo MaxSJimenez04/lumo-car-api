@@ -1,0 +1,7 @@
+$kind: http-request
+name: listar tarjetas
+description: "Get saved cards. Bearer auth required (role: Cliente)."
+method: GET
+url: "{{baseUrl}}/tarjetas/"
+examples: .resources/listar.resources/examples
+order: 1000

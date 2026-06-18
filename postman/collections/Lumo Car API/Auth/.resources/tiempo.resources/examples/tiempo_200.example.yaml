@@ -1,0 +1,25 @@
+$kind: http-example
+description: "Get server/session time. Bearer auth required (roles: Cliente, Administrador, S_Administrador)."
+request:
+  url: "{{baseUrl}}/auth/tiempo"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "22"
+    etag: W/"16-BdhJZToUk2QNou9RtDWHij6I78s"
+    date: Thu, 18 Jun 2026 01:33:05 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "tiempo": "00: 13:28"
+      }
+order: 1781746389240

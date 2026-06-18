@@ -1,0 +1,38 @@
+$kind: http-example
+description: Create a color. Bearer auth required.
+request:
+  url: "{{baseUrl}}/vehiculos/colores"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "color": "Rojo",
+        "codigoHex": "#FF0000"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "124"
+    etag: W/"7c-8RKr0jMii7joXOO/hTZXsdFZUZA"
+    date: Thu, 18 Jun 2026 02:03:17 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "id": 16,
+        "color": "Rojo",
+        "codigoHex": "#FF0000",
+        "updatedAt": "2026-06-18T02:03:17.314Z",
+        "createdAt": "2026-06-18T02:03:17.314Z"
+      }
+order: 1781748225336

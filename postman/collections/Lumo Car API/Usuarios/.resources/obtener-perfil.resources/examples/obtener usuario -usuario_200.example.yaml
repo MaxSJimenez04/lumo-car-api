@@ -1,0 +1,36 @@
+$kind: http-example
+name: obtener usuario :usuario_200
+description: Get a user profile. Bearer auth required.
+request:
+  url: "{{baseUrl}}/usuarios/:usuario"
+  method: GET
+  pathVariables:
+    usuario: BrendaMarquez
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "249"
+    etag: W/"f9-m5ws0H+yQ0Tr9ZOmW/zpgJHvLOo"
+    date: Thu, 18 Jun 2026 01:45:27 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "id": "cf682380-5bcf-4396-89cb-f3a659375d6b",
+        "usuario": "BrendaMarquez",
+        "nombre": "Brenda",
+        "apellidos": "Marquéz Venegas",
+        "correo": "brndmarq@lumocar.com",
+        "telefono": "+523562161157",
+        "fecha_nacimiento": "1999-04-05",
+        "idRol": 2,
+        "nombreRol": "Administrador"
+      }
+order: 1781747129581

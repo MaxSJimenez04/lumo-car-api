@@ -1,0 +1,62 @@
+$kind: http-example
+name: actualizar vehiculo :id_400
+description: Update a vehicle. Bearer auth required.
+request:
+  url: "{{baseUrl}}/vehiculos/:id"
+  method: PUT
+  headers:
+    Content-Type: application/json
+  pathVariables:
+    id: 67d9a4ce-9ecd-48f5-afc4-0509f33210d3
+  body:
+    type: json
+    content: |-
+      {
+        "pasajeros": "cuatro"
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "364"
+    etag: W/"16c-/HKXDXj7uX3uwXhtXMhy1blGRgM"
+    date: Thu, 18 Jun 2026 02:08:14 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "errores": [
+          {
+            "type": "field",
+            "value": "cuatro",
+            "msg": "Formato inválido",
+            "path": "pasajeros",
+            "location": "body"
+          },
+          {
+            "type": "field",
+            "msg": "Invalid value",
+            "path": "aire_acondicionado",
+            "location": "body"
+          },
+          {
+            "type": "field",
+            "msg": "Especificar un color",
+            "path": "idColor",
+            "location": "body"
+          },
+          {
+            "type": "field",
+            "msg": "Especificar una sucursal",
+            "path": "idSucursal",
+            "location": "body"
+          }
+        ]
+      }
+order: 1749725213429831

@@ -1,0 +1,28 @@
+$kind: http-example
+name: cancelar :idRenta_409
+description: "Cancel a rental. Bearer auth required (role: Cliente). No body."
+request:
+  url: "{{baseUrl}}/rentas/:idRenta/cancelar"
+  method: PUT
+  pathVariables:
+    idRenta: "23"
+response:
+  statusCode: 409
+  statusText: Conflict
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "70"
+    etag: W/"46-zgU0off9AK77yMTgwgllLdUgTig"
+    date: Thu, 18 Jun 2026 00:50:47 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "Solo se pueden cancelar rentas que aún no han iniciado."
+      }
+order: 1781743854130

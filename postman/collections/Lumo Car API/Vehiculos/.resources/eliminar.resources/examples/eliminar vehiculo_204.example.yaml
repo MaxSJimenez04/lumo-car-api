@@ -1,0 +1,21 @@
+$kind: http-example
+description: Delete a vehicle by UUID. Bearer auth required.
+request:
+  url: "{{baseUrl}}/vehiculos/6901ff4f-9ba2-45ce-9eeb-a5b788698c15"
+  method: DELETE
+  headers:
+    Content-Type: application/json
+response:
+  statusCode: 204
+  statusText: No Content
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    date: Thu, 18 Jun 2026 02:06:26 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: text
+    content: ""
+order: 1781748388470

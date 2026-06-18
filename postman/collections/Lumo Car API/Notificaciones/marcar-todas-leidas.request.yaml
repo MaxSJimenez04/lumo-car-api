@@ -1,0 +1,7 @@
+$kind: http-request
+name: marcar todas como leidas
+description: "Mark all notifications as read. Bearer auth required (roles: Cliente, Administrador)."
+method: PATCH
+url: "{{baseUrl}}/notificaciones/leidas"
+examples: .resources/marcar-todas-leidas.resources/examples
+order: 3000

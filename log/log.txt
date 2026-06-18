@@ -265,3 +265,4 @@
 2026-06-17T00:08:12.658Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
 2026-06-17T00:33:22.037Z: ACCIÓN: Inicio de Sesión: ElenaRivas82 - IP: ::1 - USUARIO: Invitado 
 2026-06-17T00:43:28.605Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
+2026-06-18T02:44:23.250Z: ACCIÓN: Solicitud de restablecimiento de contraseña para Sadministrador001 - IP: ::1 - USUARIO: Invitado 

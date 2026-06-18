@@ -1,0 +1,68 @@
+$kind: http-example
+name: finalizar :idRenta_200
+description: "Finalize a rental. Bearer auth required (role: Cliente). No body."
+request:
+  url: "{{baseUrl}}/rentas/:idRenta/finalizar"
+  method: PUT
+  pathVariables:
+    idRenta: "1"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "1008"
+    etag: W/"3f0-UnDouZ+EnMNA2sR+6F9ZzTXtPZQ"
+    date: Thu, 18 Jun 2026 01:00:33 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "Renta finalizada con éxito.",
+        "recargo": 0,
+        "renta": {
+          "id": 1,
+          "fechaInicio": "2026-06-18T00:58:00.000Z",
+          "fechaFin": "2026-06-18T05:58:00.000Z",
+          "estadoRenta": 2,
+          "idUsuario": "4885b8ca-5e78-4708-a258-e974ca22f60d",
+          "idVehiculo": "4f213083-6cb1-4397-a22d-33a82b19a07c",
+          "createdAt": "2026-06-17T01:07:16.185Z",
+          "updatedAt": "2026-06-18T01:00:33.522Z",
+          "UsuarioId": null,
+          "Vehiculo": {
+            "id": "4f213083-6cb1-4397-a22d-33a82b19a07c",
+            "placa": "DSA-AD5-C",
+            "modelo": "Fiesta",
+            "pasajeros": 5,
+            "transmision": true,
+            "tamano": "B",
+            "tipo_combustible": "1",
+            "aire_acondicionado": true,
+            "estado": 1,
+            "idColor": 10,
+            "idMarca": 3,
+            "idSucursal": 1,
+            "createdAt": "2026-06-15T17:03:42.270Z",
+            "updatedAt": "2026-06-18T01:00:33.526Z"
+          },
+          "Pago": {
+            "idPago": 1,
+            "monto": 150,
+            "fechaPago": "2026-06-17T01:07:16.199Z",
+            "concepto": "Pago inicial por la renta del vehículo Fiesta con placa DSA-AD5-C",
+            "cvv": "512",
+            "idTarjeta": "3571c6e5-39f3-4a84-8dda-b51f1e195cc7",
+            "idSuscripcion": null,
+            "idRenta": 1,
+            "createdAt": "2026-06-17T01:07:16.200Z",
+            "updatedAt": "2026-06-17T01:07:16.200Z"
+          }
+        }
+      }
+order: 364322472371

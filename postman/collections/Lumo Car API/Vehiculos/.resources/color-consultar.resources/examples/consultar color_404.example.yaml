@@ -1,0 +1,27 @@
+$kind: http-example
+description: Consult a single color by query. No Auth (public).
+request:
+  url: "{{baseUrl}}/vehiculos/color?idColor=19"
+  method: GET
+  queryParams:
+    idColor: "19"
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "38"
+    etag: W/"26-HUx6nqymTpvWPEGiMFTRoWVRClw"
+    date: Thu, 18 Jun 2026 02:01:34 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "No se encontró el color"
+      }
+order: 3478698251691199

@@ -1,0 +1,26 @@
+$kind: http-example
+description: "Get the current user subscription. Bearer auth required (role: Cliente)."
+request:
+  url: "{{baseUrl}}/suscripciones/mi-suscripcion"
+  method: GET
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "60"
+    etag: W/"3c-SAaieOwNxxQYmUzLzF7HUm4b/Eo"
+    date: Wed, 17 Jun 2026 23:53:01 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "ok": false,
+        "msg": "No cuentas con una suscripción activa."
+      }
+order: 1781740410595

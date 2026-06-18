@@ -1,0 +1,12 @@
+$kind: http-request
+name: suscribir notificaciones :idUsuario
+description: Subscribe to user notifications via SSE. JWT passed as query param token.
+method: GET
+url: "{{baseUrl}}/notificaciones/suscribir/:idUsuario?token={{authToken}}"
+queryParams:
+  token: "{{authToken}}"
+order: 1000
+auth:
+  type: noauth
+pathVariables:
+  idUsuario: d0988314-5a84-4b64-9df2-a7b3a3f46726

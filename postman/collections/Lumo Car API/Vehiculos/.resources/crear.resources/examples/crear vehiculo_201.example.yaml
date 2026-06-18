@@ -1,0 +1,55 @@
+$kind: http-example
+description: Create a vehicle. Bearer auth required.
+request:
+  url: "{{baseUrl}}/vehiculos/"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "placa": "ABC-12-34",
+        "modelo": "Civic",
+        "pasajeros": 5,
+        "transmision": true,
+        "tamano": "B",
+        "tipo_combustible": 1,
+        "aireAcondicionado": true,
+        "idColor": 1,
+        "idMarca": 1,
+        "idSucursal": 1
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "305"
+    etag: W/"131-hrhhfBYrTLKF9sBawFomab6ejDc"
+    date: Thu, 18 Jun 2026 02:04:22 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "id": "6901ff4f-9ba2-45ce-9eeb-a5b788698c15",
+        "placa": "ABC-12-34",
+        "modelo": "Civic",
+        "pasajeros": 5,
+        "transmision": true,
+        "tamano": "B",
+        "tipo_combustible": "1",
+        "aire_acondicionado": true,
+        "estado": 1,
+        "idColor": 1,
+        "idMarca": 1,
+        "idSucursal": 1,
+        "updatedAt": "2026-06-18T02:04:22.297Z",
+        "createdAt": "2026-06-18T02:04:22.297Z"
+      }
+order: 1781748264685

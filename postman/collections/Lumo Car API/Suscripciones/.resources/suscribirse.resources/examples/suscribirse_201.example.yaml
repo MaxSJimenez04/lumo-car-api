@@ -1,0 +1,48 @@
+$kind: http-example
+description: "Subscribe to a plan. Bearer auth required (role: Cliente)."
+request:
+  url: "{{baseUrl}}/suscripciones/suscribirse"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "idSuscripcion": 1,
+        "numeroTarjeta": "1234567890123456",
+        "cvv": "123",
+        "titular": "Diego",
+        "fechaVencimiento": "12/28"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "325"
+    etag: W/"145-Bb7715gNg2iQGisJlvgAOMOaTVk"
+    date: Thu, 18 Jun 2026 01:05:54 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "ok": true,
+        "msg": "Suscripción exitosa y pago procesado.",
+        "suscripcion": {
+          "id": 57605509,
+          "idUsuario": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+          "idSuscripcion": 1,
+          "estado": 0,
+          "fechaInicio": "2026-06-18T01:05:54.077Z",
+          "fechaFin": "2026-07-18T01:05:54.077Z",
+          "updatedAt": "2026-06-18T01:05:54.077Z",
+          "createdAt": "2026-06-18T01:05:54.077Z"
+        }
+      }
+order: 1781744761062

@@ -1,0 +1,126 @@
+$kind: http-example
+description: "Get notifications. Bearer auth required (roles: Cliente, Administrador)."
+request:
+  url: "{{baseUrl}}/notificaciones/"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "2759"
+    etag: W/"ac7-DYYfDl8t88u/cAaQXuriI1YsnMg"
+    date: Thu, 18 Jun 2026 01:30:28 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "ok": true,
+        "notificaciones": [
+          {
+            "id": 23,
+            "idUsuario": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+            "idRenta": null,
+            "idSuscripcionUsuario": 7736851,
+            "titulo": "Plan actualizado",
+            "mensaje": "Tu plan ha sido cambiado a \"LUMO Ejecutivo\" exitosamente.",
+            "tipo": "SUSCRIPCION_CAMBIO",
+            "leida": false,
+            "fecha_envio": "2026-06-18T01:21:17.305Z"
+          },
+          {
+            "id": 22,
+            "idUsuario": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+            "idRenta": null,
+            "idSuscripcionUsuario": 55536072,
+            "titulo": "Suscripción activada",
+            "mensaje": "Tu suscripción al plan \"LUMO Urbano\" ha sido activada exitosamente.",
+            "tipo": "SUSCRIPCION_CREADA",
+            "leida": false,
+            "fecha_envio": "2026-06-18T01:20:08.323Z"
+          },
+          {
+            "id": 21,
+            "idUsuario": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+            "idRenta": null,
+            "idSuscripcionUsuario": 57605509,
+            "titulo": "Suscripción cancelada",
+            "mensaje": "Tu suscripción ha sido cancelada. Puedes volver a suscribirte cuando quieras.",
+            "tipo": "SUSCRIPCION_CANCEL",
+            "leida": false,
+            "fecha_envio": "2026-06-18T01:17:35.179Z"
+          },
+          {
+            "id": 20,
+            "idUsuario": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+            "idRenta": null,
+            "idSuscripcionUsuario": 57605509,
+            "titulo": "Suscripción activada",
+            "mensaje": "Tu suscripción al plan \"LUMO Urbano\" ha sido activada exitosamente.",
+            "tipo": "SUSCRIPCION_CREADA",
+            "leida": false,
+            "fecha_envio": "2026-06-18T01:05:54.093Z"
+          },
+          {
+            "id": 18,
+            "idUsuario": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+            "idRenta": 26,
+            "idSuscripcionUsuario": null,
+            "titulo": "Viaje confirmado",
+            "mensaje": "Tu pago de $30 para el vehículo Rio con placa ZPA-228-I fue aprobada.",
+            "tipo": "RENTA_CREADA",
+            "leida": false,
+            "fecha_envio": "2026-06-18T00:59:04.256Z"
+          },
+          {
+            "id": 17,
+            "idUsuario": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+            "idRenta": 25,
+            "idSuscripcionUsuario": null,
+            "titulo": "Viaje confirmado",
+            "mensaje": "Tu pago de $39600 para el vehículo Corolla con placa KWF-004-E fue aprobada.",
+            "tipo": "RENTA_CREADA",
+            "leida": false,
+            "fecha_envio": "2026-06-18T00:53:43.202Z"
+          },
+          {
+            "id": 16,
+            "idUsuario": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+            "idRenta": 24,
+            "idSuscripcionUsuario": null,
+            "titulo": "Renta cancelada",
+            "mensaje": "Tu reserva del vehículo Corolla con placa KWF-004-E ha sido cancelada. Se realizará un reembolso de $39600.",
+            "tipo": "RENTA_CANCELADA",
+            "leida": false,
+            "fecha_envio": "2026-06-18T00:52:36.367Z"
+          },
+          {
+            "id": 15,
+            "idUsuario": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+            "idRenta": 24,
+            "idSuscripcionUsuario": null,
+            "titulo": "Viaje confirmado",
+            "mensaje": "Tu pago de $39600 para el vehículo Corolla con placa KWF-004-E fue aprobada.",
+            "tipo": "RENTA_CREADA",
+            "leida": false,
+            "fecha_envio": "2026-06-18T00:52:21.083Z"
+          },
+          {
+            "id": 14,
+            "idUsuario": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+            "idRenta": 23,
+            "idSuscripcionUsuario": null,
+            "titulo": "Viaje confirmado",
+            "mensaje": "Tu pago de $2400 para el vehículo Civic con placa JRT-115-C fue aprobada.",
+            "tipo": "RENTA_CREADA",
+            "leida": false,
+            "fecha_envio": "2026-06-18T00:47:35.557Z"
+          }
+        ]
+      }
+order: 1781746231482

@@ -1,0 +1,29 @@
+$kind: http-example
+description: Consult a single color by query. No Auth (public).
+request:
+  url: "{{baseUrl}}/vehiculos/color?idColor=1"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "125"
+    etag: W/"7d-rlFEuytzF5jyRZR+H8uJI8efvfI"
+    date: Thu, 18 Jun 2026 02:01:20 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "id": 1,
+        "color": "Blanco",
+        "codigoHex": "#ffffff",
+        "createdAt": "2026-06-15T17:03:42.250Z",
+        "updatedAt": "2026-06-15T17:03:42.250Z"
+      }
+order: 1781748083256

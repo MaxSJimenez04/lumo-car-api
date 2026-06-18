@@ -1,0 +1,63 @@
+$kind: http-example
+description: "List all admins/clients. Bearer auth required (role: S_Administrador)."
+request:
+  url: "{{baseUrl}}/usuarios/"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "882"
+    etag: W/"372-Pt9i9HUAA9dvq0IAd9I0K/swVF8"
+    date: Thu, 18 Jun 2026 01:44:35 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": "bd8a0409-cbed-48fc-99ce-735f9414d78b",
+          "usuario": "PedroTorres",
+          "nombre": "Pedro",
+          "apellidos": "Torres Gutierrez",
+          "correo": "pdrtorr@lumocar.com",
+          "telefono": "+525912304678",
+          "fecha_nacimiento": "2000-12-20",
+          "idRol": 2,
+          "idSucursal": 2,
+          "Rol": "Administrador",
+          "Sucursal": "Sucursal Avenida Américas"
+        },
+        {
+          "id": "cf682380-5bcf-4396-89cb-f3a659375d6b",
+          "usuario": "BrendaMarquez",
+          "nombre": "Brenda",
+          "apellidos": "Marquéz Venegas",
+          "correo": "brndmarq@lumocar.com",
+          "telefono": "+523562161157",
+          "fecha_nacimiento": "1999-04-05",
+          "idRol": 2,
+          "idSucursal": 3,
+          "Rol": "Administrador",
+          "Sucursal": "Sucursal Centro"
+        },
+        {
+          "id": "f01f1997-99df-495e-b045-644d2aa77d2d",
+          "usuario": "EnriquePerez",
+          "nombre": "Enrique",
+          "apellidos": "Pérez González",
+          "correo": "enrpergnz@lumocar.com",
+          "telefono": "+523113503156",
+          "fecha_nacimiento": "2000-12-20",
+          "idRol": 2,
+          "idSucursal": 1,
+          "Rol": "Administrador",
+          "Sucursal": "Sucursal 20 de Noviembre"
+        }
+      ]
+order: 1781747077578

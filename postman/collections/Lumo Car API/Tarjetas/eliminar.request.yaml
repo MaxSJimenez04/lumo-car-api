@@ -1,0 +1,9 @@
+$kind: http-request
+name: eliminar tarjeta :id
+description: "Delete a card. Bearer auth required (role: Cliente)."
+method: DELETE
+url: "{{baseUrl}}/tarjetas/:id"
+examples: .resources/eliminar.resources/examples
+order: 3000
+pathVariables:
+  id: 84b4726e-355c-4b6e-bc4c-892d36212d44

@@ -1,0 +1,57 @@
+$kind: http-example
+description: Public user registration. No Auth.
+request:
+  url: "{{baseUrl}}/usuarios/"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "usuario": "josue",
+        "contrasena": "@",
+        "correo": "josue@example.com",
+        "nombre": "Josue",
+        "apellidos": "MG",
+        "telefono": "+525551234567",
+        "fecha": {
+          "ano": 2001,
+          "mes": 5,
+          "dia": 12
+        },
+        "idRol": 3
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "267"
+    etag: W/"10b-V1KtM1Np8lAsbd94ILIxVRTbqa8"
+    date: Thu, 18 Jun 2026 01:43:51 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "type": "field",
+          "value": "@",
+          "msg": "Contraseña debe ser de 8 caracteres hasta 255",
+          "path": "contrasena",
+          "location": "body"
+        },
+        {
+          "type": "field",
+          "value": "@",
+          "msg": "La contraseña debe tener al menos un caracter especial y un número",
+          "path": "contrasena",
+          "location": "body"
+        }
+      ]
+order: 2750640521003332

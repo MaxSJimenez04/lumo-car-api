@@ -1,0 +1,33 @@
+$kind: http-example
+description: Consult a single color by query. No Auth (public).
+request:
+  url: "{{baseUrl}}/vehiculos/color?idColor=negro"
+  method: GET
+  queryParams:
+    idColor: negro
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "91"
+    etag: W/"5b-bsPacffHWJWNupSoPGTDN6cOJPY"
+    date: Thu, 18 Jun 2026 02:01:52 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "type": "field",
+          "value": "negro",
+          "msg": "Campo vacío",
+          "path": "idColor",
+          "location": "query"
+        }
+      ]
+order: 3198586280519855

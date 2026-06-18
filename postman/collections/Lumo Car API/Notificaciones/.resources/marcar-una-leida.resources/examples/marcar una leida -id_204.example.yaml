@@ -1,0 +1,22 @@
+$kind: http-example
+name: marcar una leida :id_204
+description: "Mark one notification as read. Bearer auth required (roles: Cliente, Administrador)."
+request:
+  url: "{{baseUrl}}/notificaciones/:id/leida"
+  method: PATCH
+  pathVariables:
+    id: "21"
+response:
+  statusCode: 204
+  statusText: No Content
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    date: Thu, 18 Jun 2026 01:31:35 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: text
+    content: ""
+order: 1781746310455

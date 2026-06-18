@@ -1,0 +1,131 @@
+$kind: http-example
+description: Consult a color. No Auth (public).
+request:
+  url: "{{baseUrl}}/vehiculos/colores"
+  method: GET
+  headers:
+    Content-Type: application/json
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "1947"
+    etag: W/"79b-wN6IolfqlLkaij/leohRhJI99z8"
+    date: Thu, 18 Jun 2026 02:02:29 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": 1,
+          "color": "Blanco",
+          "codigoHex": "#ffffff",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 2,
+          "color": "Negro",
+          "codigoHex": "#000000",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 3,
+          "color": "Gris Plata",
+          "codigoHex": "#C0C0C0",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 4,
+          "color": "Gris Carbón",
+          "codigoHex": "#36454F",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 5,
+          "color": "Azul Marino",
+          "codigoHex": "#000080",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 6,
+          "color": "Rojo Brillante",
+          "codigoHex": "#FF0000",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 7,
+          "color": "Azul Eléctrico",
+          "codigoHex": "#0033FF",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 8,
+          "color": "Beige",
+          "codigoHex": "#F5F5DC",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 9,
+          "color": "Vino",
+          "codigoHex": "#722F37",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 10,
+          "color": "Verde Botella",
+          "codigoHex": "#006400",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 11,
+          "color": "Café",
+          "codigoHex": "#4B3621",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 12,
+          "color": "Naranja Metálico",
+          "codigoHex": "#FF8C00",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 13,
+          "color": "Amarillo",
+          "codigoHex": "#FFD700",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 14,
+          "color": "Bronce",
+          "codigoHex": "#CD7F32",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        },
+        {
+          "id": 15,
+          "color": "Champagne",
+          "codigoHex": "#F7E7CE",
+          "createdAt": "2026-06-15T17:03:42.250Z",
+          "updatedAt": "2026-06-15T17:03:42.250Z"
+        }
+      ]
+order: 1781748170357

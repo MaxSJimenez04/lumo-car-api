@@ -1,0 +1,48 @@
+$kind: http-example
+description: "Update the subscription payment method. Bearer auth required (role: Cliente)."
+request:
+  url: "{{baseUrl}}/suscripciones/metodo-pago"
+  method: PUT
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "numeroTarjeta": "4111111111111111",
+        "titular": "Diego",
+        "fechaVencimiento": "12/28",
+        "cvv": "123"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "357"
+    etag: W/"165-tjFQRs0DpPXqwdQ/hhbxKUKA36I"
+    date: Thu, 18 Jun 2026 01:10:18 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "ok": true,
+        "msg": "Método de pago agregado correctamente",
+        "nuevaTarjeta": {
+          "id": "71d6b352-af7e-4235-89a5-df9ff21d9bb6",
+          "numeroTarjeta": "4111111111111111",
+          "cvv": "123",
+          "titular": "Diego",
+          "fechaVencimiento": "12/28",
+          "idCliente": "d0988314-5a84-4b64-9df2-a7b3a3f46726",
+          "updatedAt": "2026-06-18T01:10:18.367Z",
+          "createdAt": "2026-06-18T01:10:18.367Z",
+          "idUsuario": null
+        }
+      }
+order: 1781745053307

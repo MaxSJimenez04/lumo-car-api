@@ -1,0 +1,43 @@
+$kind: http-example
+description: List cities by state. No Auth (public).
+request:
+  url: "{{baseUrl}}/sucursales/ciudades?idEstado=30"
+  method: GET
+  headers:
+    Content-Type: application/json
+  queryParams:
+    idEstado: "30"
+  body:
+    type: json
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "159"
+    etag: W/"9f-S6gm+UnQd1if/vCPbn0ONqVpSMs"
+    date: Thu, 18 Jun 2026 01:29:56 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": 1,
+          "nombreCiudad": "Xalapa-Enríquez",
+          "idEstado": 30,
+          "nombreEstado": "Veracruz"
+        },
+        {
+          "id": 2,
+          "nombreCiudad": "Coatepec",
+          "idEstado": 30,
+          "nombreEstado": "Veracruz"
+        }
+      ]
+order: 1781746203388

@@ -1,0 +1,11 @@
+$kind: http-request
+name: consultar color
+description: Consult a single color by query. No Auth (public).
+method: GET
+url: "{{baseUrl}}/vehiculos/color?idColor=1"
+queryParams:
+  idColor: "1"
+examples: .resources/color-consultar.resources/examples
+order: 500
+auth:
+  type: noauth

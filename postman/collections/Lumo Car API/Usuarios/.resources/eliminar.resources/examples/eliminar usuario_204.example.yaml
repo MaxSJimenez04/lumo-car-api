@@ -1,0 +1,24 @@
+$kind: http-example
+description: Delete a user by UUID. Bearer auth required.
+request:
+  url: "{{baseUrl}}/usuarios/9425a21c-a7c5-4272-8c8f-f771485b8fb1"
+  method: DELETE
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: ""
+response:
+  statusCode: 204
+  statusText: No Content
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    date: Thu, 18 Jun 2026 01:48:53 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: text
+    content: ""
+order: 1781747336882

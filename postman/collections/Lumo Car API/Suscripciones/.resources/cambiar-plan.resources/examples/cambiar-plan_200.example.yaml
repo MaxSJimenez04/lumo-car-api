@@ -1,0 +1,36 @@
+$kind: http-example
+description: "Change the subscription plan. Bearer auth required (role: Cliente)."
+request:
+  url: "{{baseUrl}}/suscripciones/cambiar-plan"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "nuevoIdSuscripcion": 2,
+        "idTarjetaExistente": "6cd3d87a-6d7e-4d84-99bc-66d34662308c",
+        "cvv": "123"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "60"
+    etag: W/"3c-s7eRNdNIMg9usqU1aPtk/8YSlBM"
+    date: Thu, 18 Jun 2026 01:21:17 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "ok": true,
+        "msg": "Cambio de plan exitoso y pago procesado."
+      }
+order: 1781745681092

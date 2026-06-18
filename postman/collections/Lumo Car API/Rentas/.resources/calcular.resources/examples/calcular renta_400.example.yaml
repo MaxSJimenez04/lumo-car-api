@@ -1,0 +1,43 @@
+$kind: http-example
+description: "Calculate rental cost before creating. Bearer auth required (role: Cliente)."
+request:
+  url: "{{baseUrl}}/rentas/calcular"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "idVehiculo": "b27d867c-34c4-48be-9cf4-dbe873cb1e632",
+        "fechaInicio": "2026-07-01",
+        "fechaFin": "2026-07-05"
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "161"
+    etag: W/"a1-NLBSpPgbqzJO26Dxm/0LSh8+E/U"
+    date: Thu, 18 Jun 2026 00:45:58 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "errores": [
+          {
+            "type": "field",
+            "value": "b27d867c-34c4-48be-9cf4-dbe873cb1e632",
+            "msg": "Especificar id válida del vehículo",
+            "path": "idVehiculo",
+            "location": "body"
+          }
+        ]
+      }
+order: 2343772344989602

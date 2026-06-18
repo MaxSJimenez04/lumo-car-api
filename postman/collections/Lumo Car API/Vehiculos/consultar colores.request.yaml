@@ -1,0 +1,11 @@
+$kind: http-request
+name: consultar colores
+description: Consult a color. No Auth (public).
+method: GET
+url: "{{baseUrl}}/vehiculos/colores"
+examples: .resources/consultar colores.resources/examples
+order: 1000
+auth:
+  type: noauth
+headers:
+  Content-Type: application/json

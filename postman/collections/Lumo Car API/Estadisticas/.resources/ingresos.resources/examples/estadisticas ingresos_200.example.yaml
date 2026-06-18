@@ -1,0 +1,45 @@
+$kind: http-example
+description: "Income statistics. Bearer auth required (role: Administrador)."
+request:
+  url: "{{baseUrl}}/estadisticas/ingresos"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "205"
+    etag: W/"cd-sRLVBo1eP1DGeGhVdXWvgVKbPVk"
+    date: Thu, 18 Jun 2026 01:56:58 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "rentas": {
+          "porMes": [
+            {
+              "mes": "2026-06",
+              "ingresos": 128000,
+              "numeroPagos": 18
+            }
+          ],
+          "total": 128000
+        },
+        "suscripciones": {
+          "porMes": [
+            {
+              "mes": "2026-06",
+              "ingresos": 4900,
+              "numeroPagos": 3
+            }
+          ],
+          "total": 4900
+        },
+        "totalGeneral": 132900
+      }
+order: 1781747820159

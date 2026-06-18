@@ -1,0 +1,36 @@
+$kind: http-example
+name: obtener vehiculo :id_400
+description: Get vehicle by id. No Auth (public).
+request:
+  url: "{{baseUrl}}/vehiculos/:id"
+  method: GET
+  pathVariables:
+    id: 67d9a4ce-9ecd-48f5-afc4-0509f33210d312
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "142"
+    etag: W/"8e-LEsvvHdgKrACqXp9NOZJ965GVt0"
+    date: Thu, 18 Jun 2026 02:07:05 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "errores": [
+          {
+            "type": "field",
+            "value": "67d9a4ce-9ecd-48f5-afc4-0509f33210d312",
+            "msg": "Especificar id válida",
+            "path": "id",
+            "location": "params"
+          }
+        ]
+      }
+order: 804682729878881

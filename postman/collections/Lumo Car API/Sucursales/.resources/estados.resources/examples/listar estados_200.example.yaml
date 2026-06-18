@@ -1,0 +1,152 @@
+$kind: http-example
+description: List all states. No Auth (public).
+request:
+  url: "{{baseUrl}}/sucursales/estados"
+  method: GET
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "1195"
+    etag: W/"4ab-E21XYPL2vqnGpPj+edWKKRm0i9s"
+    date: Thu, 18 Jun 2026 01:27:55 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": 1,
+          "nombreEstado": "Aguascalientes"
+        },
+        {
+          "id": 2,
+          "nombreEstado": "Baja California"
+        },
+        {
+          "id": 3,
+          "nombreEstado": "Baja California Sur"
+        },
+        {
+          "id": 4,
+          "nombreEstado": "Campeche"
+        },
+        {
+          "id": 5,
+          "nombreEstado": "Chiapas"
+        },
+        {
+          "id": 6,
+          "nombreEstado": "Chihuahua"
+        },
+        {
+          "id": 7,
+          "nombreEstado": "Ciudad de México"
+        },
+        {
+          "id": 8,
+          "nombreEstado": "Coahuila"
+        },
+        {
+          "id": 9,
+          "nombreEstado": "Colima"
+        },
+        {
+          "id": 10,
+          "nombreEstado": "Durango"
+        },
+        {
+          "id": 11,
+          "nombreEstado": "Estado de México"
+        },
+        {
+          "id": 12,
+          "nombreEstado": "Guanajuato"
+        },
+        {
+          "id": 13,
+          "nombreEstado": "Guerrero"
+        },
+        {
+          "id": 14,
+          "nombreEstado": "Hidalgo"
+        },
+        {
+          "id": 15,
+          "nombreEstado": "Jalisco"
+        },
+        {
+          "id": 16,
+          "nombreEstado": "Michoacán"
+        },
+        {
+          "id": 17,
+          "nombreEstado": "Morelos"
+        },
+        {
+          "id": 18,
+          "nombreEstado": "Nayarit"
+        },
+        {
+          "id": 19,
+          "nombreEstado": "Nuevo León"
+        },
+        {
+          "id": 20,
+          "nombreEstado": "Oaxaca"
+        },
+        {
+          "id": 21,
+          "nombreEstado": "Puebla"
+        },
+        {
+          "id": 22,
+          "nombreEstado": "Querétaro"
+        },
+        {
+          "id": 23,
+          "nombreEstado": "Quintana Roo"
+        },
+        {
+          "id": 24,
+          "nombreEstado": "San Luis Potosí"
+        },
+        {
+          "id": 25,
+          "nombreEstado": "Sinaloa"
+        },
+        {
+          "id": 26,
+          "nombreEstado": "Sonora"
+        },
+        {
+          "id": 27,
+          "nombreEstado": "Tabasco"
+        },
+        {
+          "id": 28,
+          "nombreEstado": "Tamaulipas"
+        },
+        {
+          "id": 29,
+          "nombreEstado": "Tlaxcala"
+        },
+        {
+          "id": 30,
+          "nombreEstado": "Veracruz"
+        },
+        {
+          "id": 31,
+          "nombreEstado": "Yucatán"
+        },
+        {
+          "id": 32,
+          "nombreEstado": "Zacatecas"
+        }
+      ]
+order: 1781746081590

@@ -1,0 +1,7 @@
+$kind: http-request
+name: listar notificaciones
+description: "Get notifications. Bearer auth required (roles: Cliente, Administrador)."
+method: GET
+url: "{{baseUrl}}/notificaciones/"
+examples: .resources/listar.resources/examples
+order: 2000

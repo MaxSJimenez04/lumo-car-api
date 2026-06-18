@@ -1,0 +1,33 @@
+$kind: http-example
+name: actualizar vehiculo :id_204
+description: Update a vehicle. Bearer auth required.
+request:
+  url: "{{baseUrl}}/vehiculos/:id"
+  method: PUT
+  headers:
+    Content-Type: application/json
+  pathVariables:
+    id: 67d9a4ce-9ecd-48f5-afc4-0509f33210d3
+  body:
+    type: json
+    content: |-
+      {
+        "pasajeros": 5,
+        "aire_acondicionado": true,
+        "idColor": 1,
+        "idSucursal": 2
+      }
+response:
+  statusCode: 204
+  statusText: No Content
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    date: Thu, 18 Jun 2026 02:07:50 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: text
+    content: ""
+order: 1781748472400

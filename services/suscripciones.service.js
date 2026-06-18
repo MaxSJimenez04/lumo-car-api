@@ -24,7 +24,7 @@ const obtenerSuscripcionActivaUsuario = async (nombreUsuario) => {
 
 // Suscribirse 
 const suscribirUsuario = async (nombreUsuario, datosSuscripcion) => {
-    const { idSuscripcion, numeroTarjeta, cvv, titular, fechaVencimiento } = datosSuscripcion;
+    const { idSuscripcion, idTarjeta, numeroTarjeta, cvv, titular, fechaVencimiento } = datosSuscripcion;
     
     const t = await sequelize.transaction();
 
@@ -36,14 +36,23 @@ const suscribirUsuario = async (nombreUsuario, datosSuscripcion) => {
         const plan = await Suscripcion.findByPk(idSuscripcion);
         if (!plan) throw new Error('El plan seleccionado no existe');
 
-        const nuevaTarjeta = await Tarjeta.create({
-            id: uuidv4(), 
-            numeroTarjeta,
-            cvv,
-            titular,
-            fechaVencimiento,
-            idCliente: idReal 
-        }, { transaction: t });
+        let idTarjetaFinal;
+
+        if (idTarjeta) {
+            const tarjetaExistente = await Tarjeta.findByPk(idTarjeta);
+            if (!tarjetaExistente) throw new Error('La tarjeta seleccionada no es válida');
+            idTarjetaFinal = idTarjeta;
+        } else {
+            const nuevaTarjeta = await Tarjeta.create({
+                id: uuidv4(), 
+                numeroTarjeta,
+                cvv,
+                titular,
+                fechaVencimiento,
+                idCliente: idReal 
+            }, { transaction: t });
+            idTarjetaFinal = nuevaTarjeta.id;
+        }
 
         const fechaInicio = new Date();
         const fechaFin = new Date();
@@ -63,8 +72,8 @@ const suscribirUsuario = async (nombreUsuario, datosSuscripcion) => {
             monto: plan.precio,
             fechaPago: new Date(),
             concepto: `Suscripción mensual: ${plan.nombre}`,
-            cvv: cvv, 
-            idTarjeta: nuevaTarjeta.id,
+            cvv: cvv || '000', 
+            idTarjeta: idTarjetaFinal, 
             idSuscripcion: suscripcionUsuario.id
         }, { transaction: t });
 
@@ -141,7 +150,12 @@ const cancelarSuscripcion = async (nombreUsuario) => {
 
 // Cambiar de Plan 
 const cambiarPlan = async (nombreUsuario, datosCambio) => {
-    const { nuevoIdSuscripcion, idTarjetaExistente, cvv } = datosCambio;
+    console.log("Lo que recibí en el servicio:", datosCambio);
+    
+    const nuevoIdSuscripcion = datosCambio.idPlan || datosCambio.nuevoIdSuscripcion;
+    const idTarjetaExistente = datosCambio.idTarjetaExistente || datosCambio.idTarjeta;
+    const cvv = datosCambio.cvv || '000';
+    
     const t = await sequelize.transaction();
 
     try {
@@ -200,6 +214,7 @@ const cambiarPlan = async (nombreUsuario, datosCambio) => {
 
     } catch (error) {
         await t.rollback();
+        console.error("Error en servicio cambiarPlan:", error);
         throw new Error(error.original ? error.original.message : error.message);
     }
 };

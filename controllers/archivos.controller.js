@@ -40,7 +40,7 @@ self.crearVehiculo = async (req, res, next) => {
 
 self.eliminar = async function(req, res, next) {
     try {
-        const id = req.params.idImagen
+        const id = req.params.id
         let imagen  = await Archivo.findByPk(id,{attributes:['id','ruta', 'nombreArchivo']})
         if (imagen === null || imagen === undefined) {
             return res.status(404).json({mensaje: "No se encontró la imagen"})

@@ -1,9 +1,9 @@
 $kind: http-request
-name: 'eliminar archivo :id'
-description: 'Delete a file by id. Bearer auth required.'
+name: eliminar archivo :id
+description: Delete a file by id. Bearer auth required.
 method: DELETE
-url: '{{baseUrl}}/archivos/:id'
-order: 2000
+url: "{{baseUrl}}/archivos/:id"
+examples: .resources/eliminar.resources/examples
+order: 3000
 pathVariables:
-  - key: id
-    value: '1'
+  id: "1"

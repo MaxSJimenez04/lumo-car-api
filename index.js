@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended: false}))
 
 var corsOptions = {
     origin: 'http://localhost:5173',
-    methods: 'GET,POST,PUT,PATCH,DELETE'  //Solo permite métodos GET, PUT, POST y DELETE
+    methods: 'GET,POST,PUT,PATCH,DELETE'  //Solo permite métodos GET, PUT, POST, PATCH y DELETE
 }
 
 app.use(cors(corsOptions))

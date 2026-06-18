@@ -46,7 +46,7 @@ self.login = async function(req, res, next) { //Esta es una definición de un m�
         let datosLogin = await Usuario.findOne({ //Esto es Sequelize, es para buscar 1 registro de la tabla especificada
             where: {usuario : usuario}, //Where
             raw: true, //No sé si es obligatorio pero siempre lo pongo xd
-            attributes: ['id', 'usuario', 'nombre', 'contrasena', Sequelize.col('rol.nombreRol'), 'idRol'], //Las columnas que va a traer de la BD
+            attributes: ['id', 'usuario', 'nombre', 'contrasena', [Sequelize.col('rol.nombreRol'), 'nombreRol'], 'idRol'], //Las columnas que va a traer de la BD
             include: {model: Rol, attributes: []} //Si ocupas una columna de otra tabla es con Sequelize.col y con el include
         })
 

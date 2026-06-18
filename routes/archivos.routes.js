@@ -5,10 +5,10 @@ const {uploadUsuarios, uploadVehiculos, uploadVehiculosMultiple} = require("../m
 
 
 //POST: archivos/usuarios
-router.post('/usuarios', uploadUsuarios.single("file") , Authorize('Cliente,Administrador'),archivos.crearUsuario)
+router.post('/usuarios', Authorize('Cliente,Administrador'), uploadUsuarios.single("file"), archivos.crearUsuario)
 
 //POST: archivos/vehiculos
-router.post('/vehiculos', uploadVehiculos.single("file"), Authorize('Administrador,S_Administrador'), archivos.crearVehiculo)
+router.post('/vehiculos', Authorize('Administrador,S_Administrador'), uploadVehiculos.single("file"), archivos.crearVehiculo)
 
 //DELETE archivos/
 router.delete('/:id', Authorize('Administrador,S_Administrador'), archivos.eliminar)

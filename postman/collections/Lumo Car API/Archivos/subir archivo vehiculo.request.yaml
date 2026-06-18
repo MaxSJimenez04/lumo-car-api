@@ -1,0 +1,14 @@
+$kind: http-request
+name: subir archivo vehiculo
+url: "{{baseUrl}}/archivos/vehiculos"
+method: POST
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src:
+        - /C:/Users/sosue/Desktop/Trabajos/Web/dsw.calculadoraweb.com/resources/images/calculadora.png
+      description: ""
+      disabled: false
+order: 2662

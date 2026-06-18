@@ -1,0 +1,48 @@
+$kind: http-example
+description: Create a branch. Bearer auth required.
+request:
+  url: "{{baseUrl}}/sucursales/"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "nombre": "Sucursal Centro",
+        "direccion": "Av. Principal 123",
+        "capacidad": 50,
+        "idCiudad": 1,
+        "latitud": 18.997111
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "187"
+    etag: W/"bb-2kM1ywKXrcELAj38UHTojzlkfC4"
+    date: Thu, 18 Jun 2026 03:02:00 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "type": "field",
+          "msg": "Se debe especificar coordenadas",
+          "path": "longitud",
+          "location": "body"
+        },
+        {
+          "type": "field",
+          "msg": "Se debe especificar coordenadas",
+          "path": "longitud",
+          "location": "body"
+        }
+      ]
+order: 2453254756126818

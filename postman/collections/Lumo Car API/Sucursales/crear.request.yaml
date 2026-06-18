@@ -1,12 +1,12 @@
 $kind: http-request
 name: crear sucursal
-description: 'Create a branch. Bearer auth required.'
+description: Create a branch. Bearer auth required.
 method: POST
-url: '{{baseUrl}}/sucursales/'
+url: "{{baseUrl}}/sucursales/"
+examples: .resources/crear.resources/examples
 order: 1000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
   content: |-

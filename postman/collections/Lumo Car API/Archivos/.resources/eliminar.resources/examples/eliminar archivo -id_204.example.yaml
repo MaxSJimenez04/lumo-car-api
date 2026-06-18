@@ -1,0 +1,22 @@
+$kind: http-example
+name: eliminar archivo :id_204
+description: Delete a file by id. Bearer auth required.
+request:
+  url: "{{baseUrl}}/archivos/:id"
+  method: DELETE
+  pathVariables:
+    id: f29c1f87-a3dd-48ec-b50b-67f62086b686
+response:
+  statusCode: 204
+  statusText: No Content
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    date: Thu, 18 Jun 2026 03:16:25 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: text
+    content: ""
+order: 525539762418

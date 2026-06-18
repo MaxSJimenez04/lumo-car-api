@@ -1,0 +1,28 @@
+$kind: http-example
+name: eliminar archivo :id_404
+description: Delete a file by id. Bearer auth required.
+request:
+  url: "{{baseUrl}}/archivos/:id"
+  method: DELETE
+  pathVariables:
+    id: 1b94a6e5-dc89-4f86-a001-92d54d28bb37
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "39"
+    etag: W/"27-wik2fmnsmDSvhkR9i7RBYnSv1HM"
+    date: Thu, 18 Jun 2026 03:12:03 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "mensaje": "No se encontró la imagen"
+      }
+order: 1781752325553

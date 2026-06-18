@@ -1,0 +1,46 @@
+$kind: http-example
+description: Create a branch. Bearer auth required.
+request:
+  url: "{{baseUrl}}/sucursales/"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "nombre": "Sucursal Centro",
+        "direccion": "Av. Principal 123",
+        "capacidad": 50,
+        "idCiudad": 1,
+        "latitud": 18.997111,
+        "longitud": -98.283482
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: http://localhost:5173
+    vary: Origin
+    content-type: application/json; charset=utf-8
+    content-length: "215"
+    etag: W/"d7-T1j98P9a+p6xQsp/kMWGzlAg98Y"
+    date: Thu, 18 Jun 2026 03:01:24 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: |-
+      {
+        "id": 7,
+        "nombre": "Sucursal Centro",
+        "direccion": "Av. Principal 123",
+        "capacidad": 50,
+        "latitud": 18.997111,
+        "longitud": -98.283482,
+        "idCiudad": 1,
+        "updatedAt": "2026-06-18T03:01:24.637Z",
+        "createdAt": "2026-06-18T03:01:24.637Z"
+      }
+order: 1781751688339

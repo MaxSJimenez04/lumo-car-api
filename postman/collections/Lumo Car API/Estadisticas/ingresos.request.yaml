@@ -1,6 +1,7 @@
 $kind: http-request
 name: estadisticas ingresos
-description: 'Income statistics. Bearer auth required (role: Administrador).'
+description: "Income statistics. Bearer auth required (role: Administrador)."
 method: GET
-url: '{{baseUrl}}/estadisticas/ingresos'
+url: "{{baseUrl}}/estadisticas/ingresos"
+examples: .resources/ingresos.resources/examples
 order: 5000

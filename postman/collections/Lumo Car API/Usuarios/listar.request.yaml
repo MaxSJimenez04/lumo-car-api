@@ -1,6 +1,7 @@
 $kind: http-request
 name: listar usuarios
-description: 'List all admins/clients. Bearer auth required (role: S_Administrador).'
+description: "List all admins/clients. Bearer auth required (role: S_Administrador)."
 method: GET
-url: '{{baseUrl}}/usuarios/'
+url: "{{baseUrl}}/usuarios/"
+examples: .resources/listar.resources/examples
 order: 2000

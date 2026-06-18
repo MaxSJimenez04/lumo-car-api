@@ -1,12 +1,15 @@
 $kind: http-request
 name: subir archivo
-description: 'Upload a file via multer. Bearer auth required. Form-data field "file".'
+description: Upload a file via multer. Bearer auth required. Form-data field "file".
 method: POST
-url: '{{baseUrl}}/archivos/'
+url: "{{baseUrl}}/archivos/"
 order: 1000
 body:
   type: formdata
   content:
-    - key: file
-      type: file
-      src: ''
+    - type: file
+      key: file
+      src:
+        - ""
+        - /C:/Users/sosue/Desktop/Trabajos/Web/dsw.calculadoraweb.com/resources/images/uv.png
+      disabled: false

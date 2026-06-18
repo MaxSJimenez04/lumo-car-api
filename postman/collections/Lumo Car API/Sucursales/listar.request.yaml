@@ -1,17 +1,14 @@
 $kind: http-request
 name: listar sucursales por ciudad
-description: 'List branches by city. No Auth (public).'
+description: List branches by city. No Auth (public).
 method: GET
-url: '{{baseUrl}}/sucursales/'
+url: "{{baseUrl}}/sucursales/general"
+examples: .resources/listar.resources/examples
 order: 2000
 auth:
   type: noauth
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
-  content: |-
-    {
-      "idCiudad": 1
-    }
+  content: ""

@@ -1,6 +1,7 @@
 $kind: http-request
 name: estadisticas uso-vehiculos
-description: 'Vehicle usage statistics. Bearer auth required (role: Administrador).'
+description: "Vehicle usage statistics. Bearer auth required (role: Administrador)."
 method: GET
-url: '{{baseUrl}}/estadisticas/uso-vehiculos'
+url: "{{baseUrl}}/estadisticas/uso-vehiculos"
+examples: .resources/uso-vehiculos.resources/examples
 order: 4000

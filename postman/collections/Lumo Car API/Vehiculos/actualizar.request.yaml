@@ -1,15 +1,14 @@
 $kind: http-request
-name: 'actualizar vehiculo :id'
-description: 'Update a vehicle. Bearer auth required.'
+name: actualizar vehiculo :id
+description: Update a vehicle. Bearer auth required.
 method: PUT
-url: '{{baseUrl}}/vehiculos/:id'
+url: "{{baseUrl}}/vehiculos/:id"
+examples: .resources/actualizar.resources/examples
 order: 7000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 pathVariables:
-  - key: id
-    value: '1'
+  id: "1"
 body:
   type: json
   content: |-

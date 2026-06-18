@@ -1,18 +1,34 @@
 $kind: http-request
 name: login
-description: 'Authenticate a user and receive a JWT. No Auth (public).'
+description: Authenticate a user and receive a JWT. No Auth (public).
 method: POST
-url: '{{baseUrl}}/auth/login'
+url: "{{baseUrl}}/auth/login"
+scripts:
+  - type: afterResponse
+    code: "if (pm.response.code === 200) {\r
+
+      \    const respuesta = pm.response.json();\r
+
+      \    \r
+
+      \    pm.environment.set(\"token\", respuesta.jwt);\r
+
+      \    \r
+
+      \    console.log(\"¡Token guardado exitosamente!\");\r
+
+      }"
+    language: text/javascript
+examples: .resources/login.resources/examples
 order: 1000
 auth:
   type: noauth
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
   content: |-
     {
-      "usuario": "<usuario>",
-      "contrasena": "<contrasena>"
+      "usuario": "DiegoFerrer93",
+      "contrasena": "contrasena1234"
     }

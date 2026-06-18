@@ -1,6 +1,7 @@
 $kind: http-request
 name: estadisticas suscripciones
-description: 'Subscription statistics. Bearer auth required (role: Administrador).'
+description: "Subscription statistics. Bearer auth required (role: Administrador)."
 method: GET
-url: '{{baseUrl}}/estadisticas/suscripciones'
+url: "{{baseUrl}}/estadisticas/suscripciones"
+examples: .resources/suscripciones.resources/examples
 order: 2000

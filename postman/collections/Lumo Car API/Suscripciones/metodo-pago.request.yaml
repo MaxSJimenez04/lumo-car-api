@@ -1,18 +1,18 @@
 $kind: http-request
 name: metodo-pago
-description: 'Update the subscription payment method. Bearer auth required (role: Cliente).'
+description: "Update the subscription payment method. Bearer auth required (role: Cliente)."
 method: PUT
-url: '{{baseUrl}}/suscripciones/metodo-pago'
+url: "{{baseUrl}}/suscripciones/metodo-pago"
+examples: .resources/metodo-pago.resources/examples
 order: 4000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
   content: |-
     {
       "numeroTarjeta": "4111111111111111",
-      "titular": "John Doe",
-      "fechaExpiracion": "12/28",
+      "titular": "Diego",
+      "fechaVencimiento": "12/28",
       "cvv": "123"
     }

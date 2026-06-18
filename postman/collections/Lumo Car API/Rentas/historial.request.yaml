@@ -1,9 +1,10 @@
 $kind: http-request
-name: 'historial :idUsuario'
-description: 'Get rental history for a user. Bearer auth required (role: Cliente).'
+name: historial :idUsuario
+description: "Get rental history for a user. Bearer auth required (role: Cliente)."
 method: GET
-url: '{{baseUrl}}/rentas/historial/:idUsuario'
+url: "{{baseUrl}}/rentas/historial/:idUsuario"
+examples: .resources/historial.resources/examples
 order: 2000
 pathVariables:
   - key: idUsuario
-    value: '<uuid usuario>'
+    value: d0988314-5b84-4b64-9df2-a7b3a3f46726

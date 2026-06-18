@@ -1,6 +1,6 @@
 $kind: http-request
-name: mi-suscripcion
-description: 'Get the current user subscription. Bearer auth required (role: Cliente).'
+description: "Get the current user subscription. Bearer auth required (role: Cliente)."
 method: GET
-url: '{{baseUrl}}/suscripciones/mi-suscripcion'
+url: "{{baseUrl}}/suscripciones/mi-suscripcion"
+examples: .resources/mi-suscripcion.resources/examples
 order: 2000

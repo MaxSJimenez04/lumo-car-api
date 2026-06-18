@@ -1,9 +1,10 @@
 $kind: http-request
-name: 'obtener usuario :usuario'
-description: 'Get a user profile. Bearer auth required.'
+name: obtener usuario :usuario
+description: Get a user profile. Bearer auth required.
 method: GET
-url: '{{baseUrl}}/usuarios/:usuario'
+url: "{{baseUrl}}/usuarios/:usuario"
+examples: .resources/obtener-perfil.resources/examples
 order: 3000
 pathVariables:
   - key: usuario
-    value: johndoe
+    value: BrendaMarquez21

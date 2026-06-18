@@ -1,12 +1,12 @@
 $kind: http-request
 name: crear color
-description: 'Create a color. Bearer auth required.'
+description: Create a color. Bearer auth required.
 method: POST
-url: '{{baseUrl}}/vehiculos/colores'
+url: "{{baseUrl}}/vehiculos/colores"
+examples: .resources/colores-crear.resources/examples
 order: 2000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
   content: |-

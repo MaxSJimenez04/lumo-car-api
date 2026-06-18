@@ -1,17 +1,13 @@
 $kind: http-request
 name: listar vehiculos por sucursal
-description: 'List vehicles by branch. No Auth (public).'
+description: List vehicles by branch. No Auth (public).
 method: GET
-url: '{{baseUrl}}/vehiculos/'
+url: "{{baseUrl}}/vehiculos?idSucursal=1"
+queryParams:
+  idSucursal: "1"
+examples: .resources/listar.resources/examples
 order: 4000
 auth:
   type: noauth
 headers:
-  - key: Content-Type
-    value: application/json
-body:
-  type: json
-  content: |-
-    {
-      "idSucursal": 1
-    }
+  Content-Type: application/json

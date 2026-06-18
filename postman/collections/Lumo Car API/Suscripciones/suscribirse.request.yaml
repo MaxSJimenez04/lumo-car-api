@@ -1,17 +1,19 @@
 $kind: http-request
 name: suscribirse
-description: 'Subscribe to a plan. Bearer auth required (role: Cliente).'
+description: "Subscribe to a plan. Bearer auth required (role: Cliente)."
 method: POST
-url: '{{baseUrl}}/suscripciones/suscribirse'
+url: "{{baseUrl}}/suscripciones/suscribirse"
+examples: .resources/suscribirse.resources/examples
 order: 3000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
   content: |-
     {
-      "idPlan": 1,
-      "idTarjeta": "<uuid tarjeta>",
-      "cvv": "123"
+      "idSuscripcion": 1,
+      "numeroTarjeta": "1234567890123456",
+      "cvv": "123",
+      "titular": "Diego",
+      "fechaVencimiento": "12/28"
     }

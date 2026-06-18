@@ -1,17 +1,17 @@
 $kind: http-request
 name: cambiar-plan
-description: 'Change the subscription plan. Bearer auth required (role: Cliente).'
+description: "Change the subscription plan. Bearer auth required (role: Cliente)."
 method: POST
-url: '{{baseUrl}}/suscripciones/cambiar-plan'
+url: "{{baseUrl}}/suscripciones/cambiar-plan"
+examples: .resources/cambiar-plan.resources/examples
 order: 6000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
   content: |-
     {
-      "idPlan": 2,
-      "idTarjeta": "<uuid tarjeta>",
+      "nuevoIdSuscripcion": 2,
+      "idTarjetaExistente": "6cd3d87a-6d7e-4d84-99bc-66d34662308c",
       "cvv": "123"
     }

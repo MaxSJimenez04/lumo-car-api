@@ -1,17 +1,16 @@
 $kind: http-request
 name: listar ciudades por estado
-description: 'List cities by state. No Auth (public).'
+description: List cities by state. No Auth (public).
 method: GET
-url: '{{baseUrl}}/sucursales/ciudades'
+url: "{{baseUrl}}/sucursales/ciudades?idEstado=30"
+queryParams:
+  idEstado: "30"
+examples: .resources/ciudades.resources/examples
 order: 3000
 auth:
   type: noauth
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
-  content: |-
-    {
-      "idEstado": 1
-    }
+  content: ""

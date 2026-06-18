@@ -1,12 +1,12 @@
 $kind: http-request
 name: eliminar vehiculo
-description: 'Delete a vehicle by UUID. Bearer auth required.'
+description: Delete a vehicle by UUID. Bearer auth required.
 method: DELETE
-url: '{{baseUrl}}/vehiculos/'
+url: "{{baseUrl}}/vehiculos/"
+examples: .resources/eliminar.resources/examples
 order: 5000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
   content: |-

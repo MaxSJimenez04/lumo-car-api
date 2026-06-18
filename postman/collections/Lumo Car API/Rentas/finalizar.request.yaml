@@ -1,9 +1,10 @@
 $kind: http-request
-name: 'finalizar :idRenta'
-description: 'Finalize a rental. Bearer auth required (role: Cliente). No body.'
+name: finalizar :idRenta
+description: "Finalize a rental. Bearer auth required (role: Cliente). No body."
 method: PUT
-url: '{{baseUrl}}/rentas/:idRenta/finalizar'
+url: "{{baseUrl}}/rentas/:idRenta/finalizar"
+examples: .resources/finalizar.resources/examples
 order: 3000
 pathVariables:
   - key: idRenta
-    value: '<uuid renta>'
+    value: "1"

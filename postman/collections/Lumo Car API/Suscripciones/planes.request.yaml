@@ -1,8 +1,9 @@
 $kind: http-request
 name: listar planes
-description: 'List available subscription plans. No Auth (public).'
+description: List available subscription plans. No Auth (public).
 method: GET
-url: '{{baseUrl}}/suscripciones/planes'
+url: "{{baseUrl}}/suscripciones/planes"
+examples: .resources/planes.resources/examples
 order: 1000
 auth:
   type: noauth

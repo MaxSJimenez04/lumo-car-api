@@ -1,8 +1,9 @@
 $kind: http-request
 name: listar estados
-description: 'List all states. No Auth (public).'
+description: List all states. No Auth (public).
 method: GET
-url: '{{baseUrl}}/sucursales/estados'
+url: "{{baseUrl}}/sucursales/estados"
+examples: .resources/estados.resources/examples
 order: 5000
 auth:
   type: noauth

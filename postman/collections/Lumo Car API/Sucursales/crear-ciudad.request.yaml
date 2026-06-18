@@ -1,16 +1,16 @@
 $kind: http-request
 name: crear ciudad
-description: 'Create a city. Bearer auth required (role: S_Administrador).'
+description: "Create a city. Bearer auth required (role: S_Administrador)."
 method: POST
-url: '{{baseUrl}}/sucursales/ciudad'
+url: "{{baseUrl}}/sucursales/ciudad"
+examples: .resources/crear-ciudad.resources/examples
 order: 4000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
   content: |-
     {
-      "nombreCiudad": "Guadalajara",
-      "idEstado": 14
+      "nombreCiudad": "Orizaba",
+      "idEstado": 30
     }

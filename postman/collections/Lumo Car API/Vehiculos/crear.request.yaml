@@ -1,12 +1,12 @@
 $kind: http-request
 name: crear vehiculo
-description: 'Create a vehicle. Bearer auth required.'
+description: Create a vehicle. Bearer auth required.
 method: POST
-url: '{{baseUrl}}/vehiculos/'
+url: "{{baseUrl}}/vehiculos/"
+examples: .resources/crear.resources/examples
 order: 3000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
   content: |-

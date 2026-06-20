@@ -265,7 +265,6 @@
 2026-06-17T00:08:12.658Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
 2026-06-17T00:33:22.037Z: ACCIÓN: Inicio de Sesión: ElenaRivas82 - IP: ::1 - USUARIO: Invitado 
 2026-06-17T00:43:28.605Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
-<<<<<<< HEAD
 2026-06-17T23:45:27.375Z: ACCIÓN: Inicio de Sesión: DiegoFerrer93 - IP: ::1 - USUARIO: Invitado 
 2026-06-17T23:46:40.776Z: ACCIÓN: Inicio de Sesión: DiegoFerrer93 - IP: ::1 - USUARIO: Invitado 
 2026-06-18T00:12:17.623Z: ACCIÓN: TARJETA REGISTRADA 84b4726e-355c-4b6e-bc4c-892d36212d44 - IP: ::1 - USUARIO: DiegoFerrer93 
@@ -316,7 +315,6 @@
 2026-06-18T04:19:13.438Z: ACCIÓN: REGISTRO DE USUARIO 15cd8190-4227-44f8-aab5-3dd8a4b60adc - IP: ::1 - USUARIO: Invitado 
 2026-06-18T04:19:33.686Z: ACCIÓN: Solicitud de restablecimiento de contraseña para josue12 - IP: ::1 - USUARIO: Invitado 
 2026-06-18T04:20:40.388Z: ACCIÓN: RESTABLECIMIENTO DE CONTRASEÑA josue12 - IP: ::1 - USUARIO: Invitado 
-=======
 2026-06-17T18:56:34.390Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
 2026-06-17T18:57:04.014Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
 2026-06-17T18:57:21.123Z: ACCIÓN: Inicio de Sesión: Sadministrador001 - IP: ::1 - USUARIO: Invitado 
@@ -340,4 +338,3 @@
 2026-06-18T00:06:37.866Z: ACCIÓN: Inicio de Sesión: ElenaRivas82 - IP: ::1 - USUARIO: Invitado 
 2026-06-18T00:09:28.760Z: ACCIÓN: TARJETA REGISTRADA b699026f-eff0-4d52-b988-15c8bb60daf6 - IP: ::1 - USUARIO: ElenaRivas82 
 2026-06-18T00:09:28.795Z: ACCIÓN: RENTA CREADA 1 - VEHICULO 0d27d88e-69d9-4818-95f5-43265b3ce8e8 - USUARIO 31b52c74-0673-435d-bed9-7ec083054bb2 - IP: ::1 - USUARIO: ElenaRivas82 
->>>>>>> b720d85 (log)
